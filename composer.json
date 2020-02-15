@@ -1,0 +1,17 @@
+{
+    "name": "liumingmin/lifadian",
+    "authors": [
+        {
+            "name": "liumingmin",
+            "email": "2604327526@qq.com"
+        }
+    ],
+    "require": {
+        "easyswoole/easyswoole": "3.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
