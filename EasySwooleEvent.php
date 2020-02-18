@@ -6,6 +6,9 @@ use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
 use EasySwoole\Http\Response;
+use EasySwoole\ORM\Db\Config;
+use EasySwoole\ORM\Db\Connection;
+use EasySwoole\ORM\DbManager;
 
 class EasySwooleEvent implements Event
 {
@@ -19,11 +22,36 @@ class EasySwooleEvent implements Event
     public static function mainServerCreate(EventRegister $register)
     {
         // TODO: Implement mainServerCreate() method.
+        //设置数据库连接参数
+        $config = new Config();
+        $config->setDatabase('haircut');
+        $config->setUser('root');
+        $config->setPassword('123456');
+        $config->setHost('127.0.0.1');
+
+        DbManager::getInstance()->addConnection(new Connection($config));
+
+        // 配置同上别忘了添加要检视的目录
+        $hotReloadOptions = new \EasySwoole\HotReload\HotReloadOptions;
+        $hotReload = new \EasySwoole\HotReload\HotReload($hotReloadOptions);
+        $hotReloadOptions->setMonitorFolder([EASYSWOOLE_ROOT . '/App']);
+
+        $server = ServerManager::getInstance()->getSwooleServer();
+        $hotReload->attachToServer($server);
+
     }
 
     public static function onRequest(Request $request, Response $response): bool
     {
         // TODO: Implement onRequest() method.
+        $response->withHeader('Access-Control-Allow-Origin', '*');
+        $response->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        $response->withHeader('Access-Control-Allow-Credentials', 'true');
+        $response->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        if ($request->getMethod() === 'OPTIONS') {
+            $response->withStatus(400);
+            return false;
+        }
         return true;
     }
 

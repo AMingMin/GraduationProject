@@ -14,6 +14,11 @@ class Index extends Controller
         $this->response()->write('hello world');
     }
 
+    function index2()
+    {
+        $this->response()->write('test');
+    }
+
     protected function actionNotFound(?string $action)
     {
         $this->response()->withStatus(404);
