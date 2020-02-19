@@ -3,12 +3,12 @@
 
 namespace App\HttpController;
 
-
 use App\Service\LoginService;
 use EasySwoole\Http\AbstractInterface\Controller;
 
 class Login extends Controller
 {
+
 
     function index()
     {
@@ -26,10 +26,15 @@ class Login extends Controller
     {
         $data = $this->request()->getRequestParam();
         $result = LoginService::getInstance()->checkLogin($data);
+
         if (empty($result)) {
             $this->writeJson(400, [], '登录验证失败');
         } else {
-            $this->writeJson(200, [], '登录成功，正在跳转。。。');
+            //将数据库表查询结果的数组，设置为session值
+            $_SESSION['admin']=$result;
+            var_dump($_SESSION['admin']);
+
+            $this->writeJson(200, [], '登录成功，正在跳转...');
         }
     }
 
