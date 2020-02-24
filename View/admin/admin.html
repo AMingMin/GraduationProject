@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>员工管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -14,9 +13,16 @@
 
 <table class="layui-hide" id="test"></table>
 
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">
+        <i class="layui-icon">&#xe642;</i>编辑
+    </a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon">&#xe640;</i>删除
+    </a>
+</script>
 
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <script>
   layui.use('table', function(){
@@ -35,23 +41,37 @@
         };
       }
       ,cols: [[
-        {field:'id', title: 'ID'}
-        ,{field:'name',title: '姓名'}
-        ,{field:'sex',title: '性别'}
-        ,{field:'employee_type', title: '员工类型'}
-        ,{field:'salary', title: '工资'}
-        ,{field:'phone', title: '手机号'}
-        ,{field:'create_time', title: '创建时间'}
-        ,{field:'update_time', title: '更新时间'}
-        ,{field:'create_staff',title: '创建人'}
-        ,{field:'update_staff',title: '更新人'}
-        ,{field:'status', title: '状态'}
-        ,{field:'username', title: '用户名'}
-        ,{field:'password',title: '密码'}
-        ,{field:'test', title: '操作'}
+        {field:'id', title: 'ID',align: 'center'}
+        ,{field:'name',title: '姓名',align: 'center'}
+        ,{field:'sex',title: '性别',align: 'center'}
+        ,{field:'employee_type', title: '员工类型',align: 'center'}
+        ,{field:'salary', title: '工资',align: 'center'}
+        ,{field:'phone', title: '手机号',align: 'center'}
+        ,{field:'create_time', title: '创建时间',align: 'center'}
+        ,{field:'update_time', title: '更新时间',align: 'center'}
+        ,{field:'create_staff',title: '创建人',align: 'center'}
+        ,{field:'update_staff',title: '更新人',align: 'center'}
+        ,{field:'status', title: '状态',align: 'center'}
+        ,{field:'username', title: '用户名',align: 'center'}
+        ,{field:'password',title: '密码',align: 'center'}
+        ,{field:'test', title: '操作',width:178,fixed: 'right',toolbar: '#barDemo',align: 'center'}
       ]]
       ,page: true
     });
+
+    //监听工具条事件
+    table.on('tool(demo)', function(obj){
+      var data = obj.data;
+      if(obj.event === 'del'){
+        layer.confirm('真的删除行么', function(index){
+          obj.del();
+          layer.close(index);
+        });
+      } else if(obj.event === 'edit'){
+        layer.alert('编辑行：<br>'+ JSON.stringify(data))
+      }
+    });
+
   });
 </script>
 
