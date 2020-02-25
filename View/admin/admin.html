@@ -9,9 +9,65 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
+<!--编辑员工信息表单-->
+<form style="display: none;" id="edit-admin"  class="layui-form">
+    <div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="男" title="男">
+                <input type="radio" name="sex" value="女" title="女" checked>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" >类型：</label>
+            <div class="layui-input-block" style="width:200px; height:40px;">
+                <select name="city" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">理发师</option>
+                    <option value="1">服务员</option>
+                    <option value="2">洗头师</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号：</label>
+            <div class="layui-input-block" style="width:200px; height:40px;">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">工资：</label>
+            <div class="layui-input-block" style="width:200px; height:40px;">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">更新人：</label>
+            <div class="layui-input-block" style="width:200px; height:40px;">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+</form>
+
+
 <button type="button" class="layui-btn">添加员工</button>
 
-<table class="layui-hide" id="test"></table>
+<table class="layui-hide" id="test" lay-filter="test2"></table>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">
@@ -27,11 +83,11 @@
 <script>
   layui.use('table', function(){
     var table = layui.table;
+    var $ = layui.$;
 
     table.render({
       elem: '#test'
       ,url:'http://0.0.0.0:9501/Admin/index'
-      //
       ,parseData: function (res) {
         return {
           code: 0,
@@ -43,32 +99,58 @@
       ,cols: [[
         {field:'id', title: 'ID',align: 'center'}
         ,{field:'name',title: '姓名',align: 'center'}
+        ,{field:'username', title: '用户名',align: 'center'}
         ,{field:'sex',title: '性别',align: 'center'}
-        ,{field:'employee_type', title: '员工类型',align: 'center'}
+        ,{field:'employee_type', title: '类型',align: 'center'}
+        ,{field:'phone', title: '手机号',width:120,align: 'center'}
         ,{field:'salary', title: '工资',align: 'center'}
-        ,{field:'phone', title: '手机号',align: 'center'}
-        ,{field:'create_time', title: '创建时间',align: 'center'}
-        ,{field:'update_time', title: '更新时间',align: 'center'}
         ,{field:'create_staff',title: '创建人',align: 'center'}
         ,{field:'update_staff',title: '更新人',align: 'center'}
-        ,{field:'status', title: '状态',align: 'center'}
-        ,{field:'username', title: '用户名',align: 'center'}
-        ,{field:'password',title: '密码',align: 'center'}
-        ,{field:'test', title: '操作',width:178,fixed: 'right',toolbar: '#barDemo',align: 'center'}
-      ]]
-      ,page: true
+        ,{field:'create_time', title: '创建时间',width:170,align: 'center'}
+        ,{field:'update_time', title: '更新时间',width:170,align: 'center'}
+        ,{field:'opt', title: '操作',width:178,fixed: 'right',toolbar: '#barDemo',align: 'center'}
+        ]]
+      ,page: true,
     });
 
-    //监听工具条事件
-    table.on('tool(demo)', function(obj){
+    //监听行工具事件
+    table.on('tool(test2)', function(obj){  //注：tool是工具条事件名，test2 是 table 原始容器的属性 lay-filter="对应的值"
       var data = obj.data;
+      //console.log(obj)
+      //点击'删除'按钮
       if(obj.event === 'del'){
-        layer.confirm('真的删除行么', function(index){
-          obj.del();
-          layer.close(index);
-        });
+        layer.confirm('是否删除本条员工信息？', function(index) {
+          layer.close(index);  //关闭弹框
+          $.ajax({
+            type: "POST",
+            url: "http://0.0.0.0:9501/admin/delete",
+            data: {id: data.id},
+            success: function (result) {
+              layer.msg(result.msg);
+            },
+            error: function (result) {
+              layer.msg(result.responseJSON.msg, {icon: 5});
+            }
+          });
+        })
+        //点击'编辑'按钮
       } else if(obj.event === 'edit'){
-        layer.alert('编辑行：<br>'+ JSON.stringify(data))
+        // 赋值
+
+        layer.open({
+          title: '编辑员工信息',
+          type: 1,
+          //
+          content: $("#edit-admin"),    // 设置跳转的url，跳转到对应的页面
+          area: ['400px','500px'],
+          skin: 'layui-layer-molv',       // 墨绿色皮肤
+          btn: ['提交','取消'],
+          yes: function (index,layero) {
+            var formData = $("#edit-admin").serializeArray();  //获取表单参数
+            console.log(formData);
+
+          }
+        });
       }
     });
 
