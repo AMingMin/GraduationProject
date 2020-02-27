@@ -142,3 +142,6 @@
 [2020-02-25 21:49:36 $79920.0]	INFO	Server is reloading all workers now
 [2020-02-25 21:49:50 $79920.0]	INFO	Server is reloading all workers now
 [2020-02-25 21:50:30 $79920.0]	INFO	Server is reloading all workers now
+[2020-02-27 20:32:24 *43894.6]	NOTICE	swFactoryProcess_finish (ERRNO 1004): send 691 byte failed, because connection[fd=2] is closed
+[2020-02-27 22:12:34 $43887.0]	INFO	Server is reloading all workers now
+[2020-02-27 22:49:01 $43887.0]	INFO	Server is reloading all workers now

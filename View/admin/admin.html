@@ -10,33 +10,39 @@
 </head>
 <body>
 <!--编辑员工信息表单-->
-<form style="display: none;" id="edit-admin"  class="layui-form">
+<form id="edit-admin" style="display: none;"  class="layui-form">
     <div>
         <div class="layui-form-item">
+            <label class="layui-form-label">ID：</label>
+            <div class="layui-input-block" >
+                <input id="bd_id" type="text" readonly="true" style="width:200px; height:40px;" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
+                <div class="layui-form-mid layui-word-aux">ID 不可编辑</div>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">姓名：</label>
-            <div class="layui-input-block">
-                <input type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <div class="layui-input-block" >
+                <input id="bd_name" type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">用户名：</label>
             <div class="layui-input-block">
-                <input type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input id="bd_username" type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">性别：</label>
             <div class="layui-input-block">
-                <input type="radio" name="sex" value="男" title="男">
-                <input type="radio" name="sex" value="女" title="女" checked>
+                <input id="bd_man" type="radio" name="sex" value="男" title="男">
+                <input id="bd_woman" type="radio" name="sex" value="女" title="女" >
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label" >类型：</label>
             <div class="layui-input-block" style="width:200px; height:40px;">
-                <select name="city" lay-verify="required">
-                    <option value=""></option>
+                <select id="bd_employee_type" lay-verify="required">
                     <option value="0">理发师</option>
                     <option value="1">服务员</option>
                     <option value="2">洗头师</option>
@@ -46,24 +52,23 @@
         <div class="layui-form-item">
             <label class="layui-form-label">手机号：</label>
             <div class="layui-input-block" style="width:200px; height:40px;">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input id="bd_phone" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">工资：</label>
             <div class="layui-input-block" style="width:200px; height:40px;">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input id="bd_salary" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">更新人：</label>
             <div class="layui-input-block" style="width:200px; height:40px;">
-                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                <input id="bd_update_staff" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
 </form>
-
 
 <button type="button" class="layui-btn">添加员工</button>
 
@@ -81,9 +86,10 @@
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
 
 <script>
-  layui.use('table', function(){
+  layui.use(['table', 'form'], function(){
     var table = layui.table;
     var $ = layui.$;
+    var form = layui.form;
 
     table.render({
       elem: '#test'
@@ -100,8 +106,8 @@
         {field:'id', title: 'ID',align: 'center'}
         ,{field:'name',title: '姓名',align: 'center'}
         ,{field:'username', title: '用户名',align: 'center'}
-        ,{field:'sex',title: '性别',align: 'center'}
-        ,{field:'employee_type', title: '类型',align: 'center'}
+        ,{field:'sex_txt',title: '性别',align: 'center'}
+        ,{field:'employee_type_txt', title: '类型',align: 'center'}
         ,{field:'phone', title: '手机号',width:120,align: 'center'}
         ,{field:'salary', title: '工资',align: 'center'}
         ,{field:'create_staff',title: '创建人',align: 'center'}
@@ -115,8 +121,9 @@
 
     //监听行工具事件
     table.on('tool(test2)', function(obj){  //注：tool是工具条事件名，test2 是 table 原始容器的属性 lay-filter="对应的值"
-      var data = obj.data;
-      //console.log(obj)
+      //将PHP生成的json字符串赋值给js变量
+      var data = obj.data;  //员工列表中{data}下的全部数据,即本条记录信息
+      console.log(obj);
       //点击'删除'按钮
       if(obj.event === 'del'){
         layer.confirm('是否删除本条员工信息？', function(index) {
@@ -133,16 +140,37 @@
             }
           });
         })
-        //点击'编辑'按钮
+        //点击'编辑'按钮,获取员工列表的字段值填充到表单
       } else if(obj.event === 'edit'){
-        // 赋值
+        //console.log(data.name);
+        var bd_id = $("#bd_id").val(data.id);
+        var bd_name = $("#bd_name").val(data.name);  //获取员工列表的姓名字段值
+        var bd_username = $("#bd_username").val(data.username);
+        var bd_phone = $("#bd_phone").val(data.phone);
+        var bd_salary = $("#bd_salary").val(data.salary);
+        var bd_update_staff = $("#bd_update_staff").val(data.update_staff);
+        //'性别'单选框
+        if (data.sex === 0) {
+          var bd_sex = $('#bd_woman').prop("checked",true);
+        } else {
+          var bd_sex = $('#bd_man').prop("checked", true);
+        }
+        //'类型'下拉列表
+        if(data.employee_type === 0){
+          var bd_employee_type = $("#bd_employee_type").val(0);   // 设置Select的Value值为0的项选中
+        }else if(data.employee_type === 1) {
+          var bd_employee_type =  $("#bd_employee_type ").val(1);
+        }
+        else{
+          var bd_employee_type = $("#bd_employee_type ").val(2);
+        }
+        form.render();  //更新全部，不然看不到效果
 
         layer.open({
           title: '编辑员工信息',
           type: 1,
-          //
           content: $("#edit-admin"),    // 设置跳转的url，跳转到对应的页面
-          area: ['400px','500px'],
+          area: ['440px','580px'],
           skin: 'layui-layer-molv',       // 墨绿色皮肤
           btn: ['提交','取消'],
           yes: function (index,layero) {

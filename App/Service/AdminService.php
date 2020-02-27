@@ -46,8 +46,8 @@ class AdminService
 
         foreach ($list as $key => $item) {
 
-            $list[$key]['sex'] = $sexTextMap[$item['sex']];
-            $list[$key]['employee_type'] = $employeeTypeTextMap[$item['employee_type']];
+            $list[$key]['sex_txt'] = $sexTextMap[$item['sex']];
+            $list[$key]['employee_type_txt'] = $employeeTypeTextMap[$item['employee_type']];
             $list[$key]['status'] = $statusTextMap[$item['status']];
 
         }
