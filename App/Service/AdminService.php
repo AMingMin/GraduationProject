@@ -20,6 +20,7 @@ class AdminService
     public function adminList($data)
     {
         $page = $data['page']; // 页码
+        // var_dump($data);
         $limit=$data['limit'];
         $model = Admin::create()->limit($limit * ($page - 1), $limit)->withTotalCount();
         // 列表数据
@@ -42,7 +43,6 @@ class AdminService
         $statusTextMap = [
             1=>'在职'
         ];
-
 
         foreach ($list as $key => $item) {
 
@@ -70,4 +70,72 @@ class AdminService
             'status' => 0
         ]);
     }
+
+    /***
+     * 更新员工信息
+     *
+     * CreateTime: 2020/2/29 下午7:49
+     */
+    public function adminUpdate($data)
+    {
+        $id = $data['id']; //
+        $name=$data['name'];
+        $username=$data['username'];
+        if($data['sex']==='女'){
+            $sex=0;
+        }else{
+            $sex=1;
+        }
+        $employee_type=$data['employee_type'];
+        $phone=$data['phone'];
+        $salary=$data['salary'];
+        $updata_staff=$data['updata_staff'];
+
+        $user = Admin::create()->get($id);  //通过id更新记录状态
+        return $user->update([
+            'name' => $name,
+            'username' => $username,
+            'sex' => $sex,
+            'employee_type' => $employee_type,
+            'phone' => $phone,
+            'salary' => $salary,
+            'updata_staff' => $updata_staff,
+        ]);
+    }
+
+    /***
+     * 插入员工信息
+     *
+     * @param $data
+     * CreateTime: 2020/2/29 下午10:57
+     */
+    public function adminInsert($data)
+    {
+        //var_dump('向数据库插入');
+        $name=$data['name'];
+        $username=$data['username'];
+        if($data['sex']==='女'){
+            $sex=0;
+        }else{
+            $sex=1;
+        }
+        $employee_type=$data['employee_type'];
+        $phone=$data['phone'];
+        $salary=$data['salary'];
+        $create_staff=$data['create_staff'];
+        $model = Admin::create([
+            'name' => $name,
+            'username' => $username,
+            'sex' => $sex,
+            'employee_type' => $employee_type,
+            'phone' => $phone,
+            'salary' => $salary,
+            'create_staff' => $create_staff,
+            'update_staff' => $create_staff,  //更新人初始为新建人
+            ]);
+        return $res = $model->save();
+
+
+    }
+
 }

@@ -42,6 +42,45 @@ class Admin extends Controller
         } else {
             $this->writeJson(400, [], '删除员工失败');
         }
-
     }
+
+    /***
+     * 将编辑后的员工表单的信息更新到数据库
+     *
+     * CreateTime: 2020/2/29 下午7:51
+     */
+    function update()
+    {
+        $data = $this->request()->getRequestParam();
+        //var_dump($data);
+        $result = AdminService::getInstance()->adminUpdate($data);
+        $data['update_staff']=$_SESSION['admin']['name'];
+        if ($result) {
+            $this->writeJson(200, [], '员工信息更新成功');
+        } else {
+            $this->writeJson(400, [], '员工信息更新失败');
+        }
+    }
+
+    /***
+     * '添加员工'到数据库
+     *
+     * CreateTime: 2020/2/29 下午10:24
+     */
+    function insert()
+    {
+        $data = $this->request()->getRequestParam();
+        //var_dump($data);
+        $data['create_staff']=$_SESSION['admin']['name'];
+        $data['update_staff']=$_SESSION['admin']['name'];
+        var_dump($_SESSION['admin']);
+        var_dump($data);
+        $result = AdminService::getInstance()->adminInsert($data);
+        if ($result) {
+            $this->writeJson(200, [], '员工信息新建成功');
+        } else {
+            $this->writeJson(400, [], '员工信息新建失败');
+        }
+    }
+
 }

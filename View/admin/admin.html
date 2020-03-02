@@ -9,70 +9,117 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-<!--编辑员工信息表单-->
-<form id="edit-admin" style="display: none;"  class="layui-form">
-    <div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">ID：</label>
-            <div class="layui-input-block" >
-                <input id="bd_id" type="text" readonly="true" style="width:200px; height:40px;" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
-                <div class="layui-form-mid layui-word-aux">ID 不可编辑</div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">姓名：</label>
-            <div class="layui-input-block" >
-                <input id="bd_name" type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户名：</label>
-            <div class="layui-input-block">
-                <input id="bd_username" type="text" style="width:200px; height:40px;" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">性别：</label>
-            <div class="layui-input-block">
-                <input id="bd_man" type="radio" name="sex" value="男" title="男">
-                <input id="bd_woman" type="radio" name="sex" value="女" title="女" >
-            </div>
-        </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label" >类型：</label>
-            <div class="layui-input-block" style="width:200px; height:40px;">
-                <select id="bd_employee_type" lay-verify="required">
-                    <option value="0">理发师</option>
-                    <option value="1">服务员</option>
-                    <option value="2">洗头师</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">手机号：</label>
-            <div class="layui-input-block" style="width:200px; height:40px;">
-                <input id="bd_phone" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">工资：</label>
-            <div class="layui-input-block" style="width:200px; height:40px;">
-                <input id="bd_salary" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">更新人：</label>
-            <div class="layui-input-block" style="width:200px; height:40px;">
-                <input id="bd_update_staff" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-</form>
+<div style="padding: 10px 0 0 10px;" class="layui-breadcrumb">
+    <a href="javascript:void(1);">员工管理</a>
+    <a href="javascript:void(1);"><cite>员工列表</cite></a>
+</div>
 
-<button type="button" class="layui-btn">添加员工</button>
+<div style="padding: 10px 20px 20px 20px;">
+    <!--添加新员工信息表单-->
+    <form id="add-admin" style="display: none;"  class="layui-form">
+        <div style="padding-top: 20px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名：</label>
+                <div class="layui-input-block" >
+                    <input type="text" style="width:200px; height:40px;" name="name" required  placeholder="请输入姓名" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名：</label>
+                <div class="layui-input-block">
+                    <input type="text" style="width:200px; height:40px;" name="username" required  placeholder="请输入用户名" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sex" value="男" title="男">
+                    <input type="radio" name="sex" value="女" title="女" >
+                </div>
+            </div>
 
-<table class="layui-hide" id="test" lay-filter="test2"></table>
+            <div class="layui-form-item">
+                <label class="layui-form-label" >类型：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <select name='employee_type' lay-verify="required" lay-search="">
+                        <option value="0">理发师</option>
+                        <option value="1">服务员</option>
+                        <option value="2">洗头师</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input type="tel" name="phone" required  placeholder="请输入手机号" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">工资：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input type="text" name="salary" required placeholder="请输入工资" lay-verify="salary" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--编辑员工信息表单-->
+    <form id="edit-admin" style="display: none;"  class="layui-form">
+        <div>
+            <div class="layui-form-item">
+            <input id="bd_id" type="hidden" readonly="true" style="width:200px; height:40px;" name="id" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名：</label>
+                <div class="layui-input-block" >
+                    <input id="bd_name" type="text" style="width:200px; height:40px;" name="name" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名：</label>
+                <div class="layui-input-block">
+                    <input id="bd_username" type="text" style="width:200px; height:40px;" name="username" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别：</label>
+                <div class="layui-input-block">
+                    <input id="bd_man" type="radio" name="sex" value="男" title="男">
+                    <input id="bd_woman" type="radio" name="sex" value="女" title="女" >
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" >类型：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <select id="bd_employee_type" name='employee_type' lay-verify="required">
+                        <option value="0">理发师</option>
+                        <option value="1">服务员</option>
+                        <option value="2">洗头师</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input id="bd_phone" type="text" name="phone" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">工资：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input id="bd_salary" type="text" name="salary" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <button type="button" class="layui-btn addEmployee-btn">添加员工</button>
+
+    <table class="layui-hide" id="tableId" lay-filter="test2"></table>
+
+</div>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">
@@ -86,15 +133,18 @@
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
 
 <script>
-  layui.use(['table', 'form'], function(){
+  layui.use(['table', 'form', 'element'], function() {
+
     var table = layui.table;
     var $ = layui.$;
     var form = layui.form;
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 
+    //-------请求接口，加载员工列表
     table.render({
-      elem: '#test'
-      ,url:'http://0.0.0.0:9501/Admin/index'
-      ,parseData: function (res) {
+      elem: '#tableId'
+      , url: 'http://0.0.0.0:9501/Admin/index'
+      , parseData: function (res) {
         return {
           code: 0,
           msg: res.msg,
@@ -102,86 +152,177 @@
           data: res.result.data
         };
       }
-      ,cols: [[
-        {field:'id', title: 'ID',align: 'center'}
-        ,{field:'name',title: '姓名',align: 'center'}
-        ,{field:'username', title: '用户名',align: 'center'}
-        ,{field:'sex_txt',title: '性别',align: 'center'}
-        ,{field:'employee_type_txt', title: '类型',align: 'center'}
-        ,{field:'phone', title: '手机号',width:120,align: 'center'}
-        ,{field:'salary', title: '工资',align: 'center'}
-        ,{field:'create_staff',title: '创建人',align: 'center'}
-        ,{field:'update_staff',title: '更新人',align: 'center'}
-        ,{field:'create_time', title: '创建时间',width:170,align: 'center'}
-        ,{field:'update_time', title: '更新时间',width:170,align: 'center'}
-        ,{field:'opt', title: '操作',width:178,fixed: 'right',toolbar: '#barDemo',align: 'center'}
-        ]]
-      ,page: true,
+      , cols: [[
+        {field: 'id', title: 'ID', align: 'center'}
+        , {field: 'name', title: '姓名', align: 'center'}
+        , {field: 'username', title: '用户名', align: 'center'}
+        , {field: 'sex_txt', title: '性别', align: 'center'}
+        , {field: 'employee_type_txt', title: '类型', align: 'center'}
+        , {field: 'phone', title: '手机号', width: 120, align: 'center'}
+        , {field: 'salary', title: '工资', align: 'center'}
+        , {field: 'create_staff', title: '创建人', align: 'center'}
+        , {field: 'update_staff', title: '更新人', align: 'center'}
+        , {field: 'create_time', title: '创建时间', width: 170, align: 'center'}
+        , {field: 'update_time', title: '更新时间', width: 170, align: 'center'}
+        , {field: 'opt', title: '操作', width: 178, fixed: 'right', toolbar: '#barDemo', align: 'center'}
+      ]]
+      , page: true,
     });
 
-    //监听行工具事件
-    table.on('tool(test2)', function(obj){  //注：tool是工具条事件名，test2 是 table 原始容器的属性 lay-filter="对应的值"
+    //-------监听行工具事件
+    table.on('tool(test2)', function (obj) {  //注：tool是工具条事件名，test2 是 table 原始容器的属性 lay-filter="对应的值"
       //将PHP生成的json字符串赋值给js变量
-      var data = obj.data;  //员工列表中{data}下的全部数据,即本条记录信息
-      console.log(obj);
+      var data = obj.data;  //得到当前行数据
+      //console.log(obj);
       //点击'删除'按钮
-      if(obj.event === 'del'){
-        layer.confirm('是否删除本条员工信息？', function(index) {
+      if (obj.event === 'del') {
+        layer.confirm('是否删除本条员工信息？', function (index) {
           layer.close(index);  //关闭弹框
           $.ajax({
             type: "POST",
             url: "http://0.0.0.0:9501/admin/delete",
             data: {id: data.id},
-            success: function (result) {
+            success: function (result) {  //删除成功
               layer.msg(result.msg);
-            },
+                obj.del();  //删除当前行
+                },
             error: function (result) {
               layer.msg(result.responseJSON.msg, {icon: 5});
             }
           });
         })
-        //点击'编辑'按钮,获取员工列表的字段值填充到表单
-      } else if(obj.event === 'edit'){
+      } else if (obj.event === 'edit') {  //点击'编辑'按钮,获取员工列表的字段值填充到表单
         //console.log(data.name);
-        var bd_id = $("#bd_id").val(data.id);
-        var bd_name = $("#bd_name").val(data.name);  //获取员工列表的姓名字段值
-        var bd_username = $("#bd_username").val(data.username);
-        var bd_phone = $("#bd_phone").val(data.phone);
-        var bd_salary = $("#bd_salary").val(data.salary);
-        var bd_update_staff = $("#bd_update_staff").val(data.update_staff);
+        $("#bd_id").val(data.id);
+        $("#bd_name").val(data.name);  //获取'姓名'字段值
+        $("#bd_username").val(data.username);
+        $("#bd_phone").val(data.phone);
+        $("#bd_salary").val(data.salary);
         //'性别'单选框
         if (data.sex === 0) {
-          var bd_sex = $('#bd_woman').prop("checked",true);
+          $('#bd_woman').prop("checked", true);
         } else {
-          var bd_sex = $('#bd_man').prop("checked", true);
+          $('#bd_man').prop("checked", true);
         }
         //'类型'下拉列表
-        if(data.employee_type === 0){
-          var bd_employee_type = $("#bd_employee_type").val(0);   // 设置Select的Value值为0的项选中
-        }else if(data.employee_type === 1) {
-          var bd_employee_type =  $("#bd_employee_type ").val(1);
-        }
-        else{
-          var bd_employee_type = $("#bd_employee_type ").val(2);
+        if (data.employee_type === 0) {
+          $("#bd_employee_type").val(0);   // 设置Select的Value值为0的项选中
+        } else if (data.employee_type === 1) {
+          $("#bd_employee_type ").val(1);
+        } else {
+          $("#bd_employee_type ").val(2);
         }
         form.render();  //更新全部，不然看不到效果
-
+        //console.log(data);
         layer.open({
           title: '编辑员工信息',
           type: 1,
-          content: $("#edit-admin"),    // 设置跳转的url，跳转到对应的页面
-          area: ['440px','580px'],
+          content: $("#edit-admin"),    // 设置跳转的url，跳转到'编辑员工信息'的页面
+          area: ['380px', '450px'],
           skin: 'layui-layer-molv',       // 墨绿色皮肤
-          btn: ['提交','取消'],
-          yes: function (index,layero) {
+          anim: 0,  //效果
+          scrollbar: false,  //不允许出现滚动条
+          btn: ['确认', '取消'],
+          //'确定'按钮
+          yes: function (index, layero) {  //点击'确认'按钮
             var formData = $("#edit-admin").serializeArray();  //获取表单参数
-            console.log(formData);
-
-          }
+            //console.log(formData)
+            var addData = {}; //定义json格式
+            formData.map(function (a) {  //表单参数转换为json格式
+              //console.log(a,b);
+              addData[a.name] = a.value;
+            });
+            //console.log(addData);
+            $.ajax({
+              type: "POST",
+              url: "http://0.0.0.0:9501/admin/update",
+              data: {
+                id: addData.id,
+                name: addData.name,
+                username: addData.username,
+                sex: addData.sex,
+                employee_type: addData.employee_type,
+                phone: addData.phone,
+                salary: addData.salary,
+              },
+              success: function (result) {  //成功
+                layer.closeAll();  //关闭窗口
+                layer.msg(result.msg, {icon: 1}, function () {
+                  table.reload('tableId'); //只重载数据
+                });
+              },
+              error: function (result) {  //失败
+                layer.closeAll();  //关闭窗口
+                //console.log(result);
+                layer.msg(result.responseJSON.msg, {icon: 5});
+              }
+            });
+          },
         });
       }
     });
 
+    //-------'添加员工'按钮
+    $(function(){
+      $(".addEmployee-btn").click(function() {
+        layer.open({
+          title: '添加新员工信息',
+          type: 1,
+          content: $("#add-admin"),    // 设置跳转的url，跳转到'添加新员工信息'的页面
+          area: ['380px', '450px'],
+          skin: 'layui-layer-molv',       // 墨绿色皮肤
+          anim: 0,  //效果
+          scrollbar: false,  //不允许出现滚动条
+          btn: ['确认', '取消'],
+          //'确定'按钮
+          yes: function (index, layero) {  //点击'确认'按钮
+            var formData = $("#add-admin").serializeArray();  //获取表单参数
+            //console.log(formData)
+            var addData = {}; //定义json格式
+            formData.map(function (a) {  //表单参数转换为json格式
+              addData[a.name] = a.value;
+            });
+            // '添加员工'表单,自定义验证规则
+            if($.trim(addData.name)== ''){
+                  layer.msg('姓名不能为空', {icon: 0});
+            }else if($.trim(addData.username)==''){
+                layer.msg('用户名不能为空', {icon: 0});
+            }else if($.trim(addData.sex)==''){
+              layer.msg('性别不能为空', {icon: 0});
+            }else if($.trim(addData.phone)==''){
+              layer.msg('手机号不能为空', {icon: 0});
+            }else if($.trim(addData.salary)==''){
+              layer.msg('工资不能为空', {icon: 0});
+            }
+            $.ajax({
+              type: "POST",
+              url: "http://0.0.0.0:9501/admin/insert",
+              data: {
+                name: addData.name,
+                username: addData.username,
+                sex: addData.sex,
+                employee_type: addData.employee_type,
+                phone: addData.phone,
+                salary: addData.salary,
+                create_staff: addData.create_staff
+              },
+              success: function (result) {  //添加成功
+                layer.closeAll();  //关闭窗口
+                layer.msg(result.msg, {icon: 1}, function () {});
+                $('#add-admin')[0].reset();
+                table.reload('tableId'); //只重载数据
+
+              },
+              error: function (result) {  //失败
+                layer.closeAll();  //关闭窗口
+                //console.log(result);
+                layer.msg(result.responseJSON.msg, {icon: 5});
+              },
+            });
+          },
+        });
+      })
+    } );
   });
 </script>
 

@@ -32,7 +32,7 @@ class Login extends Controller
         } else {
             //将数据库表查询结果的数组，设置为session值
             $_SESSION['admin']=$result;
-            var_dump($_SESSION['admin']);
+            //var_dump($_SESSION['admin']);
 
             $this->writeJson(200, [], '登录成功，正在跳转...');
         }
