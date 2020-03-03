@@ -89,8 +89,8 @@ class AdminService
         $employee_type=$data['employee_type'];
         $phone=$data['phone'];
         $salary=$data['salary'];
-        $updata_staff=$data['updata_staff'];
-
+        $update_staff=$data['update_staff'];
+        $update_time=$data['update_time'];
         $user = Admin::create()->get($id);  //通过id更新记录状态
         return $user->update([
             'name' => $name,
@@ -99,7 +99,8 @@ class AdminService
             'employee_type' => $employee_type,
             'phone' => $phone,
             'salary' => $salary,
-            'updata_staff' => $updata_staff,
+            'update_staff' => $update_staff, //更新人
+            'update_time' =>$update_time, //更新时间，当前时间
         ]);
     }
 

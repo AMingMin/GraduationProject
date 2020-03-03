@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../Static/js/layui/css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<!--面包屑-->
+<div style="padding: 10px 0 0 10px;" class="layui-breadcrumb">
+    <a href="javascript:void(1);">会员管理</a>
+    <a href="javascript:void(1);"><cite>会员列表</cite></a>
+</div>
+
+<div style="padding: 10px 20px 20px 20px;">
+    <!--添加新会员信息表单-->
+    <form id="add-member" style="display: none;"  class="layui-form">
+        <div>
+            <div class="layui-form-item">
+                <input type="hidden" readonly="true" style="width:200px; height:40px;" name="id" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名：</label>
+                <div class="layui-input-block" >
+                    <input type="text" style="width:200px; height:40px;" name="name" placeholder="请输入姓名" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sex" value="男" title="男">
+                    <input type="radio" name="sex" value="女" title="女" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input type="text" name="phone" required placeholder="请输入手机号" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" value="正常" title="正常">
+                    <input type="radio" name="status" value="过期" title="过期" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">余额：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input type="text" name="balance" required placeholder="请输入余额" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" >会员等级：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <select name='member_level' lay-verify="required">
+                        <option value="0">普通会员</option>
+                        <option value="1">白银会员</option>
+                        <option value="2">黄金会员</option>
+                        <option value="3">钻石会员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" >了解渠道：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <select name='know_space' lay-verify="required">
+                        <option value="0">线下推广</option>
+                        <option value="1">朋友圈推广</option>
+                        <option value="2">朋友推荐</option>
+                        <option value="3">其它</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label" >备注：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <textarea name="introduction" placeholder="请输入备注" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <!--编辑会员信息表单-->
+    <form id="edit-member" style="display: none;"  class="layui-form">
+        <div>
+            <div class="layui-form-item">
+                <input id="bd_id" type="hidden" readonly="true" style="width:200px; height:40px;" name="id" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名：</label>
+                <div class="layui-input-block" >
+                    <input id="bd_name" type="text" style="width:200px; height:40px;" name="name" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别：</label>
+                <div class="layui-input-block">
+                    <input id="bd_man" type="radio" name="sex" value="男" title="男">
+                    <input id="bd_woman" type="radio" name="sex" value="女" title="女" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input id="bd_phone" type="text" name="phone" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态：</label>
+                <div class="layui-input-block">
+                    <input id="bd_normal" type="radio" name="status" value="正常" title="正常">
+                    <input id="bd_overdue" type="radio" name="status" value="过期" title="过期" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">余额：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <input id="bd_balance" type="text" name="balance" required  lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" >会员等级：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <select id="bd_member_level" name='member_level' lay-verify="required">
+                        <option value="0">普通会员</option>
+                        <option value="1">白银会员</option>
+                        <option value="2">黄金会员</option>
+                        <option value="3">钻石会员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" >了解渠道：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <select id="bd_know_space" name='know_space' lay-verify="required">
+                        <option value="0">线下推广</option>
+                        <option value="1">朋友圈推广</option>
+                        <option value="2">朋友推荐</option>
+                        <option value="3">其它</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label" >备注：</label>
+                <div class="layui-input-block" style="width:200px; height:40px;">
+                    <textarea id="bd_introduction" name="introduction" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <button type="button" class="layui-btn addMember-btn">添加会员</button>
+
+    <table class="layui-hide" id="tableId" lay-filter="test2"></table>
+
+</div>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">
+        <i class="layui-icon">&#xe642;</i>编辑
+    </a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon">&#xe640;</i>删除
+    </a>
+</script>
+
+<script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+
+<script>
+  layui.use(['table', 'form', 'element'], function() {
+
+    var table = layui.table;
+    var $ = layui.$;
+    var form = layui.form;
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+    //-------请求接口，加载会员列表
+    table.render({
+      elem: '#tableId'
+      , url: 'http://0.0.0.0:9501/Member/index'
+      , parseData: function (res) {
+        return {
+          code: 0,
+          msg: res.msg,
+          count: res.result.count,
+          data: res.result.data
+        };
+      }
+      , cols: [[
+        {field: 'id', title: 'ID', width:45,align: 'center'}
+        , {field: 'name', title: '姓名', align: 'center'}
+        , {field: 'sex_txt', title: '性别', width:60,align: 'center'}
+        , {field: 'phone', title: '手机号', width: 100, align: 'center'}
+        , {field: 'status_txt', title: '状态', width: 60,align: 'center'}
+        , {field: 'balance', title: '余额', align: 'center'}
+        , {field: 'member_level_txt', title: '会员等级',width: 100, align: 'center'}
+        , {field: 'know_space_txt', title: '了解渠道', width: 100,align: 'center'}
+        , {field: 'introduction', title: '备注',width: 60, align: 'center'}
+        , {field: 'create_staff', title: '创建人', align: 'center'}
+        , {field: 'update_staff', title: '更新人', align: 'center'}
+        , {field: 'create_time', title: '创建时间', width: 163, align: 'center'}
+        , {field: 'update_time', title: '更新时间', width: 163, align: 'center'}
+        , {field: 'opt', title: '操作', width: 145,fixed: 'right', toolbar: '#barDemo', align: 'center'}
+      ]]
+      , page: true,
+    });
+
+    //-------监听行工具事件
+    table.on('tool(test2)', function (obj) {  //注：tool是工具条事件名，test2 是 table 原始容器的属性 lay-filter="对应的值"
+      //将PHP生成的json字符串赋值给js变量
+      var data = obj.data;  //得到当前行数据
+      //点击'删除'按钮
+      if (obj.event === 'del') {
+        layer.confirm('是否删除该会员信息？', function (index) {
+          layer.close(index);  //关闭弹框
+          $.ajax({
+            type: "POST",
+            url: "http://0.0.0.0:9501/member/delete",
+            data: {id: data.id},
+            success: function (result) {  //删除会员成功
+              layer.msg(result.msg);
+              obj.del();  //删除当前行
+            },
+            error: function (result) {
+              layer.msg(result.responseJSON.msg, {icon: 5});
+            }
+          });
+        })
+      } else if (obj.event === 'edit') {  //点击'编辑'按钮
+
+        //获取员工列表的字段值填充到表单
+        $("#bd_id").val(data.id);
+        $("#bd_name").val(data.name);  //获取'姓名'字段值
+        //'性别'单选框
+        if (data.sex === 0) {
+          $('#bd_woman').prop("checked", true);
+        } else {
+          $('#bd_man').prop("checked", true);
+        }
+        $("#bd_phone").val(data.phone);
+        //'状态'单选框,0-删除
+        if (data.status === 1) {
+          $('#bd_normal').prop("checked", true);
+        } else if(data.status === 2) {
+          $('#bd_overdue').prop("checked", true);
+        }
+        $("#bd_balance").val(data.balance);  //余额
+        //'会员等级'下拉列表
+        if (data.member_level === 0) {
+          $("#bd_member_level").val(0);   // 设置Select的Value值为0的项选中
+        } else if (data.member_level === 1) {
+          $("#bd_member_level ").val(1);
+        } else if(data.member_level){
+          $("#bd_member_level ").val(2);
+        }else{
+          $("#bd_member_level ").val(3);
+        }
+        //'了解渠道'下拉列表
+        if (data.know_space === 0) {
+          $("#bd_know_space").val(0);   // 设置Select的Value值为0的项选中
+        } else if (data.know_space === 1) {
+          $("#bd_know_space").val(1);
+        } else if(data.know_space){
+          $("#bd_know_space").val(2);
+        }else{
+          $("#bd_know_space").val(3);
+        }
+        $("#bd_introduction").val(data.introduction);
+
+        form.render();  //更新全部，不然看不到效果
+
+        layer.open({
+          title: '编辑员工信息',
+          type: 1,
+          content: $("#edit-member"),    // 设置跳转的url，跳转到'编辑员工信息'的页面
+          area: ['440px', '610px'],
+          skin: 'layui-layer-molv',       // 墨绿色皮肤
+          anim: 0,  //效果
+          scrollbar: false,  //不允许出现滚动条
+          btn: ['确认', '取消'],
+          //'确定'按钮
+          yes: function (index, layero) {  //点击'确认'按钮
+            var formData = $("#edit-member").serializeArray();  //获取表单参数
+            //console.log(formData)
+            var addData = {}; //定义json格式
+            formData.map(function (a) {  //表单参数转换为json格式
+              //console.log(a,b);
+              addData[a.name] = a.value;
+            });
+            console.log(formData);
+            $.ajax({
+              type: "POST",
+              url: "http://0.0.0.0:9501/member/update",
+              data: {
+                id: addData.id,
+                name: addData.name,
+                sex: addData.sex,
+                phone: addData.phone,
+                status: addData.status,
+                balance: addData.balance,
+                member_level: addData.member_level,
+                know_space:addData.know_space,
+                introduction:addData.introduction
+              },
+              success: function (result) {  //更新成功
+                layer.closeAll();  //关闭窗口
+                layer.msg(result.msg, {icon: 1}, function () {});
+                table.reload('tableId'); //只重载数据
+              },
+              error: function (result) {  //失败
+                //console.log(result);
+                layer.msg(result.responseJSON.msg, {icon: 5});
+              }
+            });
+          },
+        });
+      }
+    });
+
+    //-------'添加会员'按钮
+    $(function(){
+      $(".addMember-btn").click(function() {
+        layer.open({
+          title: '添加新会员信息',
+          type: 1,
+          content: $("#add-member"),    // 设置跳转的url，跳转到'添加新员工信息'的页面
+          area: ['380px', '600px'],
+          skin: 'layui-layer-molv',       // 墨绿色皮肤
+          anim: 0,  //效果
+          btn: ['确认', '取消'],
+          //'确定'按钮
+          yes: function (index, layero) {  //点击'确认'按钮
+            var formData = $("#add-member").serializeArray();  //获取表单参数
+            //console.log(formData);
+            var addData = {}; //定义json格式
+            formData.map(function (a) {  //表单参数转换为json格式
+              addData[a.name] = a.value;
+            });
+            // '添加会员'表单,自定义验证规则
+            if($.trim(addData.name)== ''){
+              layer.msg('姓名不能为空', {icon: 0});
+            }else if($.trim(addData.sex)==''){
+              layer.msg('性别不能为空', {icon: 0});
+            }else if($.trim(addData.phone)==''){
+              layer.msg('手机号不能为空', {icon: 0});
+            }else if($.trim(addData.status)==''){
+              layer.msg('状态不能为空', {icon: 0});
+            }else if($.trim(addData.balance)==''){
+              layer.msg('余额不能为空', {icon: 0});
+            }else if($.trim(addData.member_level)==''){
+              layer.msg('会员等级不能为空', {icon: 0});
+            }else if($.trim(addData.know_space)==''){
+              layer.msg('了解渠道不能为空', {icon: 0});
+            }
+            $.ajax({
+              type: "POST",
+              url: "http://0.0.0.0:9501/member/insert",
+              data: {
+                name: addData.name,
+                sex: addData.sex,
+                phone: addData.phone,
+                status: addData.status,
+                balance: addData.balance,
+                member_level: addData.member_level,
+                know_space: addData.know_space,
+                introduction: addData.introduction,
+              },
+              success: function (result) {  //添加成功
+                layer.closeAll();  //关闭窗口
+                layer.msg(result.msg, {icon: 1}, function () {});
+                $('#add-member')[0].reset();
+                table.reload('tableId'); //只重载数据
+              },
+              error: function (result) {  //失败
+                console.log(result);
+                //layer.msg(result.responseJSON.msg, {icon: 5});
+              },
+            });
+          },
+        });
+      })
+    } );
+
+  });
+</script>
+
+</body>
+</html>

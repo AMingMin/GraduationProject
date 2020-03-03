@@ -54,6 +54,8 @@ class Admin extends Controller
         $data = $this->request()->getRequestParam();
         //var_dump($data);
         $result = AdminService::getInstance()->adminUpdate($data);
+        $data['update_staff']=$_SESSION['admin']['name'];  //更新人
+        $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
         $data['update_staff']=$_SESSION['admin']['name'];
         if ($result) {
             $this->writeJson(200, [], '员工信息更新成功');
@@ -73,13 +75,13 @@ class Admin extends Controller
         //var_dump($data);
         $data['create_staff']=$_SESSION['admin']['name'];
         $data['update_staff']=$_SESSION['admin']['name'];
-        var_dump($_SESSION['admin']);
-        var_dump($data);
+        //var_dump($_SESSION['admin']);
+        //var_dump($data);
         $result = AdminService::getInstance()->adminInsert($data);
         if ($result) {
-            $this->writeJson(200, [], '员工信息新建成功');
+            $this->writeJson(200, [], '员工创建成功');
         } else {
-            $this->writeJson(400, [], '员工信息新建失败');
+            $this->writeJson(400, [], '员工创建失败');
         }
     }
 

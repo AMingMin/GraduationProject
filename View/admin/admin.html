@@ -247,9 +247,8 @@
               },
               success: function (result) {  //成功
                 layer.closeAll();  //关闭窗口
-                layer.msg(result.msg, {icon: 1}, function () {
-                  table.reload('tableId'); //只重载数据
-                });
+                layer.msg(result.msg, {icon: 1}, function () {});
+                table.reload('tableId'); //只重载数据
               },
               error: function (result) {  //失败
                 layer.closeAll();  //关闭窗口
@@ -311,10 +310,8 @@
                 layer.msg(result.msg, {icon: 1}, function () {});
                 $('#add-admin')[0].reset();
                 table.reload('tableId'); //只重载数据
-
               },
               error: function (result) {  //失败
-                layer.closeAll();  //关闭窗口
                 //console.log(result);
                 layer.msg(result.responseJSON.msg, {icon: 5});
               },
