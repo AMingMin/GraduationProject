@@ -163,18 +163,17 @@
     </div>
 
     <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
-
+    <script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
     <script>
+
       //JavaScript代码区域
       layui.use(['jquery', 'element', 'layer'], function(){
         var element = layui.element;
         var layer = layui.layer;
-        var $ = layui.$;
         $('.login').click(function () {
           var username = $.trim($('.username').val());
           var password = $.trim($('.password').val());
-
-          console.log(username,password);
           //用户名,密码输入规范判断
           if(username == '' || password=='')
           {
@@ -185,6 +184,8 @@
               url: "http://0.0.0.0:9501/login/login",
               data: {username: username, password: password},
               success: function (result) {
+                $.cookie('admin', result.result, {expires: 1, path: '/'});
+                console.log($.cookie('admin'));
                 layer.msg(result.msg, {}, function () {
                   location.href = '../home.html';
                 });
@@ -199,6 +200,8 @@
 
       });
     </script>
+
+
 
 </body>
 

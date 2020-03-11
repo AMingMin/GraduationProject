@@ -2,10 +2,12 @@
 namespace EasySwoole\EasySwoole;
 
 
+use App\Config\JwtConfig;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
 use EasySwoole\Http\Response;
+use EasySwoole\Jwt\Jwt;
 use EasySwoole\ORM\Db\Config;
 use EasySwoole\ORM\Db\Connection;
 use EasySwoole\ORM\DbManager;
@@ -48,10 +50,34 @@ class EasySwooleEvent implements Event
         $response->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         $response->withHeader('Access-Control-Allow-Credentials', 'true');
         $response->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-        if ($request->getMethod() === 'OPTIONS') {
-            $response->withStatus(400);
-            return false;
-        }
+
+//        var_dump($request);
+//        $jwtObject = Jwt::getInstance()->setSecretKey(JwtConfig::SECRET_KEY)->decode();
+//        $status = $jwtObject->getStatus();
+//
+//        var_dump($jwtObject);
+//        switch ($status) {
+//            case  1:
+//                echo '验证通过';
+//                $jwtObject->getAlg();
+//                $jwtObject->getAud();
+//                $jwtObject->getData();
+//                $jwtObject->getExp();
+//                $jwtObject->getIat();
+//                $jwtObject->getIss();
+//                $jwtObject->getNbf();
+//                $jwtObject->getJti();
+//                $jwtObject->getSub();
+//                $jwtObject->getSignature();
+//                $jwtObject->getProperty('alg');
+//                break;
+//            case  -1:
+//                echo '无效';
+//                break;
+//            case  -2:
+//                echo 'token过期';
+//                break;
+//        }
         return true;
     }
 
