@@ -15,9 +15,11 @@ class Member extends Controller
     {
         $request=$this->request();
         $data = $request->getRequestParam();
-        //var_dump($data);
-        [$list, $total] = MemberService::getInstance()->memberList($data);
+        var_dump($data);
 
+        [$list, $total] = MemberService::getInstance()->memberList($data);
+        var_dump($list);
+        var_dump($total);
         $this->writeJson(200, [
             'count' => $total,
             'data'  => $list

@@ -3,6 +3,7 @@ namespace EasySwoole\EasySwoole;
 
 
 use App\Config\JwtConfig;
+use App\Config\RequestCodeConfig;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
@@ -21,6 +22,12 @@ class EasySwooleEvent implements Event
         date_default_timezone_set('Asia/Shanghai');
     }
 
+    /***
+     *
+     *
+     * @param EventRegister $register
+     * CreateTime: 2020/3/12 下午4:11
+     */
     public static function mainServerCreate(EventRegister $register)
     {
         // TODO: Implement mainServerCreate() method.
@@ -43,41 +50,42 @@ class EasySwooleEvent implements Event
 
     }
 
+    /***
+     * 每次easyswoole的请求都会执行该方法
+     *
+     * @param Request $request
+     * @param Response $response
+     * @return bool
+     * @throws \EasySwoole\Jwt\Exception
+     * CreateTime: 2020/3/12 下午4:04
+     */
     public static function onRequest(Request $request, Response $response): bool
     {
         // TODO: Implement onRequest() method.
         $response->withHeader('Access-Control-Allow-Origin', '*');
         $response->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         $response->withHeader('Access-Control-Allow-Credentials', 'true');
-        $response->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        $response->withHeader('Access-Control-Allow-Headers', 'token, Content-Type, Authorization, X-Requested-With');
 
-//        var_dump($request);
-//        $jwtObject = Jwt::getInstance()->setSecretKey(JwtConfig::SECRET_KEY)->decode();
-//        $status = $jwtObject->getStatus();
+        if ($request->getMethod() === 'OPTIONS') { //默认两次请求，设置该请求时无操作
+            return false;
+        }
 //
-//        var_dump($jwtObject);
-//        switch ($status) {
-//            case  1:
-//                echo '验证通过';
-//                $jwtObject->getAlg();
-//                $jwtObject->getAud();
-//                $jwtObject->getData();
-//                $jwtObject->getExp();
-//                $jwtObject->getIat();
-//                $jwtObject->getIss();
-//                $jwtObject->getNbf();
-//                $jwtObject->getJti();
-//                $jwtObject->getSub();
-//                $jwtObject->getSignature();
-//                $jwtObject->getProperty('alg');
-//                break;
-//            case  -1:
-//                echo '无效';
-//                break;
-//            case  -2:
-//                echo 'token过期';
-//                break;
+//        $token = $request->getHeader('token')[0];
+//        if ($token === 'login') {
+//            return true;
+//        } else if ($token === 'null') {
+//            $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
+//            return false;
+//        } else {
+//            $jwtObject = Jwt::getInstance()->setSecretKey(JwtConfig::SECRET_KEY)->decode($token);
+//            $status = $jwtObject->getStatus();
+//            if ($status !== 1) {
+//                $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
+//                return false;
+//            }
 //        }
+
         return true;
     }
 

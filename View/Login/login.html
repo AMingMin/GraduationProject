@@ -183,9 +183,11 @@
               type: "POST",
               url: "http://0.0.0.0:9501/login/login",
               data: {username: username, password: password},
+              headers: {
+                token: 'login'
+              },
               success: function (result) {
                 $.cookie('admin', result.result, {expires: 1, path: '/'});
-                console.log($.cookie('admin'));
                 layer.msg(result.msg, {}, function () {
                   location.href = '../home.html';
                 });

@@ -190,8 +190,9 @@
         url: "http://0.0.0.0:9501/ServiceType/select",
         data: params,  //设置当前页码，每页多少条数据
         success: function (result) {
-          console.log(result);  //查看获取数据
+          // console.log(result);  //查看获取数据
           $('.panel-container').html('');  //清空当前面板信息
+          //设置每个面板中的展示文字+字段值
           result.result.data.map(function (item) {
             var dom = "<div class='service-panel'>\n" +
               "        <img style='width: 300px;height:200px;' src='../../Static/img/service/"+item.picture+"'>\n" +
@@ -201,7 +202,8 @@
               "    </div>";
             $('.panel-container').append(dom);  //每个面板下插入信息
           });
-          count = result.result.count;
+
+          count = result.result.count;  //总条数
           //分页完整功能
           laypage.render({
             elem: 'pages'  //指向存放分页的容器
@@ -224,8 +226,9 @@
       });
     }
 
-    //1 监听'添加服务类型'按钮
+    //该页面被请求加载时执行
     $(function(){
+      //1 监听'添加服务类型'按钮
       $(".addService-btn").click(function() {
         layer.open({
           title: '添加服务类型',
@@ -236,10 +239,13 @@
           anim: 0,  //效果
         });
       });
-      requestList({page: 1, limit: 10});
+
+      //每次加载改页面，请求加载服务类型列表
+      requestList({page:1, limit:10});
+
     } );
 
-    //字数限制
+    //简介文本域字数限制
     window.wordLeg = function (obj) {
       var currleg = $(obj).val().length;
       var length = $(obj).attr('maxlength');
@@ -248,7 +254,6 @@
       }
       $('.text_count').text(currleg);
     };
-
 
     //2 监听'服务类型'下拉框，实现二级联动(即，隐藏)
     form.on('select(service-type)', function(data){
@@ -345,20 +350,22 @@
         url: "http://0.0.0.0:9501/ServiceType/index",
         data: datas,
         success: function (result) {  //添加成功
-          layer.closeAll();  //关闭窗口
-          layer.msg(result.msg, {icon: 1}, function () {});
+
+          //清空表单各种数据，以便下次打开时为空表单
           $('#add-service')[0].reset();  //清空表单数据
           $('#demo1').attr('src', null);  //清除图片
           $('#demoText').html('');  //清除图片上传文字
 
-          // requestList({page:1, limit:10});  //当前页，当前条数
-
-
+          layer.closeAll();  //关闭窗口
+          layer.msg(result.msg, {icon: 1}, function () {});
+          requestList({page:1, limit:10});  //请求列表，刷新数据
         },
         error: function (result) {  //失败
           console.log(result);
         },
+
       });
+
       return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
 
       });

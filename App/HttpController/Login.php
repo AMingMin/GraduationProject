@@ -40,7 +40,7 @@ class Login extends Controller
             $jwtObject->setExp(time() + JwtConfig::EXP); // 过期时间
             $jwtObject->setData($result);
             $token = $jwtObject->__toString();
-            $this->writeJson(200, $token, '登录成功，正在跳转...');
+            $this->writeJson(200, $token, 'c...');
         }
     }
 

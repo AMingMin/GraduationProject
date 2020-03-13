@@ -700,3 +700,29 @@
 [2020-03-11 17:59:03 *86734.5]	NOTICE	swFactoryProcess_finish (ERRNO 1005): connection[fd=9] does not exists
 [2020-03-11 21:25:01 $84166.0]	INFO	Server is reloading all workers now
 [2020-03-11 21:52:19 $84166.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:58:03 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:58:16 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:58:19 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:58:29 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:58:44 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:59:00 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:59:06 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 00:59:12 $94667.0]	INFO	Server is reloading all workers now
+[2020-03-12 16:24:55 $12697.0]	INFO	Server is reloading all workers now
+[2020-03-12 16:29:02 $12933.0]	INFO	Server is reloading all workers now
+[2020-03-12 16:29:19 $12933.0]	INFO	Server is reloading all workers now
+[2020-03-12 16:30:28 $13042.0]	INFO	Server is reloading all workers now
+[2020-03-12 16:30:48 $13042.0]	INFO	Server is reloading all workers now
+[2020-03-12 17:41:13 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 17:41:44 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 17:42:00 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:09:59 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:10:27 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:11:22 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:12:17 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:12:31 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:13:56 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:18:59 *14784.5]	NOTICE	swFactoryProcess_finish (ERRNO 1004): send 1045 byte failed, because connection[fd=12] is closed
+[2020-03-12 18:20:59 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-12 18:21:34 $13186.0]	INFO	Server is reloading all workers now
+[2020-03-13 12:57:41 *34633.5]	NOTICE	swFactoryProcess_finish (ERRNO 1005): connection[fd=1] does not exists

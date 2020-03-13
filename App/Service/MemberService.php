@@ -19,7 +19,8 @@ class MemberService
     {
         $page = $data['page']; // 页码
         $limit=$data['limit'];
-        $model = Member::create()->limit($limit * ($page - 1), $limit)->withTotalCount();
+
+        $model = Member::create()->limit($limit * ($page - 1), $limit)->withTotalCount()->order('id', 'DESC');
         // 列表数据
         $list = $model->all([
             'status'=>[0,'<>']

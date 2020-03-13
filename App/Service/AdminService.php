@@ -22,7 +22,7 @@ class AdminService
         $page = $data['page']; // 页码
         // var_dump($data);
         $limit=$data['limit'];
-        $model = Admin::create()->limit($limit * ($page - 1), $limit)->withTotalCount();
+        $model = Admin::create()->limit($limit * ($page - 1), $limit)->withTotalCount()->order('id', 'DESC');
         // 列表数据
         $list = $model->all([
             'status'=>[0,'<>']
