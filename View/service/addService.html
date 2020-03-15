@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../Static/js/layui/css/layui.css"  media="all">
     <style>
         .service-panel {
-            display:inline-block;margin:15px;width: 300px;height:270px;border: 1px solid #00F7DE;
+            display:inline-block;margin:15px;width: 300px;height:285px;border: 1px solid #00F7DE;
         }
         /*图片样式*/
         img {
@@ -29,7 +29,7 @@
             color: #aaa;
             font-size: 12px;
         }
-        HT
+
     </style>
 </head>
 <body>
@@ -66,7 +66,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" >头发长度：</label>
         <div class="layui-input-block" style="width:200px; height:40px;">
-            <select name='hair_height' lay-verify="required" lay-reqtext="头发长度不可为空！">
+            <select name='hair_length' lay-verify="required" lay-reqtext="头发长度不可为空！">
                 <option value="">请选择头发长度</option>
                 <option value="0">通用</option>
                 <option value="1">超短发</option>
@@ -154,8 +154,127 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit_btn">立即提交</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="insert-submit-btn">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+
+</form>
+<!--修改服务表单-->
+<form id="modify-service" style="display: none;" class="layui-form " action="  ">
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称:</label>
+        <div class="layui-input-block">
+            <input id="bd_name" type="text" name="name" style="width:200px; height:40px;" lay-verify="required" lay-reqtext="服务名称不可为空！" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别：</label>
+        <div class="layui-input-block">
+            <input id="bd_man" type="radio" name="sex" value="男" title="男" checked="">
+            <input id="bd_woman" type="radio" name="sex" value="女" title="女">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">价格（元）:</label>
+            <div class="layui-input-inline">
+                <input id="bd_price" type="text" name="price" lay-reqtext="价格不可为空！" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" >头发长度：</label>
+        <div class="layui-input-block" style="width:200px; height:40px;">
+            <select id="bd_hair_length" name='hair_length' lay-verify="required" lay-reqtext="头发长度不可为空！">
+                <option value="0">通用</option>
+                <option value="1">超短发</option>
+                <option value="2">短发</option>
+                <option value="3">中短发</option>
+                <option value="4">中长发</option>
+                <option value="5">长发</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" >服务类型：</label>
+        <div class="layui-input-block" style="width:200px; height:40px;">
+            <select id="bd_service_type" class="layui-form" name='service_type' lay-filter="service-type" lay-verify="required" lay-reqtext="服务类型不可为空！">
+                <option value="0">洗发</option>
+                <option value="1">剪发</option>
+                <option value="2">烫发</option>
+                <option value="3">染发</option>
+                <option value="4">拉直</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item haircut_type" style="display: none;">
+        <label class="layui-form-label" >剪发类型：</label>
+        <div class="layui-input-block" style="width:200px; height:40px;">
+            <select id="bd_haircut_type" name='haircut_type' id="haircut_type">
+                <option value="1">板寸</option>
+                <option value="2">背头</option>
+                <option value="3">平头</option>
+                <option value="4">圆寸</option>
+                <option value="5">通用</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item perm_type" style="display: none;" >
+        <label class="layui-form-label" >烫发类型：</label>
+        <div class="layui-input-block" style="width:200px; height:40px;">
+            <select id="bd_perm_type" name='perm_type'id="perm_type">
+                <option value="1">编织烫</option>
+                <option value="2">螺旋烫</option>
+                <option value="3">离子烫</option>
+                <option value="4">空气烫</option>
+                <option value="5">物理烫</option>
+                <option value="6">通用</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item dye_hair_type" style="display: none;" >
+        <label class="layui-form-label" >染发色系：</label>
+        <div class="layui-input-block" style="width:200px; height:40px;">
+            <select id="bd_dye_hair_type" name='dye_hair_type'id='dye_hair_type'>
+                <option value="1">黑色</option>
+                <option value="2">奶奶灰</option>
+                <option value="3">紫色</option>
+                <option value="4">黄色</option>
+                <option value="5">其它配色</option>
+            </select>
+        </div>
+    </div>
+    <!--************这里是上传图片的代码***************-->
+    <!--************这里添加的隐藏的输入框，用来传递images的参数***************-->
+    <input type="hidden" name="modify-images" class="image">
+    <div class="layui-form-item">
+        <label class="layui-form-label ">参照图:</label>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="modify-picture-upload-btn">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+            <div class="layui-upload-list">
+                <img class="layui-upload-img" id="edit-upload-pic">
+                <p id="demoText2"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">简介:</label>
+        <div class="layui-input-block introductionStyle">
+            <textarea id="bd_introduction" placeholder="请输入不多于18个字的简介！" name="introduction" style="width:270px;"class="layui-textarea"
+                      oninput="wordLeg(this);" maxlength="18" onpropertychange="if(value.length>18) value=value.substr(0,18)"></textarea>
+            <div class="word"><span class="text_count">0</span> / <span class="num_count" id="numCount">18</span></div>
+
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="update-submit-btn">提交</button>
+            <button onclick="window.close()" class="layui-btn">取消</button>
         </div>
     </div>
 
@@ -171,19 +290,20 @@
 <!--分页-->
 <div id="pages"></div>
 
-
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
 <script>
   layui.use(['form','element','upload','laypage'], function(){
-
     var $ = layui.$;
     var upload = layui.upload;  //上传图片
     var form = layui.form;
     var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
-    var pictureUrl='';  //存放上传图片的地址
+    var pictureUrl='';  //存放新建上传图片的地址
+    var pictureUrl2='';  //存放编辑上传图片的地址
     var laypage = layui.laypage;  //分页
     var count = 0;  //存放表中总记录数
-
+    var listMap = {};  //存放各面板信息
+    var objectId; //存放id
     //直接请求服务类型表，展示服务类型列表
     function requestList(params) {
       $.ajax({
@@ -194,15 +314,19 @@
           $('.panel-container').html('');  //清空当前面板信息
           //设置每个面板中的展示文字+字段值
           result.result.data.map(function (item) {
-            var dom = "<div class='service-panel'>\n" +
-              "        <img style='width: 300px;height:200px;' src='../../Static/img/service/"+item.picture+"'>\n" +
-              "        <span>服务名称:</span>" +item.name+"<br>"+
-              "        <span>价格:</span>" +item.price+"<br>"+
-              "        <span>简介:</span>" +item.introduction+
-              "    </div>";
+            listMap[item.id] = item;  //各面板item以id存放
+            var dom =
+              "<div class='service-panel' >\n"
+                + "<img style='width: 300px;height:200px;' src='../../Static/img/service/"+item.picture+"'>\n"
+                + "<span>服务名称:</span>" +item.name+"<br>"
+                + "<span>价格:</span>" +item.price+"<br>"
+                + "<span>简介:</span>" +item.introduction+"<br>"
+                + "<button data-id="+item.id
+                + " type=\"button\" class=\"layui-btn layui-btn-xs modify-btn\"> <i class=\"layui-icon\">&#xe642;</i>\n编辑</button>"
+                + "<button data-id="+item.id+" type=\"button\" class=\"layui-btn layui-btn-xs layui-btn-danger delete-btn\"><i class=\"layui-icon\">&#xe640;</i>\n删除</button>"
+              + "</div>";
             $('.panel-container').append(dom);  //每个面板下插入信息
           });
-
           count = result.result.count;  //总条数
           //分页完整功能
           laypage.render({
@@ -226,9 +350,8 @@
       });
     }
 
-    //该页面被请求加载时执行
     $(function(){
-      //1 监听'添加服务类型'按钮
+      //监听'添加服务类型'按钮
       $(".addService-btn").click(function() {
         layer.open({
           title: '添加服务类型',
@@ -239,10 +362,113 @@
           anim: 0,  //效果
         });
       });
+      requestList({page:1, limit:10});      //每次加载改页面，请求加载服务类型列表
 
-      //每次加载改页面，请求加载服务类型列表
-      requestList({page:1, limit:10});
+      //监听"编辑"按钮，on方法动态绑定元素jq动态生成的HTML元素modify-btn
+      $(document).on('click','.modify-btn',function(){
+        var objectId = $(this).data('id');  //获取当前对象id
+        layer.open({
+          title: '编辑该服务类型',
+          type: 1,
+          content: $("#modify-service"),    // 设置跳转的url，跳转到'修改服务类型'的页面
+          area: ['420px', '600px'],
+          skin: 'layui-layer-molv',       // 墨绿色皮肤
+          anim: 0,  //效果
+        });
+        //获取服务类型列表的字段值填充到表单
+        const id = $(this).data('id');
+        // console.log(listMap[id]);  //获取当前面板的item值
+        var result=listMap[id];
+        pictureUrl2=result.picture;
+        $("#bd_name").val(result.name);
+        if (result.sex === 0) {
+          $('#bd_woman').prop("checked", true);
+        } else {
+          $('#bd_man').prop("checked", true);
+        }
+        $("#bd_price").val(result.price);
+        $("#bd_hair_length").val(result.hair_length);   // 设置Select的Value值为0的项选中
+        $("#bd_service_type").val(result.service_type);   // 设置Select的Value值为0的项选中
+        $("#bd_haircut_type").val(result.haircut_type);   // 设置Select的Value值为0的项选中
+        $("#bd_dye_hair_type").val(result.dye_hair_type);   // 设置Select的Value值为0的项选中
+        $("#bd_perm_type").val(result.perm_type);   // 设置Select的Value值为0的项选中
+        $("#bd_picture").val(result.picture);
+        $("#bd_introduction").val(result.introduction);
+        $("#edit-upload-pic").attr('src', '../../Static/img/service/'+result.picture);
+        form.render();  //必须重载
 
+        console.log(result.picture);
+
+        //监听修改服务类型'提交'按钮
+        form.on('submit(update-submit-btn)', function(data){
+          // console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+          var addData=data.field;  //表单字段
+          var datas={
+            id: objectId,
+            name: addData.name,
+            sex: addData.sex,
+            price: addData.price,
+            service_type: addData.service_type,
+            hair_length: addData.hair_length,
+            haircut_type: 0,
+            perm_type: 0,
+            dye_hair_type:0,
+            introduction: addData.introduction,
+            picture:pictureUrl2, //图片
+          };
+          switch (Number( datas.service_type)) {
+            case 1:
+              datas.haircut_type=addData.haircut_type;
+              break;
+            case 2:
+              datas.perm_type=addData.perm_type;
+              break;
+            case 3:
+              datas.dye_hair_type=addData.dye_hair_type;
+              break;
+          }
+          $.ajax({
+            type: "POST",
+            url: "http://0.0.0.0:9501/ServiceType/update",
+            data: datas,
+            success: function (result) {  //修改成功
+              //清空表单各种数据，以便下次打开时为空表单
+              layer.closeAll();  //关闭窗口
+              layer.msg(result.msg, {icon: 1}, function () {});
+              requestList({page:1, limit:10});  //请求列表，刷新数据
+            },
+            error: function (result) {  //失败
+              console.log(result);
+            },
+
+          });
+
+          return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+        });
+
+      });
+
+      //监听"删除"按钮，on方法动态绑定元素jq动态生成的HTML元素delete-btn
+      $(document).on('click','.delete-btn',function(){
+        var objectId = $(this).data('id');  //获取当前删除对象id
+        // console.log(objectId);
+        layer.confirm('是否删除该服务类型？', function (index) {
+          layer.close(index);  //关闭弹框
+          $.ajax({
+            type: "POST",
+            url: "http://0.0.0.0:9501/ServiceType/delete",  //请求删除服务类型的接口
+            data: {id: objectId},
+            success: function (result) {  //删除成功
+              layer.msg(result.msg);
+              requestList({page:1, limit:10});      //再次请求加载服务类型列表
+            },
+            error: function (result) {
+              layer.msg(result.responseJSON.msg, {icon: 5});
+            }
+          });
+        })
+      });
     } );
 
     //简介文本域字数限制
@@ -255,7 +481,7 @@
       $('.text_count').text(currleg);
     };
 
-    //2 监听'服务类型'下拉框，实现二级联动(即，隐藏)
+    //监听'服务类型'下拉框，实现二级联动(即，隐藏)
     form.on('select(service-type)', function(data){
       switch (Number(data.value)) {
         case 1:
@@ -281,7 +507,7 @@
       form.render();
     });
 
-    //3 监听"图片上传"按钮
+    //监听添加服务类型-"图片上传"按钮
     var uploadInst = upload.render({
       elem: '#test1'
       ,url: "http://0.0.0.0:9501/ServiceType/uploadPicture"
@@ -299,7 +525,7 @@
         }else if(result.code ===200)  //图片上传成功
         {
           pictureUrl=result.result.pictureUrl;
-          console.log(pictureUrl);
+          // console.log(pictureUrl);
           var demoText = $('#demoText');
           demoText.html('<span style="color: #4cae4c;">图片上传成功</span>');
         }
@@ -315,8 +541,44 @@
       }
     });
 
-    //4 监听'提交'按钮
-    form.on('submit(submit_btn)', function(data){
+    //监听修改服务类型-"图片上传"按钮，
+    var uploadInst2 = upload.render({
+      elem: '#modify-picture-upload-btn'
+      ,url: "http://0.0.0.0:9501/ServiceType/uploadPicture"
+      ,accept:'modify-images'
+      ,size:50000
+      ,before: function(obj){
+        obj.preview(function(index, file, result){
+          $('#edit-upload-pic').attr('src', result);
+          // console.log(result);
+          pictureUrl2=result;
+        });
+      }
+      ,done: function(result){
+        if(result.code === 400){  //图片上传失败
+          return layer.msg('图片上传失败');
+        }else if(result.code ===200)  //图片上传成功
+        {
+          pictureUrl2=result.result.pictureUrl;
+          // console.log(pictureUrl2);
+          var demoText = $('#demoText2');
+          demoText.html('<span style="color: #4cae4c;">图片上传成功</span>');
+        }
+
+      }
+      //图片上传失败，并实现重传
+      ,error: function(){
+        var demoText = $('#demoText');
+        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+        demoText.find('.demo-reload').on('click', function(){
+          uploadInst2.upload();
+        });
+      }
+    });
+
+
+    //监听添加服务类型'提交'按钮
+    form.on('submit(insert-submit-btn)', function(data){
       // console.log(data);
       // console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
       var addData=data.field;  //表单字段
@@ -325,7 +587,7 @@
         sex: addData.sex,
         price: addData.price,
         service_type: addData.service_type,
-        hair_height: addData.hair_height,
+        hair_length: addData.hair_length,
         haircut_type: 0,
         perm_type: 0,
         dye_hair_type:0,
@@ -350,7 +612,6 @@
         url: "http://0.0.0.0:9501/ServiceType/index",
         data: datas,
         success: function (result) {  //添加成功
-
           //清空表单各种数据，以便下次打开时为空表单
           $('#add-service')[0].reset();  //清空表单数据
           $('#demo1').attr('src', null);  //清除图片
@@ -369,6 +630,8 @@
       return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
 
       });
+
+
 
   });
 

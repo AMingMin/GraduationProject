@@ -726,3 +726,41 @@
 [2020-03-12 18:20:59 $13186.0]	INFO	Server is reloading all workers now
 [2020-03-12 18:21:34 $13186.0]	INFO	Server is reloading all workers now
 [2020-03-13 12:57:41 *34633.5]	NOTICE	swFactoryProcess_finish (ERRNO 1005): connection[fd=1] does not exists
+[2020-03-13 19:22:01 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:22:10 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:23:55 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:24:06 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:24:34 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:24:38 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:24:47 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:25:02 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:26:12 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:28:52 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 19:36:10 *41333.5]	NOTICE	swFactoryProcess_finish (ERRNO 1005): connection[fd=15] does not exists
+[2020-03-13 20:03:00 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 21:28:01 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 21:28:31 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 21:28:34 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-13 21:30:47 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:16:26 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:47:26 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:47:58 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:48:08 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:48:54 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:51:31 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:52:07 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:55:15 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:56:09 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:56:47 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 00:58:14 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 01:00:16 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 01:01:29 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 01:02:35 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 01:02:52 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 01:03:52 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 01:03:56 $35656.0]	INFO	Server is reloading all workers now
+[2020-03-14 01:33:26 $47234.0]	INFO	Server is reloading all workers now
+[2020-03-14 23:57:19 *68292.5]	NOTICE	swFactoryProcess_finish (ERRNO 1005): connection[fd=2] does not exists
+[2020-03-15 13:28:44 $82970.0]	INFO	Server is reloading all workers now
+[2020-03-15 13:28:59 $82970.0]	INFO	Server is reloading all workers now
+[2020-03-15 13:31:25 $82970.0]	INFO	Server is reloading all workers now

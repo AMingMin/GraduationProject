@@ -16,7 +16,7 @@ class ServiceType extends Controller
     {
         $data = $this->request()->getRequestParam();
 //        var_dump($data);
-        $data['create_staff']="创建人";  //创建人
+        $data['create_staff']=$_SESSION['admin']['name'];;  //创建人
         $data['create_time']=date('y-m-d h:i:s',time());//创建时间，当前时间
         $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
         //var_dump($_SESSION['admin']);
@@ -66,7 +66,39 @@ class ServiceType extends Controller
             'count' => $total,
             'data'  => $list
         ], '获取成功！');
+    }
 
+    /***
+     * 删除列表中的服务类型
+     *
+     * CreateTime: 2020/3/13 下午7:21
+     */
+    function delete(){
+        $data = $this->request()->getRequestParam();
+        $result = ServiceTypeService::getInstance()->serviceTypeDelete($data['id']);
+        if ($result) {
+            $this->writeJson(200, [], '删除成功');
+        } else {
+            $this->writeJson(400, [], '删除失败');
+        }
+    }
 
+    /***
+     * 更新服务类型
+     *
+     * CreateTime: 2020/3/14 上午12:47
+     */
+    function update(){
+        $data = $this->request()->getRequestParam();
+        //var_dump($data);
+        $result = ServiceTypeService::getInstance()->serviceTypeUpdate($data);
+//        $data['update_staff']=$_SESSION['admin']['name'];  //更新人
+        $data['update_staff']="更新人";  //更新人
+        $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
+        if ($result) {
+            $this->writeJson(200, [], '该会员信息更新成功');
+        } else {
+            $this->writeJson(400, [], '该会员信息更新失败');
+        }
     }
 }

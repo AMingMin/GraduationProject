@@ -48,7 +48,7 @@ class ServiceTypeService
     }
 
     /***
-     * 获取服务类型数据
+     * 查询服务类型数据
      *
      * @param $data
      * CreateTime: 2020/3/11 下午3:59
@@ -59,71 +59,67 @@ class ServiceTypeService
         $limit=$data['limit'];
         $model = ServiceType::create()->limit($limit * ($page - 1), $limit)->withTotalCount()->order('id', 'DESC');
         // 列表数据
-        $list = $model->all([], true);
+        $list = $model->all([  //已删除的不展示在页面
+            'status'=>[0,'<>']
+        ], true);
+
         $result = $model->lastQueryResult();
 //        var_dump($data);
-        //性别
-        $sexTextMap=[
-            0=>'女',
-            1=>'男'
-        ];
-        //服务类型
-        $serviceTypeMap =[
-            0=>'洗发',
-            1=>'剪发',
-            2=>'烫发',
-            3=>'染发',
-            4=>'拉直'
-        ];
-        //头发长度
-        $hairLengthMap=[
-            0=>'通用',
-            1=>'超短发',
-            2=>'短发',
-            3=>'中短发',
-            4=>'中长发',
-            5=>'长发'
-        ];
-        //剪发类型
-        $hairCutTypeMap=[
-            0=>'无',
-            1=>'板寸',
-            2=>'背头',
-            3=>'平头',
-            4=>'圆寸',
-            5=>'通用'
-        ];
-        //烫发类型
-        $permTypeMap=[
-            0=>'无',
-            1=>'编织烫',
-            2=>'螺旋烫',
-            3=>'离子烫',
-            4=>'空气烫',
-            5=>'物理烫',
-            6=>'通用'
-        ];
-        //染发色系
-        $dyeHairMap=[
-            0=>'无',
-            1=>'黑色',
-            2=>'奶奶灰',
-            3=>'紫色',
-            4=>'黄色',
-            5=>'其它配色'
-        ];
-        foreach ($list as $key => $item) {
-            $list[$key]['sex'] = $sexTextMap[$item['sex']];
-            $list[$key]['service_type'] = $serviceTypeMap[$item['service_type']];
-            $list[$key]['hair_length'] = $hairLengthMap[$item['hair_length']];
-            $list[$key]['haircut_type'] = $hairCutTypeMap[$item['haircut_type']];
-            $list[$key]['perm_type'] = $permTypeMap[$item['perm_type']];
-            $list[$key]['dye_hair_type'] = $dyeHairMap[$item['dye_hair_type']];
-        }
         $total = $result->getTotalCount();          // 总条数
         return [$list, $total];
     }
 
+    /***
+     * 删除服务类型
+     *
+     * CreateTime: 2020/3/13 下午7:24
+     */
+    public function serviceTypeDelete($id){
+        $user = ServiceType::create()->get($id);  //通过id更新记录状态
+        return $user->update([
+            'status' => 0  //状态0代表删除，
+        ]);
+    }
 
+    /***
+     * 修改服务类型
+     *
+     * CreateTime: 2020/3/14 上午12:48
+     */
+    public function serviceTypeUpdate($data){
+//        var_dump($data);
+        $id = $data['id'];
+        if($data['sex']==='女'){
+            $sex=0;
+        }else{
+            $sex=1;
+        }
+        $service_type = $data['service_type'];
+        $hair_length = $data['hair_length'];
+        $haircut_type = $data['haircut_type'];
+        $perm_type = $data['perm_type'];
+        $dye_hair_type = $data['dye_hair_type'];
+        $picture = $data['picture'];
+        $price = $data['price'];
+        $introduction = $data['introduction'];
+        $name = $data['name'];
+//        $update_staff=$data['update_staff'];
+//        $update_time=$data['update_time'];
 
+        $user = ServiceType::create()->get($id);  //通过id更新记录状态
+        return $user->update([
+            'name' => $name,
+            'sex' => $sex,
+            'service_type' => $service_type,
+            'hair_length' => $hair_length,
+            'haircut_type' => $haircut_type,
+            'perm_type' => $perm_type,
+            'dye_hair_type' => $dye_hair_type,
+            'picture' => $picture,
+            'price' => $price,
+            'introduction' => $introduction,
+//            'update_staff' => $update_staff, //更新人
+//            'update_time' =>$update_time, //更新时间，当前时间
+        ]);
+    }
 }
