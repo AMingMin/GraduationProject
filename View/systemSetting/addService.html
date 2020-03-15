@@ -304,6 +304,7 @@
     var count = 0;  //存放表中总记录数
     var listMap = {};  //存放各面板信息
     var objectId; //存放id
+
     //直接请求服务类型表，展示服务类型列表
     function requestList(params) {
       $.ajax({
@@ -321,8 +322,7 @@
                 + "<span>服务名称:</span>" +item.name+"<br>"
                 + "<span>价格:</span>" +item.price+"<br>"
                 + "<span>简介:</span>" +item.introduction+"<br>"
-                + "<button data-id="+item.id
-                + " type=\"button\" class=\"layui-btn layui-btn-xs modify-btn\"> <i class=\"layui-icon\">&#xe642;</i>\n编辑</button>"
+                + "<button data-id="+item.id + " type=\"button\" class=\"layui-btn layui-btn-xs modify-btn\"> <i class=\"layui-icon\">&#xe642;</i>\n编辑</button>"
                 + "<button data-id="+item.id+" type=\"button\" class=\"layui-btn layui-btn-xs layui-btn-danger delete-btn\"><i class=\"layui-icon\">&#xe640;</i>\n删除</button>"
               + "</div>";
             $('.panel-container').append(dom);  //每个面板下插入信息
@@ -396,8 +396,7 @@
         $("#bd_introduction").val(result.introduction);
         $("#edit-upload-pic").attr('src', '../../Static/img/service/'+result.picture);
         form.render();  //必须重载
-
-        console.log(result.picture);
+        // console.log(result.picture);
 
         //监听修改服务类型'提交'按钮
         form.on('submit(update-submit-btn)', function(data){
@@ -576,7 +575,6 @@
       }
     });
 
-
     //监听添加服务类型'提交'按钮
     form.on('submit(insert-submit-btn)', function(data){
       // console.log(data);
@@ -630,8 +628,6 @@
       return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
 
       });
-
-
 
   });
 

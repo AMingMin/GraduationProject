@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../Static/js/layui/css/layui.css"  media="all">
+    <style>
+        .service-panel {
+            display:inline-block;margin:15px;width: 300px;height:285px;border: 1px solid #00F7DE;
+        }
+
+        #steps {
+        }
+
+        .step-item {
+            display: inline-block;
+            line-height: 26px;
+            position: relative;
+            background: #ffffff;
+        }
+
+        .step-item-tail {
+            width: 100%;
+            padding: 0 10px;
+            position: absolute;
+            left: 0;
+            top: 13px;
+        }
+
+        .step-item-tail i {
+            display: inline-block;
+            width: 100%;
+            height: 1px;
+            vertical-align: top;
+            background: #c2c2c2;
+            position: relative;
+        }
+        .step-item-tail-done {
+            background: #009688 !important;
+        }
+
+        .step-item-head {
+            position: relative;
+            display: inline-block;
+            height: 26px;
+            width: 26px;
+            text-align: center;
+            vertical-align: top;
+            color: #009688;
+            border: 1px solid #009688;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+
+        .step-item-head.step-item-head-active {
+            background: #009688;
+            color: #ffffff;
+        }
+
+        .step-item-main {
+            background: #ffffff;
+            display: block;
+            position: relative;
+        }
+
+        .step-item-main-title {
+            font-weight: bolder;
+            color: #555555;
+        }
+        .step-item-main-desc {
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+<!--面包屑-->
+<div style="padding: 10px 0 0 10px;" class="layui-breadcrumb">
+    <a href="javascript:void(1);">消费收银</a>
+    <a href="javascript:void(1);"><cite>选择服务</cite></a>
+</div>
+
+<div style="padding: 20px;">
+    <div style="padding: 20px 0 20px 10%;" id="steps"></div>
+
+    <!--  第1步  -->
+    <div id="steps-one">
+        <!--存放图片面板-->
+        <div style="padding:10px; border: 1px solid #00FF00;" class="panel-container"></div>
+        <!--分页-->
+        <div id="pages"></div>
+    </div>
+    <!--  第2步  -->
+    <div id="steps-two" style="display: none;">
+        <p>第2步</p>
+        <table class="layui-hide" id="tableId" lay-filter="select-admin"></table>
+
+    </div>
+
+    <!--  第3步  -->
+    <div id="steps-three" style="display: none;">
+        <p>第3步</p>
+    </div>
+
+    <!--  第4步  -->
+    <div id="steps-four" style="display: none;">
+        <p>第4步</p>
+
+    </div>
+
+    <!--  第5步  -->
+    <div id="steps-five" style="display: none;">
+        <p>第5步</p>
+    </div>
+
+</div>
+
+<script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/layui/layui.all.js" charset="utf-8"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="confirm-btn">选定</a>
+</script>
+
+</body>
+</html>
+
+<script>
+  layui.config({
+    base: '../../Static/js/layui/plugins/'
+  });
+  layui.use(['element','laypage','steps','table'], function(){
+    var $ = layui.$;
+    var element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+    var listMap = {};  //存放各面板信息
+    var laypage = layui.laypage;  //分页
+    var steps = layui.steps;
+    var table = layui.table;
+    var data = [
+      {'title': "选择服务", "desc": ""},
+      {'title': "人员选择", "desc": ""},
+      {'title': "是否会员", "desc": ""},
+      {'title': "订单生成", "desc": ""},
+      {'title': "完成", "desc": ""}
+    ];
+    steps.make(data, '#steps', 1);
+
+    $(function () {
+        requestList({page:1, limit:10});      //每次加载该页面，请求加载服务类型列表
+      });
+
+    //监听 选择服务->"图片面板"，on方法动态绑定元素jq动态生成的HTML元素service-panel
+     $(document).on('click','.select-service-btn',function(){
+    var objectId = $(this).data('id');  //获取当前删除对象id
+    layer.confirm('确认选择该服务类型？', {
+      btn: ['确认', '取消'] //可以无限个按钮
+      ,btn1: function(index) {
+        console.log(objectId);  //当前对象的id
+        layer.close(index);  //关闭弹框
+        steps.make(data, '#steps', 2);
+        document.getElementById("steps-one").style.display="none";//隐藏"选择服务"部分
+        document.getElementById("steps-two").style.display="";//显示"人员选择"部分
+      }
+    })
+  });
+
+    //step-one请求服务类型表，展示"服务类型"列表
+    function requestList(params) {
+      $.ajax({
+        url: "http://0.0.0.0:9501/ServiceType/select",
+        data: params,  //设置当前页码，每页多少条数据
+        success: function (result) {
+          // console.log(result);  //查看获取数据
+          $('.panel-container').html('');  //清空当前面板信息
+          //设置每个面板中的展示文字+字段值
+          result.result.data.map(function (item) {
+            listMap[item.id] = item;  //各面板item以id存放
+            var dom =
+              "<div class='service-panel' >\n"
+              + "<img style='width: 300px;height:200px;' src='../../Static/img/service/"+item.picture+"'>\n"
+              + "<span>服务名称:</span>" +item.name+"<br>"
+              + "<span>价格:</span>" +item.price+"<br>"
+              + "<span>简介:</span>" +item.introduction+"<br>"
+              + "<button data-id="+item.id + " type=\"button\" class=\"layui-btn layui-btn-xs detail-btn\">细节</button>"
+              + "<button data-id="+item.id+" type=\"button\" class=\"layui-btn layui-btn-xs layui-btn-danger select-service-btn\">选定</button>"
+              + "</div>";
+            $('.panel-container').append(dom);  //每个面板下插入信息
+          });
+
+          count = result.result.count;  //总条数
+
+          //分页完整功能
+          laypage.render({
+            elem: 'pages'  //指向存放分页的容器
+            ,curr: params.page
+            ,limit: params.limit
+            ,count: count  //数据总记录数
+            ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']  //自定义排版
+            ,jump: function(obj, first){
+              if(first){  //首次执行
+                return false;
+              }
+              requestList({page:obj.curr, limit:obj.limit});  //当前页，当前条数
+            }
+          });
+        },
+        error: function (result) {
+          console.log(result);
+          layer.msg(result.responseJSON.msg, {icon: 5});
+        }
+      });
+
+    }
+
+    //-------请求接口，加载员工列表
+    table.render({
+      elem: '#tableId'
+      , url: 'http://0.0.0.0:9501/Admin/index'
+      , parseData: function (res) {
+        return {
+          code: 0,
+          msg: res.msg,
+          count: res.result.count,
+          data: res.result.data
+        };
+      }
+      , cols: [[
+        {field: 'id', title: 'ID', width: 100,align: 'center'}
+        , {field: 'name', title: '姓名', align: 'center'}
+        , {field: 'sex_txt', title: '性别', align: 'center'}
+        , {field: 'employee_type_txt', title: '类型', align: 'center'}
+        , {field: 'phone', title: '手机号',  align: 'center'}
+        , {field: 'opt', title: '操作', width: 178, fixed: 'right', toolbar: '#barDemo', align: 'center'}
+      ]]
+      , page: true,
+    });
+
+    //-------监听行工具事件
+    table.on('tool(select-admin)', function (obj) {  //注：tool是工具条事件名，test2 是 table 原始容器的属性 lay-filter="对应的值"
+      //将PHP生成的json字符串赋值给js变量
+      var result = obj.data;  //得到当前行数据
+      // console.log(obj.result);
+      //点击'选定'按钮
+      if (obj.event === 'confirm-btn') {
+        layer.confirm('是否选定该员工？', {
+          btn: ['确认', '取消'] //可以无限个按钮
+          ,btn1: function(index) {
+            layer.close(index);  //关闭弹框
+            console.log(result.id);  //获取选定员工的id
+            steps.make(data, '#steps', 3);
+            document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
+            document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
+            document.getElementById("steps-three").style.display = "";//显示"是否会员"部分
+          }
+        })
+      }
+  });
+
+
+
+  });
+</script>
