@@ -171,5 +171,24 @@ class MemberService
 
     }
 
-
+    /***
+     * 根据手机号，获取会员信息
+     *
+     * @param $phone
+     * @return array|\EasySwoole\ORM\AbstractModel|null
+     * @throws \EasySwoole\Mysqli\Exception\Exception
+     * @throws \EasySwoole\ORM\Exception\Exception
+     * @throws \Throwable
+     * CreateTime: 2020/3/16 下午5:07
+     */
+    public function memberSelect($phone){
+//        var_dump($phone);
+        $memberInfo = Member::create()
+            ->where([
+                'phone' => $phone,
+                'status' => 1
+            ])
+            ->findOne();
+        return $memberInfo;
+    }
 }

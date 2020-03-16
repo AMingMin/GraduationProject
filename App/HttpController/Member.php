@@ -15,11 +15,11 @@ class Member extends Controller
     {
         $request=$this->request();
         $data = $request->getRequestParam();
-        var_dump($data);
+//        var_dump($data);
 
         [$list, $total] = MemberService::getInstance()->memberList($data);
-        var_dump($list);
-        var_dump($total);
+//        var_dump($list);
+//        var_dump($total);
         $this->writeJson(200, [
             'count' => $total,
             'data'  => $list
@@ -83,5 +83,21 @@ class Member extends Controller
         }
     }
 
-
+    /***
+     * 根据手机号，查询会员表
+     *
+     * CreateTime: 2020/3/16 下午4:50
+     */
+    function select(){
+        $data = $this->request()->getRequestParam();
+        $result = MemberService::getInstance()->memberSelect($data['phone']);
+        var_dump($result);
+        if (empty($result)) {
+            $this->writeJson(400, [], '该手机号不存在！');
+        } else {
+            $this->writeJson(200, [
+                'result' => $result
+            ], '查询会员成功');
+        }
+    }
 }

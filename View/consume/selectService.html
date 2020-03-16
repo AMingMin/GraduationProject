@@ -84,7 +84,6 @@
 
 <div style="padding: 20px;">
     <div style="padding: 20px 0 20px 10%;" id="steps"></div>
-
     <!--  第1步  -->
     <div id="steps-one">
         <!--存放图片面板-->
@@ -94,34 +93,63 @@
     </div>
     <!--  第2步  -->
     <div id="steps-two" style="display: none;">
-        <p>第2步</p>
         <table class="layui-hide" id="tableId" lay-filter="select-admin"></table>
-
     </div>
-
     <!--  第3步  -->
     <div id="steps-three" style="display: none;">
-        <p>第3步</p>
-    </div>
-
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>会员身份确认</legend>
+        </fieldset>
+        <form class="layui-form " action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">顾客信息：</label>
+                <div class="layui-input-block">
+                    <input type="radio" lay-filter="customer-filter" name="customer" value="散客" title="散客" checked="">
+                    <input type="radio" lay-filter="member-filter" name="customer" value="会员" title="会员">
+                    <button type="button" class="layui-btn confirm-customer-type-btn" lay-filter="">确认</button>
+                </div>
+            </div>
+            <div id="customer-part" class="layui-form-item" style="display: none;">
+            </div>
+            <div id="member-part" class="layui-form-item" style="display: none;">
+                <label class="layui-form-label">会员手机号:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" class="memberPhone" style="width:200px; height:40px;" lay-verify="required" lay-reqtext="手机号不可为空！" placeholder="请输入会员手机号" autocomplete="off" class="layui-input">
+                </div>
+                <p id="memberResultText"></p>
+            </div>
+        </form>
+</div>
     <!--  第4步  -->
     <div id="steps-four" style="display: none;">
-        <p>第4步</p>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">支付方式：</label>
+            <div class="layui-input-block">
+                <input type="radio" lay-filter="" name="payType" value="现金" title="现金" checked="">
+                <input type="radio" lay-filter="" name="payType" value="微信" title="微信">
+                <input type="radio" lay-filter="" name="payType" value="会员" title="会员">
+                <input type="radio" lay-filter="" name="payType" value="支付宝" title="支付宝">
+                <input type="radio" lay-filter="" name="payType" value="刷卡" title="刷卡">
+                <input type="radio" lay-filter="" name="payType" value="其它" title="其它">
+            </div>
+            <button type="button" class="layui-btn pay-btn" lay-filter="">确认</button>
+
+        </div>
+
+
 
     </div>
-
     <!--  第5步  -->
     <div id="steps-five" style="display: none;">
         <p>第5步</p>
     </div>
 
-</div>
-
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
 <script src="../../Static/js/layui/layui.all.js" charset="utf-8"></script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="confirm-btn">选定</a>
+    <a class="layui-btn layui-btn-xs" lay-event="confirm-btn">预约</a>
 </script>
 
 </body>
@@ -131,13 +159,16 @@
   layui.config({
     base: '../../Static/js/layui/plugins/'
   });
-  layui.use(['element','laypage','steps','table'], function(){
+
+  layui.use(['element','laypage','steps','table','form'], function(){
     var $ = layui.$;
     var element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
     var listMap = {};  //存放各面板信息
     var laypage = layui.laypage;  //分页
     var steps = layui.steps;
     var table = layui.table;
+    var form = layui.form;
+    var memberData=[];  //存放手机号成功查询的会员数据
     var data = [
       {'title': "选择服务", "desc": ""},
       {'title': "人员选择", "desc": ""},
@@ -145,11 +176,13 @@
       {'title': "订单生成", "desc": ""},
       {'title': "完成", "desc": ""}
     ];
-    steps.make(data, '#steps', 1);
+    steps.make(data, '#steps', 0);
 
     $(function () {
-        requestList({page:1, limit:10});      //每次加载该页面，请求加载服务类型列表
-      });
+
+      requestList({page:1, limit:10});      //每次加载该页面，请求加载服务类型列表
+
+    });
 
     //监听 选择服务->"图片面板"，on方法动态绑定元素jq动态生成的HTML元素service-panel
      $(document).on('click','.select-service-btn',function(){
@@ -159,7 +192,7 @@
       ,btn1: function(index) {
         console.log(objectId);  //当前对象的id
         layer.close(index);  //关闭弹框
-        steps.make(data, '#steps', 2);
+        steps.make(data, '#steps', 1);
         document.getElementById("steps-one").style.display="none";//隐藏"选择服务"部分
         document.getElementById("steps-two").style.display="";//显示"人员选择"部分
       }
@@ -184,7 +217,7 @@
               + "<span>价格:</span>" +item.price+"<br>"
               + "<span>简介:</span>" +item.introduction+"<br>"
               + "<button data-id="+item.id + " type=\"button\" class=\"layui-btn layui-btn-xs detail-btn\">细节</button>"
-              + "<button data-id="+item.id+" type=\"button\" class=\"layui-btn layui-btn-xs layui-btn-danger select-service-btn\">选定</button>"
+              + "<button data-id="+item.id+" type=\"button\" class=\"layui-btn layui-btn-xs select-service-btn\">选定</button>"
               + "</div>";
             $('.panel-container').append(dom);  //每个面板下插入信息
           });
@@ -249,7 +282,7 @@
           ,btn1: function(index) {
             layer.close(index);  //关闭弹框
             console.log(result.id);  //获取选定员工的id
-            steps.make(data, '#steps', 3);
+            steps.make(data, '#steps', 2);
             document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
             document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
             document.getElementById("steps-three").style.display = "";//显示"是否会员"部分
@@ -257,6 +290,65 @@
         })
       }
   });
+
+    //监听"第3步-是否会员-散客"事件
+    form.on('radio(customer-filter)', function(data){
+      document.getElementById("customer-part").style.display="";  //显示散客
+      document.getElementById("member-part").style.display="none";  //隐藏会员
+      console.log(data.elem); //得到radio原始DOM对象
+      console.log(data.value); //被点击的radio的value值
+    });
+
+    //监听"第3步-是否会员-会员"事件
+    form.on('radio(member-filter)', function(data){
+      document.getElementById("member-part").style.display="";  //显示会员
+      document.getElementById("customer-part").style.display="none";  //隐藏散客
+      console.log(data.elem); //得到radio原始DOM对象
+      console.log(data.value); //被点击的radio的value值
+    });
+
+    //监听第3步->"确认"按钮
+    $(".confirm-customer-type-btn").click(function() {
+      console.log("点击确认按钮");
+      var val = $('input[name="customer"]:checked').val();
+      // console.log(val);  //获取当前单选框的值"散客/会员"
+      if(val==="散客"){
+        steps.make(data, '#steps', 3);
+        document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
+        document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
+        document.getElementById("steps-three").style.display = "none";//隐藏"是否会员"部分
+        document.getElementById("steps-four").style.display = "";//显示"订单生成"部分
+      } else{
+        var memberPhone = $.trim($('.memberPhone').val());
+        //用户名,密码输入规范判断
+        if(memberPhone == '')
+        {
+          layer.msg('手机号不可为空！');
+        }else{
+          $.ajax({
+            type: "POST",
+            url: "http://0.0.0.0:9501/member/select",
+            data: {phone: memberPhone},
+            success: function (result) {  //手机号存在
+              layer.msg(result.msg);
+              // console.log(result);  //后端返回该手机号全部记录信息
+              memberData=result.result.result;
+              console.log(memberData);  //后端返回该手机号全部记录信息
+              steps.make(data, '#steps', 3);
+              document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
+              document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
+              document.getElementById("steps-three").style.display = "none";//隐藏"是否会员"部分
+              document.getElementById("steps-four").style.display = "";//显示"订单生成"部分
+            },
+            error: function () {  //手机号不存在
+              var memberResultText = $('#memberResultText');
+              memberResultText.html('<span style="color: #FF5722;">该手机号未注册会员，请确认手机号是否输入正确！</span>'
+              );          }
+          });
+        }
+      }
+
+    });
 
 
 
