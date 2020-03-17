@@ -104,8 +104,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">顾客信息：</label>
                 <div class="layui-input-block">
-                    <input type="radio" lay-filter="customer-filter" name="customer" value="散客" title="散客" checked="">
-                    <input type="radio" lay-filter="member-filter" name="customer" value="会员" title="会员">
+                    <input type="radio" lay-filter="customer-filter" name="customer" value="0" title="散客" checked="">
+                    <input type="radio" lay-filter="member-filter" name="customer" value="1" title="会员">
                     <button type="button" class="layui-btn confirm-customer-type-btn" lay-filter="">确认</button>
                 </div>
             </div>
@@ -122,27 +122,38 @@
 </div>
     <!--  第4步  -->
     <div id="steps-four" style="display: none;">
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">支付方式：</label>
-            <div class="layui-input-block">
-                <input type="radio" lay-filter="" name="payType" value="现金" title="现金" checked="">
-                <input type="radio" lay-filter="" name="payType" value="微信" title="微信">
-                <input type="radio" lay-filter="" name="payType" value="会员" title="会员">
-                <input type="radio" lay-filter="" name="payType" value="支付宝" title="支付宝">
-                <input type="radio" lay-filter="" name="payType" value="刷卡" title="刷卡">
-                <input type="radio" lay-filter="" name="payType" value="其它" title="其它">
+        <form class="layui-form ">
+            <!--显示订单详情-->
+            <div class="layui-form-item">
+                <p id="ordersText"></p>
             </div>
-            <button type="button" class="layui-btn pay-btn" lay-filter="">确认</button>
-
-        </div>
-
-
+            <div class="layui-form-item">
+                <label class="layui-form-label">支付方式：</label>
+                <div class="layui-input-block">
+                    <input type="radio" lay-filter="" name="payType" value="0" title="现金" checked="">
+                    <input type="radio" lay-filter="" name="payType" value="1" title="微信">
+                    <input type="radio" lay-filter="" name="payType" value="2" title="支付宝">
+                    <input type="radio" lay-filter="" name="payType" value="3" title="刷卡">
+                    <input type="radio" lay-filter="" name="payType" value="4" title="其它">
+                    <input type="radio" lay-filter="" name="payType" value="5" title="会员卡余额">
+                    <button type="button" class="layui-btn pay-btn" lay-filter="">确认支付</button>
+                </div>
+            </div>
+            <div class="layui-form-item" id="balance-recharge" style="display: none;">
+                <label class="layui-form-label">充值金额:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" class="balance-recharge-txt" style="width:200px; height:40px;" lay-verify="required" lay-reqtext="充值金额不可为空！" placeholder="请输入充值金额" autocomplete="off" class="layui-input">
+                    <button type="button" class="layui-btn balance-recharge-btn" lay-filter="">充值</button>
+                </div>
+            </div>
+        </form>
 
     </div>
     <!--  第5步  -->
     <div id="steps-five" style="display: none;">
-        <p>第5步</p>
+        <p>支付成功！</p>
+        <img src="../../Static/img/orders/paySuccess.jpg" width="200" height="200" alt=""/>
+
     </div>
 
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
@@ -169,6 +180,15 @@
     var table = layui.table;
     var form = layui.form;
     var memberData=[];  //存放手机号成功查询的会员数据
+    var serviceTypeId = 0;  //选中服务类型id
+    var serviceTypeName = '';  //选中服务类型名称
+    var serviceTypePrice = 0;  //选中服务类型价格
+    var adminId = 0;  //选中员工id
+    var adminName='';  //选中员工姓名
+    var memberPhone =0;  //会员手机号
+    var customerVal=0;  //顾客信息，0：散客，1会员
+    var payType=0;  //支付类型，0：现金，1：微信，2：支付宝，3：刷卡，4：其它，5：会员卡余额
+    var memberBalance=0; //该会员余额
     var data = [
       {'title': "选择服务", "desc": ""},
       {'title': "人员选择", "desc": ""},
@@ -179,18 +199,23 @@
     steps.make(data, '#steps', 0);
 
     $(function () {
-
       requestList({page:1, limit:10});      //每次加载该页面，请求加载服务类型列表
-
     });
 
-    //监听 选择服务->"图片面板"，on方法动态绑定元素jq动态生成的HTML元素service-panel
+    //监听 选择服务->"选定"按钮，on方法动态绑定元素jq动态生成的HTML元素service-panel
      $(document).on('click','.select-service-btn',function(){
-    var objectId = $(this).data('id');  //获取当前删除对象id
-    layer.confirm('确认选择该服务类型？', {
+       var objectId = $(this).data('id');  //获取当前对象id
+       var result=listMap[objectId];  //当前对象面板内容
+       // console.log(objectId);  //当前对象
+       layer.confirm('确认选择该服务类型？', {
       btn: ['确认', '取消'] //可以无限个按钮
       ,btn1: function(index) {
-        console.log(objectId);  //当前对象的id
+           serviceTypeId = objectId;  //选择服务类型id
+           serviceTypeName=result.name;  //选择服务类型名称
+           serviceTypePrice=result.price;  //选择服务类型价格
+           console.log(serviceTypeId);  //当前服务类型对象的id
+           console.log(serviceTypeName);  //当前服务类型对象的名称
+           console.log(serviceTypePrice);  //当前服务类型对象的价格
         layer.close(index);  //关闭弹框
         steps.make(data, '#steps', 1);
         document.getElementById("steps-one").style.display="none";//隐藏"选择服务"部分
@@ -280,8 +305,11 @@
         layer.confirm('是否选定该员工？', {
           btn: ['确认', '取消'] //可以无限个按钮
           ,btn1: function(index) {
+            adminId=result.id;
+            adminName=result.name;
             layer.close(index);  //关闭弹框
-            console.log(result.id);  //获取选定员工的id
+            console.log(adminId);  //获取选定员工的id
+            console.log(adminName);  //获取选定员工的id
             steps.make(data, '#steps', 2);
             document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
             document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
@@ -307,19 +335,26 @@
       console.log(data.value); //被点击的radio的value值
     });
 
-    //监听第3步->"确认"按钮
+    //监听第3步->是否会员"确认"按钮
     $(".confirm-customer-type-btn").click(function() {
       console.log("点击确认按钮");
-      var val = $('input[name="customer"]:checked').val();
+      customerVal = $('input[name="customer"]:checked').val();
       // console.log(val);  //获取当前单选框的值"散客/会员"
-      if(val==="散客"){
+      if(customerVal==="0"){
         steps.make(data, '#steps', 3);
         document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
         document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
         document.getElementById("steps-three").style.display = "none";//隐藏"是否会员"部分
         document.getElementById("steps-four").style.display = "";//显示"订单生成"部分
+        var ordersText = $('#ordersText');
+        ordersText.html('<span style="color: #4cae4c;">' +
+          '【顾客】订单信息如下！！！'+"<br>"+
+          '服务名称：'+serviceTypeName+"<br>"+
+          '价格：'+serviceTypePrice+"<br>"+
+          '服务人员：'+adminName+"<br>"+
+          '</span>');
       } else{
-        var memberPhone = $.trim($('.memberPhone').val());
+        memberPhone = $.trim($('.memberPhone').val());
         //用户名,密码输入规范判断
         if(memberPhone == '')
         {
@@ -333,12 +368,24 @@
               layer.msg(result.msg);
               // console.log(result);  //后端返回该手机号全部记录信息
               memberData=result.result.result;
-              console.log(memberData);  //后端返回该手机号全部记录信息
+              // console.log(memberData);  //后端返回该手机号全部记录信息
+              console.log(memberData.balance);  //查询会员余额
+              memberBalance=memberData.balance;
               steps.make(data, '#steps', 3);
               document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
               document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
               document.getElementById("steps-three").style.display = "none";//隐藏"是否会员"部分
               document.getElementById("steps-four").style.display = "";//显示"订单生成"部分
+              var ordersText = $('#ordersText');
+              ordersText.html('<span style="color: #4cae4c;">' +
+                '【会员】订单信息如下！！！'+"<br>"+
+                '服务名称：'+serviceTypeName+"<br>"+
+                '价格：'+serviceTypePrice+"<br>"+
+                '服务人员：'+adminName+"<br>"+
+                '手机号：'+memberPhone+"<br>"+
+                '+++++++++++++++++++++++++++++'+"<br>"+
+                '【该会员余额】'+memberBalance+"<br>"+
+                '</span>');
             },
             error: function () {  //手机号不存在
               var memberResultText = $('#memberResultText');
@@ -350,7 +397,101 @@
 
     });
 
+    //监听第4步->"确认支付"按钮
+    $(".pay-btn").click(function() {
+      console.log("点击确认支付按钮");
+      payType = $('input[name="payType"]:checked').val();  //支付类型
+      if(customerVal==="0"){  //散客
+        // console.log(payType);
+        if(payType=5){
+          layer.msg("非会员不可使用会员卡余额支付！", {icon: 5});
+        }else{
+          addOrders();
+        }
+      }else{  //会员
+        if(payType=5){  //会员卡余额支付
+          var difference=Number(memberBalance-serviceTypePrice);
+          if(difference>=0){
+            //1请求接口，进行扣款，对会员表中该会员的余额进行扣款
+
+            //2生成订单
+            // addOrders();
+          }else{  //余额不足
+            layer.msg("该会员账户余额不足，请及时充值", {icon: 5});
+            //显示"充值"按钮
+            $('#balance-recharge').show();
+            $(".balance-recharge-btn").click(function() {
+              console.log("点击充值按钮");
+              var balanceRechargeTxt =Number($.trim($('.balance-recharge-txt').val()));
+              //用户名,密码输入规范判断
+              if(balanceRechargeTxt == '')
+              {
+                layer.msg('充值金额不可为空！');
+              }else{
+                //1请求接口，进行充值，将充值金额更新到会员表
+
+                //2请求接口，进行扣款
+
+                //3生成订单
+                // addOrders();
+              }
+            });
+          }
+        }else{
+          addOrders();
+        }
+
+      }
+    });
+
+    //创建订单到数据库
+    function addOrders() {
+      $.ajax({
+        type: "POST",
+        url: "http://0.0.0.0:9501/orders/index",
+        data: {
+          pay_type:payType,
+          customer_type:customerVal,
+          member_phone:memberPhone,
+          should_amount:serviceTypePrice,
+          real_amount: serviceTypePrice,
+          service_type_id:serviceTypeId,
+          service_type_name:serviceTypeName,
+          admin_id:adminId,
+          admin_name:adminName,
+        },
+        success: function (result) {  //添加订单成功
+          layer.msg(result.msg, {icon: 1}, function () {});
+          steps.make(data, '#steps', 3);
+          document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
+          document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
+          document.getElementById("steps-three").style.display = "none";//隐藏"是否会员"部分
+          document.getElementById("steps-four").style.display = "none";//隐藏"订单生成"部分
+          document.getElementById("steps-five").style.display = "";//显示"完成"部分
+          memberBalance(serviceTypePrice);  //
+        },
+        error: function (result) {  //失败
+          layer.msg(result.responseJSON.msg, {icon: 5});
+        },
+      });
+    }
+
+    // //根据会员手机号，查询会员余额
+    // function memberBalance() {
+    //   $.ajax({
+    //     type: "POST",
+    //     url: "http://0.0.0.0:9501/member/selectBalance",
+    //     data: {phone: memberPhone},
+    //     success: function (result) {  //余额足够支付，直接创建订单
+    //       layer.msg(result.msg, {icon: 1}, function () {});
+    //         // addOrders(); //创建订单
+    //       },
+    //     error: function (result) {  //余额不够支付，需充值或以散客身份支付
+    //       layer.msg(result.responseJSON.msg, {icon: 5});
+    //     },
+    //   });
+    // }
 
 
-  });
+    });
 </script>
