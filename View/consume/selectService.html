@@ -146,12 +146,19 @@
                     <button type="button" class="layui-btn balance-recharge-btn" lay-filter="">充值</button>
                 </div>
             </div>
+            <!--显示会员充值结果-->
+            <div class="layui-form-item">
+                <p id="memberAddBalanceText"></p>
+            </div>
         </form>
 
     </div>
     <!--  第5步  -->
     <div id="steps-five" style="display: none;">
-        <p>支付成功！</p>
+        <!--显示支付详情-->
+        <div class="layui-form-item">
+            <p id="ordersSuccessText"></p>
+        </div>
         <img src="../../Static/img/orders/paySuccess.jpg" width="200" height="200" alt=""/>
 
     </div>
@@ -188,7 +195,8 @@
     var memberPhone =0;  //会员手机号
     var customerVal=0;  //顾客信息，0：散客，1会员
     var payType=0;  //支付类型，0：现金，1：微信，2：支付宝，3：刷卡，4：其它，5：会员卡余额
-    var memberBalance=0; //该会员余额
+    var newBalance=0; //会员卡余额
+    var difference=0;
     var data = [
       {'title': "选择服务", "desc": ""},
       {'title': "人员选择", "desc": ""},
@@ -206,16 +214,12 @@
      $(document).on('click','.select-service-btn',function(){
        var objectId = $(this).data('id');  //获取当前对象id
        var result=listMap[objectId];  //当前对象面板内容
-       // console.log(objectId);  //当前对象
        layer.confirm('确认选择该服务类型？', {
       btn: ['确认', '取消'] //可以无限个按钮
       ,btn1: function(index) {
            serviceTypeId = objectId;  //选择服务类型id
            serviceTypeName=result.name;  //选择服务类型名称
            serviceTypePrice=result.price;  //选择服务类型价格
-           console.log(serviceTypeId);  //当前服务类型对象的id
-           console.log(serviceTypeName);  //当前服务类型对象的名称
-           console.log(serviceTypePrice);  //当前服务类型对象的价格
         layer.close(index);  //关闭弹框
         steps.make(data, '#steps', 1);
         document.getElementById("steps-one").style.display="none";//隐藏"选择服务"部分
@@ -230,7 +234,6 @@
         url: "http://0.0.0.0:9501/ServiceType/select",
         data: params,  //设置当前页码，每页多少条数据
         success: function (result) {
-          // console.log(result);  //查看获取数据
           $('.panel-container').html('');  //清空当前面板信息
           //设置每个面板中的展示文字+字段值
           result.result.data.map(function (item) {
@@ -265,7 +268,6 @@
           });
         },
         error: function (result) {
-          console.log(result);
           layer.msg(result.responseJSON.msg, {icon: 5});
         }
       });
@@ -299,7 +301,6 @@
     table.on('tool(select-admin)', function (obj) {  //注：tool是工具条事件名，test2 是 table 原始容器的属性 lay-filter="对应的值"
       //将PHP生成的json字符串赋值给js变量
       var result = obj.data;  //得到当前行数据
-      // console.log(obj.result);
       //点击'选定'按钮
       if (obj.event === 'confirm-btn') {
         layer.confirm('是否选定该员工？', {
@@ -308,8 +309,6 @@
             adminId=result.id;
             adminName=result.name;
             layer.close(index);  //关闭弹框
-            console.log(adminId);  //获取选定员工的id
-            console.log(adminName);  //获取选定员工的id
             steps.make(data, '#steps', 2);
             document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
             document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
@@ -323,23 +322,17 @@
     form.on('radio(customer-filter)', function(data){
       document.getElementById("customer-part").style.display="";  //显示散客
       document.getElementById("member-part").style.display="none";  //隐藏会员
-      console.log(data.elem); //得到radio原始DOM对象
-      console.log(data.value); //被点击的radio的value值
     });
 
     //监听"第3步-是否会员-会员"事件
     form.on('radio(member-filter)', function(data){
       document.getElementById("member-part").style.display="";  //显示会员
       document.getElementById("customer-part").style.display="none";  //隐藏散客
-      console.log(data.elem); //得到radio原始DOM对象
-      console.log(data.value); //被点击的radio的value值
     });
 
     //监听第3步->是否会员"确认"按钮
     $(".confirm-customer-type-btn").click(function() {
-      console.log("点击确认按钮");
       customerVal = $('input[name="customer"]:checked').val();
-      // console.log(val);  //获取当前单选框的值"散客/会员"
       if(customerVal==="0"){
         steps.make(data, '#steps', 3);
         document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
@@ -366,11 +359,7 @@
             data: {phone: memberPhone},
             success: function (result) {  //手机号存在
               layer.msg(result.msg);
-              // console.log(result);  //后端返回该手机号全部记录信息
               memberData=result.result.result;
-              // console.log(memberData);  //后端返回该手机号全部记录信息
-              console.log(memberData.balance);  //查询会员余额
-              memberBalance=memberData.balance;
               steps.make(data, '#steps', 3);
               document.getElementById("steps-one").style.display = "none";//隐藏"选择服务"部分
               document.getElementById("steps-two").style.display = "none";//隐藏"选择服务"部分
@@ -383,8 +372,6 @@
                 '价格：'+serviceTypePrice+"<br>"+
                 '服务人员：'+adminName+"<br>"+
                 '手机号：'+memberPhone+"<br>"+
-                '+++++++++++++++++++++++++++++'+"<br>"+
-                '【该会员余额】'+memberBalance+"<br>"+
                 '</span>');
             },
             error: function () {  //手机号不存在
@@ -399,47 +386,77 @@
 
     //监听第4步->"确认支付"按钮
     $(".pay-btn").click(function() {
-      console.log("点击确认支付按钮");
       payType = $('input[name="payType"]:checked').val();  //支付类型
       if(customerVal==="0"){  //散客
-        // console.log(payType);
-        if(payType=5){
+        var payType=Number(payType);
+        if(payType===5){
           layer.msg("非会员不可使用会员卡余额支付！", {icon: 5});
         }else{
           addOrders();
         }
       }else{  //会员
         if(payType=5){  //会员卡余额支付
-          var difference=Number(memberBalance-serviceTypePrice);
-          if(difference>=0){
-            //1请求接口，进行扣款，对会员表中该会员的余额进行扣款
-
-            //2生成订单
-            // addOrders();
-          }else{  //余额不足
-            layer.msg("该会员账户余额不足，请及时充值", {icon: 5});
-            //显示"充值"按钮
-            $('#balance-recharge').show();
-            $(".balance-recharge-btn").click(function() {
-              console.log("点击充值按钮");
-              var balanceRechargeTxt =Number($.trim($('.balance-recharge-txt').val()));
-              //用户名,密码输入规范判断
-              if(balanceRechargeTxt == '')
-              {
-                layer.msg('充值金额不可为空！');
-              }else{
-                //1请求接口，进行充值，将充值金额更新到会员表
-
-                //2请求接口，进行扣款
-
-                //3生成订单
-                // addOrders();
+          $.ajax({
+            type: "POST",
+            url: "http://0.0.0.0:9501/member/select",
+            data: {phone: memberPhone},
+            success: function (result) {  //手机号存在
+              layer.msg(result.msg);
+              memberData=result.result.result;
+              newBalance=memberData.balance;  //最新会员卡余额
+              difference=Number(newBalance-serviceTypePrice);  //会员余额-价格
+              if(difference>=0){  //会员卡余额可用于支付
+                updateBalance();  //扣款
+              }else {  //余额不足
+                layer.msg("该会员账户余额不足，请及时充值", {icon: 5});
+                //显示"充值"部分
+                $('#balance-recharge').show();
               }
-            });
-          }
-        }else{
+              },
+            error: function () {  //手机号不存在
+              var memberResultText = $('#memberResultText');
+              memberResultText.html('<span style="color: #FF5722;">该手机号未注册会员，请确认手机号是否输入正确！</span>'
+              );          }
+          });
+        }else{  //非会员卡支付
           addOrders();
         }
+      }
+    });
+
+    //会员卡"充值"按钮
+    $(".balance-recharge-btn").click(function() {
+      var balanceRechargeTxt =Number($.trim($('.balance-recharge-txt').val()));
+      var addBalance=newBalance+balanceRechargeTxt;  //会员余额+充值金额
+      //用户名,密码输入规范判断
+      if(balanceRechargeTxt == '')
+      {
+        layer.msg('充值金额不可为空！');
+      }else if(balanceRechargeTxt<100){
+        layer.msg('充值金额至少100！');
+      } else{
+        //会员卡余额充值
+        $.ajax({
+          type: "POST",
+          url: "http://0.0.0.0:9501/member/updateBalance",
+          data: {
+            phone:memberPhone,
+            balance:addBalance  //将新的余额更新到库表
+          },
+          success: function (balanceResult) {  //充值成功
+            var memberAddBalanceText = $('#memberAddBalanceText');
+            memberAddBalanceText.html('<span style="color: #4cae4c;">' +
+              '会员卡充值成功！'+"<br>"+
+              '您的会员卡余额：'+addBalance.toString()+"<br>"+
+              '</span>');
+          },
+          error: function (balanceResult) {  //失败
+            var memberAddBalanceText = $('#memberAddBalanceText');
+            memberAddBalanceText.html('<span style="color: #FF5722;">' +
+              '会员卡充值失败！'
+              +'</span>');
+          },
+        });
 
       }
     });
@@ -468,7 +485,6 @@
           document.getElementById("steps-three").style.display = "none";//隐藏"是否会员"部分
           document.getElementById("steps-four").style.display = "none";//隐藏"订单生成"部分
           document.getElementById("steps-five").style.display = "";//显示"完成"部分
-          memberBalance(serviceTypePrice);  //
         },
         error: function (result) {  //失败
           layer.msg(result.responseJSON.msg, {icon: 5});
@@ -476,22 +492,29 @@
       });
     }
 
-    // //根据会员手机号，查询会员余额
-    // function memberBalance() {
-    //   $.ajax({
-    //     type: "POST",
-    //     url: "http://0.0.0.0:9501/member/selectBalance",
-    //     data: {phone: memberPhone},
-    //     success: function (result) {  //余额足够支付，直接创建订单
-    //       layer.msg(result.msg, {icon: 1}, function () {});
-    //         // addOrders(); //创建订单
-    //       },
-    //     error: function (result) {  //余额不够支付，需充值或以散客身份支付
-    //       layer.msg(result.responseJSON.msg, {icon: 5});
-    //     },
-    //   });
-    // }
-
+    //会员卡余额"扣款"
+    function updateBalance(){
+        $.ajax({
+          type: "POST",
+          url: "http://0.0.0.0:9501/member/updateBalance",
+          data: {
+            phone:memberPhone,
+            balance:difference  //将新的余额更新到库表
+          },
+          success: function (balanceResult) {  //支付成功
+            var ordersSuccessText = $('#ordersSuccessText');
+            ordersSuccessText.html('<span style="color: #4cae4c;">' +
+              '支付成功！'+"<br>"+
+              '您的会员卡余额：'+difference.toString()+"<br>"+
+              '</span>');
+            //生成订单
+            addOrders();
+          },
+          error: function (balanceResult) {  //失败
+            layer.msg(balanceResult.responseJSON.msg, {icon: 5});
+          },
+        });
+    }
 
     });
 </script>

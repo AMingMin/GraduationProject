@@ -15,11 +15,7 @@ class Member extends Controller
     {
         $request=$this->request();
         $data = $request->getRequestParam();
-//        var_dump($data);
-
         [$list, $total] = MemberService::getInstance()->memberList($data);
-//        var_dump($list);
-//        var_dump($total);
         $this->writeJson(200, [
             'count' => $total,
             'data'  => $list
@@ -50,7 +46,6 @@ class Member extends Controller
     function update()
     {
         $data = $this->request()->getRequestParam();
-        //var_dump($data);
         $result = MemberService::getInstance()->memberUpdate($data);
         $data['update_staff']=$_SESSION['admin']['name'];  //更新人
         $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
@@ -69,12 +64,9 @@ class Member extends Controller
     function insert()
     {
         $data = $this->request()->getRequestParam();
-        var_dump($data);
         $data['create_staff']=$_SESSION['admin']['name'];
         $data['create_time']=date('y-m-d h:i:s',time());//创建时间，当前时间
         $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
-        //var_dump($_SESSION['admin']);
-        //var_dump($data);
         $result = MemberService::getInstance()->memberInsert($data);
         if ($result) {
             $this->writeJson(200, [], '会员创建成功');
@@ -91,7 +83,6 @@ class Member extends Controller
     function select(){
         $data = $this->request()->getRequestParam();
         $result = MemberService::getInstance()->memberSelect($data['phone']);
-        var_dump($result);
         if (empty($result)) {
             $this->writeJson(400, [], '该手机号不存在！');
         } else {
@@ -101,5 +92,25 @@ class Member extends Controller
         }
     }
 
+    /***
+     * 根据手机号，更新会员表余额，完成会员扣款、充值
+     *
+     * @throws \EasySwoole\Mysqli\Exception\Exception
+     * @throws \EasySwoole\ORM\Exception\Exception
+     * @throws \Throwable
+     * CreateTime: 2020/3/18 上午7:51
+     */
+    function updateBalance(){
+        $data = $this->request()->getRequestParam();
+        $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
+        $result = MemberService::getInstance()->updateBalance($data);
+        if ($result) {
+            $this->writeJson(200, [], '操作成功！');
+        } else {
+            $this->writeJson(400, [
+                'result' => $result
+            ], '操作失败！');
+        }
+    }
 
 }

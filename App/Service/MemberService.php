@@ -87,38 +87,28 @@ class MemberService
      */
     public function memberUpdate($data)
     {
-        //var_dump($data);
-        $id = $data['id'];
-        $name=$data['name'];
         if($data['sex']==='女'){
             $sex=0;
         }else{
             $sex=1;
         }
-        $phone=$data['phone'];
         if($data['status']==='正常'){
             $status=1;
         }else if($data['status']==='过期'){
             $status=2;
         }
-        $balance=$data['balance'];
-        $member_level=$data['member_level'];
-        $know_space=$data['know_space'];
-        $update_staff=$data['update_staff'];
-        $introduction=$data['introduction'];
-        $update_time=$data['update_time'];
-        $user = Member::create()->get($id);  //通过id更新记录状态
+        $user = Member::create()->get($data['id']);  //通过id更新记录状态
         return $user->update([
-            'name' => $name,
+            'name' => $data['name'],
             'sex' => $sex,
-            'phone' => $phone,
+            'phone' => $data['phone'],
             'status' => $status,
-            'balance' => $balance,
-            'member_level' => $member_level,
-            'know_space' => $know_space,
-            'introduction' => $introduction,
-            'update_staff' => $update_staff, //更新人
-            'update_time' =>$update_time, //更新时间，当前时间
+            'balance' => $data['balance'],
+            'member_level' => $data['member_level'],
+            'know_space' => $data['know_space'],
+            'introduction' => $data['introduction'],
+            'update_staff' => $data['update_staff'], //更新人
+            'update_time' =>$data['update_time'], //更新时间，当前时间
         ]);
     }
 
@@ -131,8 +121,6 @@ class MemberService
      */
     public function memberInsert($data)
     {
-        //var_dump('向数据库插入');
-        $name=$data['name'];
         if($data['sex']==='女'){
             $sex=0;
         }else{
@@ -144,31 +132,21 @@ class MemberService
         }else if($data['status']==='过期'){
             $status=2;
         }
-        $balance=$data['balance'];
-        $member_level=$data['member_level'];
-        $know_space=$data['know_space'];
-        $update_staff=$data['update_staff'];
-        $introduction=$data['introduction'];
-        $create_time=$data['create_time'];
-        $update_time=$data['update_time'];
-        $create_staff=$data['create_staff'];
         $model = Member::create([
-            'name' => $name,
+            'name' => $data['name'],
             'sex' => $sex,
             'phone' => $phone,
             'status' => $status,
-            'balance' => $balance,
-            'member_level' => $member_level,
-            'know_space' => $know_space,
-            'introduction' => $introduction,
-            'create_staff' => $create_staff,  //更新人初始为新建人
-            'update_staff' => $create_staff,  //更新人初始为新建人
-            'create_time' =>$create_time, //更新时间，当前时间
-            'update_time' =>$create_time, //更新时间，当前时间
+            'balance' => $data['balance'],
+            'member_level' => $data['member_level'],
+            'know_space' => $data['know_space'],
+            'introduction' => $data['introduction'],
+            'create_staff' => $data['create_staff'],  //更新人初始为新建人
+            'update_staff' => $data['create_staff'],  //更新人初始为新建人
+            'create_time' =>$data['create_time'], //更新时间，当前时间
+            'update_time' =>$data['update_time'], //更新时间，当前时间
         ]);
         return $res = $model->save();
-
-
     }
 
     /***
@@ -182,7 +160,6 @@ class MemberService
      * CreateTime: 2020/3/16 下午5:07
      */
     public function memberSelect($phone){
-//        var_dump($phone);
         $memberInfo = Member::create()
             ->where([
                 'phone' => $phone,
@@ -190,5 +167,26 @@ class MemberService
             ])
             ->findOne();
         return $memberInfo;
+    }
+
+    /***
+     * 会员扣款支付，更新余额
+     *
+     * @param $phone
+     * @return array|bool|\EasySwoole\ORM\AbstractModel|null
+     * @throws \EasySwoole\Mysqli\Exception\Exception
+     * @throws \EasySwoole\ORM\Exception\Exception
+     * @throws \Throwable
+     * CreateTime: 2020/3/18 上午7:58
+     */
+    public function updateBalance($data){
+
+        $phone=$data['phone'];
+        $balance=$data['balance'];
+        $memberResult = Member::create()->get($phone);  //通过phone更新记录状态
+        return $memberResult->update([
+            'balance' => $balance,
+            'update_time' =>$data['update_time']
+        ]);
     }
 }
