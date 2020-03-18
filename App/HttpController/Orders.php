@@ -27,4 +27,21 @@ class Orders extends Controller
         }
     }
 
+    /***
+     * 查询订单信息
+     *
+     * CreateTime: 2020/3/19 上午12:48
+     */
+    function select()
+    {
+        $request=$this->request();
+        $data = $request->getRequestParam();
+        [$list, $total] = OrdersService::getInstance()->ordersList($data);
+
+        $this->writeJson(200, [
+            'count' => $total,
+            'data'  => $list
+        ], '获取成功！');
+
+    }
 }
