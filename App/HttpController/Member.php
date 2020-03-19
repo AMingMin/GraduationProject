@@ -113,4 +113,13 @@ class Member extends Controller
         }
     }
 
+    /***
+     * 近7日会员办理情况统计
+     *
+     * CreateTime: 2020/3/19 下午8:11
+     */
+    function sevenDayEcharts(){
+
+    }
+
 }

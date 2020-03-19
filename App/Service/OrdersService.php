@@ -69,7 +69,7 @@ class OrdersService
         foreach ($list as $key => $item) {
             $list[$key]['status_txt'] = $statusTextMap[$item['status']];
             $list[$key]['pay_type_txt'] = $payTypeTextMap[$item['pay_type']];
-            $list[$key]['customer_type'] = $customerTypeTextMap[$item['customer_type']];
+            $list[$key]['customer_type_txt'] = $customerTypeTextMap[$item['customer_type']];
         }
         // 总条数
         $total = $result->getTotalCount();
