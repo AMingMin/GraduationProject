@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../Static/js/layui/css/layui.css"  media="all">
+    <style>
+        .maxDiv{
+            font-family: '宋体';
+            font-size: 25px;
+            font-weight: bold;
+            line-height: 100px;/*让黄色div中的文字内容垂直居中*/
+            text-align: center;/*让文字水平居中*/
+        }
+    </style>
+    <!-- 引入 echarts.js -->
+    <script src="../../Static/js/echarts/echarts.min.js"></script>
+</head>
+<body>
+<div class="maxDiv" class="">
+    <div id="column1" style="background-color: lightpink;float:left;width:50%;height: 100px"></div>
+    <div id="column2" style="background-color :cyan;float:left;width:50%"></div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="today-orders-echarts" style="padding-top: 120px; width: 1300px;height:460px;"></div>
+</div>
+
+
+<script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+
+<script>
+  layui.use(['element','form'], function() {
+    var $ = layui.$;
+    var form = layui.form;
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    var total=0;
+    var todaymembertotal=0;
+    $(function () {
+        requestTodayOrdersTotal();
+        requestTodayAddMemberTotal();
+    });
+
+    //今日订单总数
+    function requestTodayOrdersTotal(){
+      $.ajax({
+        type: "POST",
+        url: "http://0.0.0.0:9501/Orders/selectTodayOrdersTotal",
+        success: function (result) {
+          // layer.msg(result.msg, {icon: 1}, function () {});
+          // console.log(result);
+          keysX=result.result.keys;
+          valuesY=result.result.values;
+          todayOrdersChartShow(keysX, valuesY);
+          total=result.result.sum;  //今日订单总数
+          $('#column1').append('今日消费人次：'+total);
+        },
+        error: function (result) {  //失败
+          console.log(result);
+        },
+
+      });
+
+    }
+
+    //今日新增会员
+    function requestTodayAddMemberTotal(){
+      $.ajax({
+        type: "POST",
+        url: "http://0.0.0.0:9501/member/selectTodayAddMemberTotal",
+        success: function (result) {
+          // console.log(result.result[0].total);
+          todaymembertotal=result.result[0].total;  //今日新增会员
+          $('#column2').append('今日新增会员：'+todaymembertotal);
+        },
+        error: function (result) {  //失败
+          console.log(result);
+        },
+
+      });
+
+    }
+
+  });
+  //今日订单表格
+  function todayOrdersChartShow(keysX, valuesY) {
+    var myChart = echarts.init(document.getElementById('today-orders-echarts'));
+    var option = {
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: keysX  //横坐标
+      },title: {
+        left: 'center',
+        text: '今日订单统计',
+      },
+      yAxis: {
+        type: 'value',
+        interval: 1
+      },
+      series: [{
+        data: valuesY,  //纵坐标
+        type: 'line',
+        areaStyle: {},
+        minInterval: 0
+      }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+  }
+
+</script>
+
+</body>
+</html>
+

@@ -76,5 +76,113 @@ class OrdersService
         return [$list, $total];
     }
 
+    /***
+     * 近7天订单成交量
+     *
+     * @return array
+     * CreateTime: 2020/3/20 下午5:35
+     */
+    public function sevenDaysEcharts(){
+        //设置指定时间段
+        $start = date('Y-m-d', strtotime('-6 days')) . " 00:00:00";
+        $end = date('Y-m-d', time()) . " 23:59:59";
+        //获取指定时间段的查询结果
+        $result = Orders::create()->dayCount([
+            $start, $end
+        ]);
+        //日期转换时间戳，便于循环
+        $start = strtotime($start);
+        $end = strtotime($end);
+        //遍历查询结果，组成键值对
+        $values=[];
+        for ($i=$start; $i<=$end; $i= $i+60*60*24)
+        {
+            $day = date('Y-m-d', $i);
+            $kes[] = $day;
+            if (isset($result[$day]))
+            {
+                $values[] = $result[$day]['total'];
+            } else {
+                $values[] = 0;
+            }
+        }
+        return ['keys'=>$kes, 'values'=>$values];
+
+    }
+
+    /***
+     * 本月订单成交量
+     *
+     * @return array
+     * CreateTime: 2020/3/20 下午5:35
+     */
+    public function currentMonthEcharts(){
+        //设置指定时间段
+        $start = date('Y-m-01', strtotime('+0 days')) . " 00:00:00";  //当前月第一天
+        $end = date('Y-m-d', time()) . " 23:59:59";
+        //获取指定时间段的查询结果
+        $result = Orders::create()->dayCount([
+            $start, $end
+        ]);
+        //日期转换时间戳，便于循环
+        $start = strtotime($start);
+        $end = strtotime($end);
+        //遍历查询结果，组成键值对
+        $values=[];
+        for ($i=$start; $i<=$end; $i= $i+60*60*24)
+        {
+            $day = date('Y-m-d', $i);
+            $kes[] = $day;
+            if (isset($result[$day]))
+            {
+                $values[] = $result[$day]['total'];
+            } else {
+                $values[] = 0;
+            }
+        }
+        return ['keys'=>$kes, 'values'=>$values];
+
+    }
+
+    /***
+     * 今日订单数
+     *
+     * @return array
+     * @throws \EasySwoole\ORM\Exception\Exception
+     * CreateTime: 2020/3/20 下午8:56
+     */
+    public function selectTodayOrdersTotal(){
+        //设置指定时间段
+        $start = date('Y-m-d', time()) . " 00:00:00";
+        $end = date('Y-m-d', time()) . " 23:59:59";
+        //获取指定时间段的查询结果
+        $result = Orders::create()->hourCount([
+            $start, $end
+        ]);
+        //日期转换时间戳，便于循环
+        $start = strtotime($start);
+        $end = strtotime($end);
+        //遍历查询结果，组成键值对
+        $values=[];
+        for ($i=$start; $i<=$end; $i= $i+60*60)
+        {
+            $day = date('Y-m-d H', $i);
+            $key = date('H', $i)+1;
+            $kes[] = "{$key}时";
+
+            if (isset($result[$day]))
+            {
+                $values[] = $result[$day]['total'];
+            } else {
+                $values[] = 0;
+            }
+            $sum=0;
+            foreach($values as $key=>$item){
+                $sum=$sum+$item;
+            }
+        }
+        return ['keys'=>$kes, 'values'=>$values,'sum'=>$sum];
+
+    }
 
 }

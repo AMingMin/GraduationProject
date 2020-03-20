@@ -17,8 +17,8 @@ class Orders extends Controller
 //        var_dump($data);
         $data['status']=1;  //支付状态,暂定默认：支付
         $data['member_discount']=1;  //折扣率
-        $data['create_time']=date('y-m-d h:i:s',time());
-        $data['finish_time']=date('y-m-d h:i:s',time());
+        $data['create_time']=date('Y-m-d H:i:s',time());
+        $data['finish_time']=date('Y-m-d H:i:s',time());
         $result = OrdersService::getInstance()->ordersInsert($data);
         if ($result) {
             $this->writeJson(200, [], '订单支付成功');
@@ -43,5 +43,53 @@ class Orders extends Controller
             'data'  => $list
         ], '获取成功！');
 
+    }
+
+    /***
+     * 近7日，订单成交量
+     *
+     * CreateTime: 2020/3/20 下午5:33
+     */
+    function sevenDaysEcharts(){
+        $result = OrdersService::getInstance()->sevenDaysEcharts();
+        if ($result) {
+            $this->writeJson(200, $result, '查询成功！');
+        } else {
+            $this->writeJson(400, [
+                'result' => $result
+            ], '查询失败！');
+        }
+    }
+
+    /***
+     * 本月，订单成交量
+     *
+     * CreateTime: 2020/3/20 下午5:34
+     */
+    function currentMonthEcharts(){
+        $result = OrdersService::getInstance()->currentMonthEcharts();
+        if ($result) {
+            $this->writeJson(200, $result, '查询成功！');
+        } else {
+            $this->writeJson(400, [
+                'result' => $result
+            ], '查询失败！');
+        }
+    }
+
+    /***
+     * 查询今日订单成交
+     *
+     * CreateTime: 2020/3/20 下午8:53
+     */
+    function selectTodayOrdersTotal(){
+        $result = OrdersService::getInstance()->selectTodayOrdersTotal();
+        if ($result) {
+            $this->writeJson(200, $result, '查询成功！');
+        } else {
+            $this->writeJson(400, [
+                'result' => $result
+            ], '查询失败！');
+        }
     }
 }

@@ -13,13 +13,13 @@
 <body>
 <div style="padding: 10px 0 0 10px;" class="layui-breadcrumb">
     <a href="javascript:void(1);">数据统计</a>
-    <a href="javascript:void(1);"><cite>会员分析</cite></a>
+    <a href="javascript:void(1);"><cite>订单分析</cite></a>
 </div>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-    <legend>会员办理统计图</legend>
+    <legend>订单成交量</legend>
 </fieldset>
 <form class="layui-form">
-    <!--选择会员数据统计时间段-->
+    <!--选择订单数据统计时间段-->
     <div class="layui-form-item">
         <label class="layui-form-label">时间段：</label>
         <div class="layui-input-block">
@@ -47,28 +47,28 @@
     var valuesY=[];
 
     $(function () {
-      document.getElementById("seven-days-part").style.display="";  //会员办理，近7日会员数据统计部分
+      document.getElementById("seven-days-part").style.display="";  //订单成交，近7日订单数据统计部分
       sevenDaysRequestList();
     });
 
-    //会员办理，选择"近7日"
+    //订单成交，选择"近7日"
     form.on('radio(seven-days-filter)', function(data){
       document.getElementById("seven-days-part").style.display="";  //显示"近7日"
       document.getElementById("last-month-part").style.display="none";
     });
 
-    //会员办理，选择"本月"
+    //订单成交，选择"本月"
     form.on('radio(current-month-filter)', function(data){
       document.getElementById("seven-days-part").style.display="none";
       document.getElementById("last-month-part").style.display="";
       currentMonthRequestList();
     });
 
-    //会员办理，近7日会员注册数据
+    //订单成交，近7日
     function sevenDaysRequestList() {
       $.ajax({
         type: "POST",
-        url: "http://0.0.0.0:9501/member/sevenDaysEcharts",
+        url: "http://0.0.0.0:9501/orders/sevenDaysEcharts",
         success: function (result) {  //成功
           keysX=result.result.keys;
           valuesY=result.result.values;
@@ -80,11 +80,11 @@
       });
     }
 
-    //本月会员注册数据
+    //本月订单成交数据
     function currentMonthRequestList() {
       $.ajax({
         type: "POST",
-        url: "http://0.0.0.0:9501/member/currentMonthEcharts",
+        url: "http://0.0.0.0:9501/orders/currentMonthEcharts",
         success: function (result) {  //成功
           keysX=result.result.keys;
           valuesY=result.result.values;
@@ -102,21 +102,44 @@
   //近7日图表显示
   function sevenDaysChartShow(keysX, valuesY) {
     var myChart = echarts.init(document.getElementById('seven-day-echarts'));
-    // console.log(keysX);
-    var  option = {
-      xAxis: {
-        type: 'category',
-        data: keysX  //横坐标
+    var option = {
+      color: ['#3398DB'],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
       },
-      yAxis: {
-        type: 'value'
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
       },
-      series: [{
-        data: valuesY,  //纵坐标
-        type: 'line',
-        smooth: true
-      }]
+      xAxis: [
+        {
+          type: 'category',
+          data: keysX,
+          axisTick: {
+            alignWithLabel: true
+          }
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: '直接访问',
+          type: 'bar',
+          barWidth: '60%',
+          data: valuesY
+        }
+      ]
     };
+
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
   }
@@ -125,19 +148,42 @@
   function currentMonthChartShow(keysX, valuesY) {
     var myChart = echarts.init(document.getElementById('current-month-echarts'));
     // console.log(keysX);
-    var  option = {
-      xAxis: {
-        type: 'category',
-        data: keysX  //横坐标
+    var option = {
+      color: ['#3398DB'],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
       },
-      yAxis: {
-        type: 'value'
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
       },
-      series: [{
-        data: valuesY,  //纵坐标
-        type: 'line',
-        smooth: true
-      }]
+      xAxis: [
+        {
+          type: 'category',
+          data: keysX,
+          axisTick: {
+            alignWithLabel: true
+          }
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: '直接访问',
+          type: 'bar',
+          barWidth: '60%',
+          data: valuesY
+        }
+      ]
     };
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);

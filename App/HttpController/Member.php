@@ -118,8 +118,48 @@ class Member extends Controller
      *
      * CreateTime: 2020/3/19 下午8:11
      */
-    function sevenDayEcharts(){
-
+    function sevenDaysEcharts(){
+        $result = MemberService::getInstance()->sevenDaysEcharts();
+        if ($result) {
+            $this->writeJson(200, $result, '查询成功！');
+        } else {
+            $this->writeJson(400, [
+                'result' => $result
+            ], '查询失败！');
+        }
     }
+
+    /***
+     * 本月会员办理情况
+     *
+     * CreateTime: 2020/3/20 下午3:33
+     */
+    function currentMonthEcharts(){
+        $result = MemberService::getInstance()->currentMonthEcharts();
+        if ($result) {
+            $this->writeJson(200, $result, '查询成功！');
+        } else {
+            $this->writeJson(400, [
+                'result' => $result
+            ], '查询失败！');
+        }
+    }
+
+    /***
+     * 今日新增会员统计
+     *
+     * CreateTime: 2020/3/20 下午11:21
+     */
+    function selectTodayAddMemberTotal(){
+        $result = MemberService::getInstance()->selectTodayAddMemberTotal();
+        if ($result) {
+            $this->writeJson(200, $result, '查询成功！');
+        } else {
+            $this->writeJson(400, [
+                'result' => $result
+            ], '查询失败！');
+        }
+    }
+
 
 }

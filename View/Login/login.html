@@ -190,7 +190,7 @@
               success: function (result) {
                 $.cookie('admin', result.result, {expires: 1, path: '/'});
                 layer.msg(result.msg, {}, function () {
-                  location.href = '../home.html';
+                  location.href = '../main/home.html';
                 });
               },
               error: function (result) {

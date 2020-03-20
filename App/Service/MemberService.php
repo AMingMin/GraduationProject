@@ -3,6 +3,8 @@ namespace App\Service;
 
 use App\Model\Member;
 use EasySwoole\Component\Singleton;
+use EasySwoole\Mysqli\QueryBuilder;
+use EasySwoole\ORM\DbManager;
 
 class MemberService
 {
@@ -189,4 +191,89 @@ class MemberService
             'update_time' =>$data['update_time']
         ]);
     }
+
+    /***
+     * 查询指定时间段会员的办理情况
+     *
+     * CreateTime: 2020/3/20 下午12:59
+     */
+    public function sevenDaysEcharts(){
+        //设置指定时间段
+        $start = date('Y-m-d', strtotime('-6 days')) . " 00:00:00";
+        $end = date('Y-m-d', time()) . " 23:59:59";
+        //获取指定时间段的查询结果
+        $result = Member::create()->dayCount([
+            $start, $end
+        ]);
+        //日期转换时间戳，便于循环
+        $start = strtotime($start);
+        $end = strtotime($end);
+        //遍历查询结果，组成键值对
+        $values=[];
+        for ($i=$start; $i<=$end; $i= $i+60*60*24)
+        {
+            $day = date('Y-m-d', $i);
+            $kes[] = $day;
+            if (isset($result[$day]))
+            {
+                $values[] = $result[$day]['total'];
+            } else {
+                $values[] = 0;
+            }
+        }
+        return ['keys'=>$kes, 'values'=>$values];
+
+    }
+
+    /***
+     * 本月会员办理
+     *
+     * @return array
+     * @throws \EasySwoole\ORM\Exception\Exception
+     * CreateTime: 2020/3/20 下午3:34
+     */
+    public function currentMonthEcharts(){
+        //设置指定时间段
+        $start = date('Y-m-01', strtotime('+0 days')) . " 00:00:00";  //当前月第一天
+        $end = date('Y-m-d', time()) . " 23:59:59";
+        //获取指定时间段的查询结果
+        $result = Member::create()->dayCount([
+            $start, $end
+        ]);
+        //日期转换时间戳，便于循环
+        $start = strtotime($start);
+        $end = strtotime($end);
+        //遍历查询结果，组成键值对
+        $values=[];
+        for ($i=$start; $i<=$end; $i= $i+60*60*24)
+        {
+            $day = date('Y-m-d', $i);
+            $kes[] = $day;
+            if (isset($result[$day]))
+            {
+                $values[] = $result[$day]['total'];
+            } else {
+                $values[] = 0;
+            }
+        }
+        return ['keys'=>$kes, 'values'=>$values];
+
+    }
+
+    /***
+     * 查询指定时间段会员的办理情况
+     *
+     * CreateTime: 2020/3/20 下午12:59
+     */
+    public function selectTodayAddMemberTotal(){
+        //设置指定时间段
+        $start = date('Y-m-d', time()) . " 00:00:00";
+        $end = date('Y-m-d', time()) . " 23:59:59";
+        //获取指定时间段的查询结果
+        return $result = Member::create()->todayCount([
+            $start, $end
+        ]);
+
+    }
+
 }

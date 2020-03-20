@@ -54,7 +54,6 @@ class AdminService
 
         // 总条数
         $total = $result->getTotalCount();
-
         return [$list, $total];
     }
 

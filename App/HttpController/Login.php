@@ -42,6 +42,7 @@ class Login extends Controller
             $token = $jwtObject->__toString();
             $this->writeJson(200, $token, 'c...');
         }
+
     }
 
 }
