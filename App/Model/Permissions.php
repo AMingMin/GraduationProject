@@ -1,7 +1,11 @@
 <?php
-/**
- * @CreateTime:   2020/3/22 下午9:32
- * @Author:       huizhang  <tuzisir@163.com>
- * @Copyright:    copyright(2020) Easyswoole all rights reserved
- * @Description:
- */
+namespace App\Model;
+
+use EasySwoole\ORM\AbstractModel;
+
+class Permissions extends AbstractModel
+{
+    protected $tableName='permissions';  //数据库中权限表
+
+
+}

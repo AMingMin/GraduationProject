@@ -3,9 +3,9 @@ namespace App\Model;
 
 use EasySwoole\ORM\AbstractModel;
 
-class Permissions extends AbstractModel
+class Role extends AbstractModel
 {
-    protected $tableName='permissions';  //数据库中权限表
+    protected $tableName='role';  //数据库中角色表
 
 
 }

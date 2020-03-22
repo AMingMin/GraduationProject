@@ -1206,3 +1206,154 @@
 [2020-03-21 00:09:13 $60858.0]	INFO	Server is reloading all workers now
 [2020-03-21 00:10:07 $60858.0]	INFO	Server is reloading all workers now
 [2020-03-21 00:11:02 $60858.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:30:41 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:31:05 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:31:35 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:31:56 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:32:20 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:32:24 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:32:37 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:33:14 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:33:26 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:34:19 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:34:25 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:34:36 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:36:09 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:36:24 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:36:48 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:37:02 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:37:17 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:37:21 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:37:33 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:38:22 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:43:16 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:43:27 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:43:43 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:48:59 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:49:05 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:49:29 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:50:06 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:50:30 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:51:10 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:51:12 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:51:17 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:51:21 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:51:25 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:52:06 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:52:19 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:52:34 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 21:52:44 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:43:31 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:44:04 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:44:26 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:45:02 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:45:11 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:45:31 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:49:33 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:50:02 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:50:03 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:50:43 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:52:04 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:52:13 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:52:56 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:54:55 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:55:03 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 22:55:24 *2148.5]	NOTICE	swFactoryProcess_finish (ERRNO 1005): connection[fd=22] does not exists
+[2020-03-22 23:01:49 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:01:54 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:02:03 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:02:15 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:02:35 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:02:48 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:02:58 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:03:01 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:03:13 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:03:18 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:03:30 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:03:37 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:03:49 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:04:06 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:04:15 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:04:32 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:04:42 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:05:39 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:05:48 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:06:03 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:08:10 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:10:46 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:10:57 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:11:21 *2651.7]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 $72696.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2650.6]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2649.5]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2648.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2647.3]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2646.2]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2645.1]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2644.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 #72695.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 $72696.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 $72696.0]	WARNING	swManager_check_exit_status: worker#12[pid=72709] abnormal exit, status=0, signal=1
+[2020-03-22 23:11:21 #72695.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2651.7]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2650.6]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2649.5]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2648.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2647.3]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2645.1]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2644.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 *2646.2]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-03-22 23:11:21 $72696.0]	WARNING	swManager_check_exit_status: worker#11[pid=72708] abnormal exit, status=0, signal=1
+[2020-03-22 23:11:21 $72696.0]	WARNING	swManager_check_exit_status: worker#10[pid=72707] abnormal exit, status=0, signal=1
+[2020-03-22 23:11:21 $72696.0]	WARNING	swManager_check_exit_status: worker#9[pid=72706] abnormal exit, status=0, signal=1
+[2020-03-22 23:11:21 $72696.0]	WARNING	swManager_check_exit_status: worker#8[pid=72705] abnormal exit, status=0, signal=1
+[2020-03-22 23:21:01 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:21:31 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:21:48 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:25:56 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:26:03 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:26:50 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:28:14 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:28:43 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:29:13 *3057.5]	NOTICE	php_swoole_server_rshutdown (ERRNO 9003): worker process is terminated by exit()/die()
+[2020-03-22 23:30:03 *3070.5]	NOTICE	php_swoole_server_rshutdown (ERRNO 9003): worker process is terminated by exit()/die()
+[2020-03-22 23:30:22 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:30:27 *3110.5]	NOTICE	php_swoole_server_rshutdown (ERRNO 9003): worker process is terminated by exit()/die()
+[2020-03-22 23:31:00 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:31:27 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:31:40 *3162.5]	NOTICE	php_swoole_server_rshutdown (ERRNO 9003): worker process is terminated by exit()/die()
+[2020-03-22 23:31:55 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:31:58 *3196.5]	NOTICE	php_swoole_server_rshutdown (ERRNO 9003): worker process is terminated by exit()/die()
+[2020-03-22 23:33:29 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:33:31 *3234.5]	NOTICE	php_swoole_server_rshutdown (ERRNO 9003): worker process is terminated by exit()/die()
+[2020-03-22 23:33:57 *3245.5]	NOTICE	php_swoole_server_rshutdown (ERRNO 9003): worker process is terminated by exit()/die()
+[2020-03-22 23:34:22 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:34:30 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:52:50 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:56:09 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:56:42 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:56:50 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:57:11 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:57:32 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-22 23:59:42 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:00:11 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:00:22 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:01:14 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:02:16 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:02:21 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:02:23 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:02:26 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:38 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:40 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:41 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:43 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:44 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:47 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:51 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:54 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:55 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:57 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:03:58 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:04:00 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:04:01 $72696.0]	INFO	Server is reloading all workers now
+[2020-03-23 00:04:04 $72696.0]	INFO	Server is reloading all workers now
