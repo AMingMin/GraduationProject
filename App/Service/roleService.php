@@ -43,11 +43,19 @@ class roleService
      */
     public function roleInsert($data)
     {
+        $permissionId = [];
+        foreach ($data['permission']??[] as $twoId => $oneId)
+        {
+            $permissionId[$oneId][] = $twoId;
+        }
+
         $model = Role::create([
-            'role_name' => $data['role_name'],
-            'role_introduction' => $data['role_introduction'],
-            'permission_id' => $data['permission_id'],
+            'role_name' => $data['roleName'],
+            'role_introduction' => $data['roleIntroduction'],
+            'permission_id' => json_encode($permissionId, JSON_UNESCAPED_UNICODE),
+            'status' => 1
         ]);
+
         return $res = $model->save();
     }
 

@@ -44,19 +44,13 @@ class Role extends Controller
     }
 
     function get(){
-//        $data = $this->request()->getRequestParam();
-        var_dump("测试");
         $result = RoleService::getInstance()->roleSelect();
-        var_dump($result);
 
         if ($result) {
-            var_dump($result);
-//            $this->writeJson(200, [], '角色创建成功');
+            $this->writeJson(200, [], '角色创建成功');
         } else {
-            var_dump("失败");
-
-//            $this->writeJson(400, [], '角色创建失败');
+            $this->writeJson(400, [], '角色创建失败');
         }
-
     }
+
 }

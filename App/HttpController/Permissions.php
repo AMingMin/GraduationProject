@@ -26,4 +26,10 @@ class Permissions extends Controller
         ], '获取成功！');
 
     }
+
+    public function permissionsOptions()
+    {
+        $result = PermissionsService::getInstance()->permissionsOptions();
+        $this->writeJson(200, $result, '获取成功！');
+    }
 }

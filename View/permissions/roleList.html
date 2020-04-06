@@ -30,11 +30,8 @@
                     <input type="text" style="width:200px; height:40px;" name="roleIntroduction" required  placeholder="请输入角色说明" lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">权限Id：</label>
-                <div class="layui-input-block" style="width:200px; height:40px;">
-                    <input type="text" name="permissionId" required placeholder="请输入权限Id" lay-verify="required" autocomplete="off" class="layui-input">
-                </div>
+            <div class="layui-form-item permissions-options">
+
             </div>
         </div>
     </form>
@@ -70,17 +67,43 @@
         , {field: 'role_name', title: '角色名称', align: 'center'}
         , {field: 'role_introduction', title: '角色说明', align: 'center'}
         , {field: 'create_staff', title: '创建人', align: 'center'}
-        , {field: 'update_staff', title: '更新人', align: 'center'}
         , {field: 'create_time', title: '创建时间', width: 170, align: 'center'}
-        , {field: 'update_time', title: '更新时间', width: 170, align: 'center'}
         , {field: 'permission_id', title: '权限Id', align: 'center'}
       ]]
       , page: true,
     });
 
+    /**
+     * 获取页面所需权限
+     */
+    function getFuncs()
+    {
+      $.ajax({
+        type: "POST",
+        url: "http://0.0.0.0:9501/permissions/permissionsOptions",
+        success: function (result) {
+          permissions = result.result;
+          let options = '<div style="margin:10px;padding:10px;">';
+          permissions.map(item=> {
+              options += '<div style="margin:10px;">';
+              options += '<h3>'+item.permission_name+'</h3>';
+              item.two.map(twoItem => {
+                options += '<input value="'+item.id+'" name="permission['+twoItem.id+']" type="checkbox" lay-skin="primary" title="'+twoItem.permission_name+'">';
+              });
+              options += '</div>';
+          });
+          options += '</div>';
+          $('.permissions-options').html(options);
+          form.render();
+        },
+        error: function (result) {
+        }
+      });
+    }
 
     //-------'添加角色'按钮
     $(function(){
+        getFuncs();
       $(".addRole-btn").click(function() {
         layer.open({
           title: '添加新角色信息',
@@ -94,27 +117,23 @@
           //'确定'按钮
           yes: function (index, layero) {  //点击'确认'按钮
             var formData = $("#add-role").serializeArray();  //获取表单参数
-            //console.log(formData)
+
             var addData = {}; //定义json格式
             formData.map(function (a) {  //表单参数转换为json格式
               addData[a.name] = a.value;
             });
             // '添加员工'表单,自定义验证规则
-            if($.trim(addData.roleName)== ''){
+            if($.trim(addData.roleName)=== ''){
               layer.msg('角色名称不能为空', {icon: 0});
-            }else if($.trim(addData.roleIntroduction)==''){
+              return false;
+            }else if($.trim(addData.roleIntroduction)===''){
               layer.msg('角色说明不能为空', {icon: 0});
-            }else if($.trim(addData.permissionId)==''){
-              layer.msg('权限ID不能为空', {icon: 0});
+              return false;
             }
             $.ajax({
               type: "POST",
               url: "http://0.0.0.0:9501/role/insert",
-              data: {
-                role_name: addData.roleName,
-                role_introduction: addData.roleIntroduction,
-                permission_id: addData.permissionId
-              },
+              data: addData,
               success: function (result) {  //添加成功
                 layer.closeAll();  //关闭窗口
                 layer.msg(result.msg, {icon: 1}, function () {});
