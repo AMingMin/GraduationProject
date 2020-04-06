@@ -18,18 +18,30 @@ class PermissionsService
      * @throws \Throwable
      * CreateTime: 2020/3/22 下午9:34
      */
-    public function permissionsList($data)
+    public function permissionsList()
     {
-        $page = $data['page']; // 页码
-        $limit=$data['limit'];
-        $model = Permissions::create()->limit($limit * ($page - 1), $limit)->withTotalCount()->order('id', 'DESC');
-        // 列表数据
-        $list = $model->all([
-            'status'=>[0,'<>']
-        ], true);
-        $result = $model->lastQueryResult();
-        // 总条数
-        $total = $result->getTotalCount();
-        return [$list, $total];
+        $model = Permissions::create()->withTotalCount()->order('id');
+
+        // 一级菜单
+        $oneList = $model->all(['pid'=>0], true);
+        $oneList = array_column($oneList, null, 'id');
+
+        // 二级菜单
+        $twoList = $model->all(['pid'=>[0,'<>']], true);
+
+        $pidTwoListMap = [];
+        foreach ($twoList as $item)
+        {
+            $pidTwoListMap[$item['pid']][] = $item;
+        }
+
+        $result = [];
+        foreach ($oneList as $pid => $item)
+        {
+            $result[] = $item;
+            $result = array_merge($result, $pidTwoListMap[$pid]);
+        }
+
+        return [$result, 0];
     }
 }
