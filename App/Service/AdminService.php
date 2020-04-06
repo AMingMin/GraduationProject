@@ -27,6 +27,13 @@ class AdminService
         $list = $model->all([
             'status'=>[0,'<>']
         ], true);
+
+        $roleIds = array_column($list, 'role_id');
+
+        $roles = RoleService::getInstance()->getRolesByIds(array_unique($roleIds));
+
+        $rolesMap = array_column($roles, null, 'id');
+
         $result = $model->lastQueryResult();
         //员工类型
         $employeeTypeTextMap =[
@@ -45,11 +52,10 @@ class AdminService
         ];
 
         foreach ($list as $key => $item) {
-
+            $list[$key]['role'] = $rolesMap[$item['role_id']]['role_name']??'无';
             $list[$key]['sex_txt'] = $sexTextMap[$item['sex']];
             $list[$key]['employee_type_txt'] = $employeeTypeTextMap[$item['employee_type']];
             $list[$key]['status'] = $statusTextMap[$item['status']];
-
         }
 
         // 总条数
@@ -100,6 +106,7 @@ class AdminService
             'salary' => $salary,
             'update_staff' => $update_staff, //更新人
             'update_time' =>$update_time, //更新时间，当前时间
+            'role_id' => $data['role_id']
         ]);
     }
 
@@ -132,6 +139,7 @@ class AdminService
             'salary' => $salary,
             'create_staff' => $create_staff,
             'update_staff' => $create_staff,  //更新人初始为新建人
+            'role_id' => $data['role_id'],
             ]);
         return $res = $model->save();
 

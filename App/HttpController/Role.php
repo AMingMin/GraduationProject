@@ -45,11 +45,10 @@ class Role extends Controller
 
     function get(){
         $result = RoleService::getInstance()->roleSelect();
-
         if ($result) {
-            $this->writeJson(200, [], '角色创建成功');
+            $this->writeJson(200, $result, '获取角色列表成功');
         } else {
-            $this->writeJson(400, [], '角色创建失败');
+            $this->writeJson(400, [], '获取角色列表成功');
         }
     }
 

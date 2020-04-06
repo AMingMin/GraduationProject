@@ -4,7 +4,7 @@ namespace App\Service;
 use App\Model\Role;
 use EasySwoole\Component\Singleton;
 
-class roleService
+class RoleService
 {
     use Singleton;
 
@@ -63,11 +63,17 @@ class roleService
     {
         $userInfo = Role::create()
             ->where([
-                'permission_id' => 0,
                 'status' => 1
             ])
-            ->findOne();
-        var_dump($userInfo);
+            ->all(null, true);
         return $userInfo;
+    }
+
+    public function getRolesByIds(array $ids)
+    {
+        $roles = Role::create()
+            ->where(['id'=>[$ids, 'in']])
+            ->all(null, true);
+        return $roles;
     }
 }
