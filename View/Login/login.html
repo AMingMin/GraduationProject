@@ -188,6 +188,7 @@
                 token: 'login'
               },
               success: function (result) {
+                console.log(result);
                 $.cookie('admin', result.result, {expires: 1, path: '/'});
                 layer.msg(result.msg, {}, function () {
                   location.href = '../main/home.html';

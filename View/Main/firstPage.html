@@ -28,6 +28,8 @@
 
 
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
 
 <script>
   layui.use(['element','form'], function() {
@@ -46,6 +48,9 @@
       $.ajax({
         type: "POST",
         url: "http://0.0.0.0:9501/Orders/selectTodayOrdersTotal",
+        headers: {
+          token: $.cookie('admin')
+        },
         success: function (result) {
           // layer.msg(result.msg, {icon: 1}, function () {});
           // console.log(result);
@@ -67,6 +72,9 @@
     function requestTodayAddMemberTotal(){
       $.ajax({
         type: "POST",
+        headers: {
+          token: $.cookie('admin')
+        },
         url: "http://0.0.0.0:9501/member/selectTodayAddMemberTotal",
         success: function (result) {
           // console.log(result.result[0].total);

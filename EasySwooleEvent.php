@@ -1,7 +1,6 @@
 <?php
 namespace EasySwoole\EasySwoole;
 
-
 use App\Config\JwtConfig;
 use App\Config\RequestCodeConfig;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
@@ -12,6 +11,7 @@ use EasySwoole\Jwt\Jwt;
 use EasySwoole\ORM\Db\Config;
 use EasySwoole\ORM\Db\Connection;
 use EasySwoole\ORM\DbManager;
+use EasySwoole\Component\Context\ContextManager;
 
 class EasySwooleEvent implements Event
 {
@@ -70,21 +70,22 @@ class EasySwooleEvent implements Event
         if ($request->getMethod() === 'OPTIONS') { //默认两次请求，设置该请求时无操作
             return false;
         }
-//
-//        $token = $request->getHeader('token')[0];
-//        if ($token === 'login') {
-//            return true;
-//        } else if ($token === 'null') {
-//            $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
-//            return false;
-//        } else {
-//            $jwtObject = Jwt::getInstance()->setSecretKey(JwtConfig::SECRET_KEY)->decode($token);
-//            $status = $jwtObject->getStatus();
-//            if ($status !== 1) {
-//                $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
-//                return false;
-//            }
-//        }
+
+        $token = $request->getHeader('token')[0];
+        if ($token === 'login') {
+            return true;
+        } else if ($token === 'null') {
+            $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
+            return false;
+        } else {
+            $jwtObject = Jwt::getInstance()->setSecretKey(JwtConfig::SECRET_KEY)->decode($token);
+            $status = $jwtObject->getStatus();
+            if ($status !== 1) {
+                $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
+                return false;
+            }
+            ContextManager::getInstance()->set('admin', $jwtObject->getData());
+        }
 
         return true;
     }

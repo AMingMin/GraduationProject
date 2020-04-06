@@ -12,17 +12,6 @@
         <div class="layui-logo">理发店管理平台</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
@@ -30,64 +19,61 @@
                     <img src="../../Static/img/Main/admin.jpeg" class="layui-nav-img">
                     管理员
                 </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
             </li>
             <li id="quitLogin"class="layui-nav-item"><a href="../login/login.html">退出</a></li>
         </ul>
     </div>
 
     <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
+        <div class="layui-side-scroll leftNav">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:">消费收银</a>
-                    <dl class="layui-nav-child">
-                        <dd><a class="menu-item" data-src="/lifadian/View/consume/selectService.html" href="javascript:;">选择服务</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:">员工管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/admin/adminList.html" href="javascript:;">员工列表</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:">订单管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/orders/ordersList.html" href="javascript:;">订单列表</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:">会员管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/member/memberList.html" href="javascript:;">会员列表</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:">服务管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/systemSetting/addService.html" href="javascript:;">服务类型</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:">数据统计</a>
-                    <dl class="layui-nav-child">
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/dataStat/memberStat.html" href="javascript:;">会员分析</a></dd>
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/dataStat/ordersStat.html" href="javascript:;">订单分析</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:">权限设置</a>
-                    <dl class="layui-nav-child">
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/permissions/permissionsList.html" href="javascript:;">权限列表</a></dd>
-                        <dd><a a class="menu-item"  data-src="/lifadian/View/permissions/roleList.html" href="javascript:;">角色列表</a></dd>
-                    </dl>
-                </li>
-            </ul>
+<!--            <ul class="layui-nav layui-nav-tree"  lay-filter="test">-->
+<!--                <li class="layui-nav-item layui-nav-itemed">-->
+<!--                    <a class="" href="javascript:">消费收银</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a class="menu-item" data-src="/lifadian/View/consume/selectService.html" href="javascript:;">选择服务</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--                <li class="layui-nav-item">-->
+<!--                    <a href="javascript:">员工管理</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/admin/adminList.html" href="javascript:;">员工列表</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--                <li class="layui-nav-item">-->
+<!--                    <a href="javascript:">订单管理</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/orders/ordersList.html" href="javascript:;">订单列表</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--                <li class="layui-nav-item">-->
+<!--                    <a href="javascript:">会员管理</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/member/memberList.html" href="javascript:;">会员列表</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--                <li class="layui-nav-item">-->
+<!--                    <a href="javascript:">服务管理</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/systemSetting/addService.html" href="javascript:;">服务类型</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--                <li class="layui-nav-item">-->
+<!--                    <a href="javascript:">数据统计</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/dataStat/memberStat.html" href="javascript:;">会员分析</a></dd>-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/dataStat/ordersStat.html" href="javascript:;">订单分析</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--                <li class="layui-nav-item">-->
+<!--                    <a href="javascript:">权限设置</a>-->
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/permissions/permissionsList.html" href="javascript:;">权限列表</a></dd>-->
+<!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/permissions/roleList.html" href="javascript:;">角色列表</a></dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--            </ul>-->
+
         </div>
     </div>
 
@@ -103,6 +89,8 @@
 </div>
 
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
 
 <script>
   //JavaScript代码区域
@@ -110,14 +98,43 @@
     var element = layui.element;
     var $ = layui.$;
     //菜单项
-    $('.menu-item').click(function () {
+    $(document).on('click','.menu-item',function(){
         var frameSrc = $(this).data('src');
         $('#content').attr('src', frameSrc)
     });
 
+    $(function () {
+      $.ajax({
+        type: "POST",
+        url: "http://0.0.0.0:9501/admin/getPermission",
+        headers: {
+          token: $.cookie('admin')
+        },
+        success: function (result) {
+          if (result.result.length === 0) {
+            layer.msg('此用户无任何权限', {});
+            return false;
+          }
+          let leftNavList = '<ul class="layui-nav layui-nav-tree"  lay-filter="test">';
+          result.result.map(item=>{
+            leftNavList += '<li class="layui-nav-item layui-nav-itemed">' +
+              '<a class="" href="javascript:">'+item.permission_name+'</a>' +
+              '<dl class="layui-nav-child">';
+            item.two.map(twoItem=>{
+                leftNavList += '<dd><a class="menu-item" data-src="'+twoItem.permission_url+'" href="javascript:;">'+twoItem.permission_name+'</a></dd>';
+            });
+            leftNavList += '</dl>';
+            leftNavList += '</li>';
+          });
+          leftNavList += '</ul>';
+          $('.leftNav').html(leftNavList);
+        },
+        error: function (result) {  //失败
 
+        },
 
-
+      });
+    });
 
   });
 </script>

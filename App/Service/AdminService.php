@@ -2,7 +2,9 @@
 namespace App\Service;
 
 use App\Model\Admin;
+use App\Model\Permissions;
 use EasySwoole\Component\Singleton;
+use App\Model\Role;
 
 class AdminService
 {
@@ -140,10 +142,56 @@ class AdminService
             'create_staff' => $create_staff,
             'update_staff' => $create_staff,  //更新人初始为新建人
             'role_id' => $data['role_id'],
+            'password' => 123456
             ]);
         return $res = $model->save();
+    }
 
+    public function getPermission($adminInfo)
+    {
+        $roleId = $adminInfo['role_id'];
+        if (empty($roleId)) {
+            return [];
+        }
 
+        //查询角色信息
+        $roleInfo = Role::create()->get($roleId)->toArray();
+        if (empty($roleInfo['permission_id'])) {
+            return [];
+        }
+
+        $permission = json_decode($roleInfo['permission_id']);
+        if (empty($permission)) {
+            return [];
+        }
+
+        $oneIds = [];
+        $twoIds = [];
+        foreach ($permission as $oneId => $item)
+        {
+            $oneIds[] = $oneId;
+            $twoIds = array_merge($twoIds, $item);
+        }
+
+        // 查询一级菜单信息
+        $onePermissions = Permissions::create()->where([
+            'id'=>[$oneIds, 'in'],
+            'status'=>1,
+        ])->all(null, true);
+        $onePermissions = array_column($onePermissions, null, 'id');
+        // 查询二级菜单信息
+        $twoPermissions = Permissions::create()->where([
+            'id' => [$twoIds, 'in'],
+            'status' => 1,
+        ])->all(null, true);
+
+        // 拼装数据
+        foreach ($twoPermissions as $item)
+        {
+            $onePermissions[$item['pid']]['two'][] = $item;
+        }
+
+        return array_values($onePermissions);
     }
 
 }

@@ -3,7 +3,7 @@ namespace App\HttpController;
 
 use App\Service\AdminService;
 use EasySwoole\Http\AbstractInterface\Controller;
-
+use EasySwoole\Component\Context\ContextManager;
 class Admin extends Controller
 {
     /**
@@ -72,17 +72,19 @@ class Admin extends Controller
     function insert()
     {
         $data = $this->request()->getRequestParam();
-        //var_dump($data);
-        $data['create_staff']=$_SESSION['admin']['name'];
-        $data['update_staff']=$_SESSION['admin']['name'];
-        //var_dump($_SESSION['admin']);
-        //var_dump($data);
         $result = AdminService::getInstance()->adminInsert($data);
         if ($result) {
             $this->writeJson(200, [], '员工创建成功');
         } else {
             $this->writeJson(400, [], '员工创建失败');
         }
+    }
+
+    public function getPermission()
+    {
+        $adminInfo = ContextManager::getInstance()->get('admin');
+        $result = AdminService::getInstance()->getPermission($adminInfo);
+        $this->writeJson(200, $result, 'success');
     }
 
 }

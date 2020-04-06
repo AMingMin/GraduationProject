@@ -146,6 +146,8 @@
 </script>
 
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
 
 <script>
   layui.use(['table', 'form', 'element'], function() {
@@ -159,6 +161,9 @@
     table.render({
       elem: '#tableId'
       , url: 'http://0.0.0.0:9501/Admin/index'
+      , headers: {
+        token: $.cookie('admin')
+      }
       , parseData: function (res) {
         return {
           code: 0,
@@ -196,6 +201,9 @@
           $.ajax({
             type: "POST",
             url: "http://0.0.0.0:9501/admin/delete",
+            headers: {
+            token: $.cookie('admin')
+            },
             data: {id: data.id},
             success: function (result) {  //删除成功
               layer.msg(result.msg);
@@ -264,6 +272,9 @@
             $.ajax({
               type: "POST",
               url: "http://0.0.0.0:9501/admin/update",
+              headers: {
+                token: $.cookie('admin')
+              },
               data: {
                 id: addData.id,
                 name: addData.name,
@@ -296,6 +307,9 @@
       $.ajax({
         type: "POST",
         url: "http://0.0.0.0:9501/role/get",
+        headers: {
+          token: $.cookie('admin')
+        },
         success: function (result) {  //删除会员成功
           roles = result.result;
             let options='<option value="0">无</option>';
@@ -346,6 +360,9 @@
             $.ajax({
               type: "POST",
               url: "http://0.0.0.0:9501/admin/insert",
+              headers: {
+                token: $.cookie('admin')
+              },
               data: {
                 name: addData.name,
                 username: addData.username,
