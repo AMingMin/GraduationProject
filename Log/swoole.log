@@ -1401,3 +1401,17 @@
 [2020-04-06 16:18:25 $840.0]	INFO	Server is reloading all workers now
 [2020-04-06 16:18:47 $840.0]	INFO	Server is reloading all workers now
 [2020-04-06 16:18:52 $840.0]	INFO	Server is reloading all workers now
+[2020-04-07 23:26:17 *8358.3]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8362.7]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8359.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8357.2]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8356.1]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8355.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#12[pid=8367] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#11[pid=8366] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#10[pid=8365] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#9[pid=8364] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 *8360.5]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#8[pid=8363] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 *8361.6]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
