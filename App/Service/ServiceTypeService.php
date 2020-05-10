@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use App\Model\ServiceType;
+use EasySwoole\Component\Context\ContextManager;
 use EasySwoole\Component\Singleton;
 
 class ServiceTypeService
@@ -25,7 +26,7 @@ class ServiceTypeService
         }else{
             $sex=1;
         }
-
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         $model = ServiceType::create([
             'name' =>$data['name'],
             'sex' => $sex,
@@ -37,10 +38,10 @@ class ServiceTypeService
             'picture' => $data['picture'],
             'dye_hair_type' => $data['dye_hair_type'],
             'introduction' => $data['introduction'],
-            'create_staff' => $data['create_staff'],  //更新人初始为新建人
-            'update_staff' => $data['create_staff'],  //更新人初始为新建人
-            'create_time' =>$data['create_time'], //更新时间，当前时间
-            'update_time' =>$data['create_time'], //更新时间，当前时间
+            'create_staff' => $adminInfo['name'],
+            'update_staff' => $adminInfo['name'],
+            'create_time' =>date('Y-m-d H:i:s',time()),//时间，当前时间
+            'update_time' => date('Y-m-d H:i:s',time())//更新时间，当前时间
         ]);
         return $res = $model->save();
 
@@ -103,10 +104,8 @@ class ServiceTypeService
         $price = $data['price'];
         $introduction = $data['introduction'];
         $name = $data['name'];
-//        $update_staff=$data['update_staff'];
-//        $update_time=$data['update_time'];
-
         $user = ServiceType::create()->get($id);  //通过id更新记录状态
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         return $user->update([
             'name' => $name,
             'sex' => $sex,
@@ -118,8 +117,8 @@ class ServiceTypeService
             'picture' => $picture,
             'price' => $price,
             'introduction' => $introduction,
-//            'update_staff' => $update_staff, //更新人
-//            'update_time' =>$update_time, //更新时间，当前时间
+            'update_staff' => $adminInfo['name'],
+            'update_time' => date('Y-m-d H:i:s',time())//更新时间，当前时间
         ]);
     }
 }

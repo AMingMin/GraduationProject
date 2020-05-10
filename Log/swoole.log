@@ -1401,6 +1401,7 @@
 [2020-04-06 16:18:25 $840.0]	INFO	Server is reloading all workers now
 [2020-04-06 16:18:47 $840.0]	INFO	Server is reloading all workers now
 [2020-04-06 16:18:52 $840.0]	INFO	Server is reloading all workers now
+<<<<<<< HEAD
 [2020-04-06 17:25:06 $684.0]	INFO	Server is reloading all workers now
 [2020-04-06 17:29:28 $684.0]	INFO	Server is reloading all workers now
 [2020-04-06 17:29:40 $684.0]	INFO	Server is reloading all workers now
@@ -1504,3 +1505,110 @@
 [2020-04-06 18:47:57 $2865.0]	INFO	Server is reloading all workers now
 [2020-04-06 18:55:16 $2865.0]	INFO	Server is reloading all workers now
 [2020-04-06 18:55:24 $2865.0]	INFO	Server is reloading all workers now
+=======
+[2020-04-07 23:26:17 *8358.3]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8362.7]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8359.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8357.2]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8356.1]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 *8355.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#12[pid=8367] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#11[pid=8366] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#10[pid=8365] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#9[pid=8364] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 *8360.5]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-04-07 23:26:17 $8354.0]	WARNING	swManager_check_exit_status: worker#8[pid=8363] abnormal exit, status=0, signal=1
+[2020-04-07 23:26:17 *8361.6]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+>>>>>>> Feat-view
+[2020-05-08 14:40:13 #698.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 $699.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 *706.6]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 $699.0]	WARNING	swManager_check_exit_status: worker#12[pid=712] abnormal exit, status=0, signal=1
+[2020-05-08 14:40:13 *704.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 *702.2]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 *701.1]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 *703.3]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 *700.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 *707.7]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 *705.5]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-08 14:40:13 $699.0]	WARNING	swManager_check_exit_status: worker#11[pid=711] abnormal exit, status=0, signal=1
+[2020-05-08 14:40:13 $699.0]	WARNING	swManager_check_exit_status: worker#10[pid=710] abnormal exit, status=0, signal=1
+[2020-05-08 14:40:13 $699.0]	WARNING	swManager_check_exit_status: worker#9[pid=709] abnormal exit, status=0, signal=1
+[2020-05-08 14:40:13 $699.0]	WARNING	swManager_check_exit_status: worker#8[pid=708] abnormal exit, status=0, signal=1
+[2020-05-08 22:37:33 #698.4]	INFO	Server is shutdown now
+[2020-05-08 22:46:37 $1915.0]	INFO	Server is reloading all workers now
+[2020-05-08 22:47:21 $2064.0]	INFO	Server is reloading all workers now
+[2020-05-08 22:48:47 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-08 22:49:08 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-08 22:50:29 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-08 22:51:38 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-08 22:51:53 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-08 23:20:40 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-08 23:20:52 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-09 00:00:15 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-09 00:25:44 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-09 00:27:30 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-09 00:41:00 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-09 00:41:59 $2113.0]	INFO	Server is reloading all workers now
+[2020-05-09 01:00:33 #2112.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 $2113.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4027.7]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4026.4]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4025.5]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4024.6]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4023.3]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4021.1]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4020.0]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 *4022.2]	WARNING	swSignal_callback (ERRNO 707): Unable to find callback function for signal Hangup: 1
+[2020-05-09 01:00:33 $2113.0]	WARNING	swManager_check_exit_status: worker#12[pid=2126] abnormal exit, status=0, signal=1
+[2020-05-09 01:00:33 $2113.0]	WARNING	swManager_check_exit_status: worker#11[pid=2125] abnormal exit, status=0, signal=1
+[2020-05-09 01:00:33 $2113.0]	WARNING	swManager_check_exit_status: worker#10[pid=2124] abnormal exit, status=0, signal=1
+[2020-05-09 01:00:33 $2113.0]	WARNING	swManager_check_exit_status: worker#9[pid=2123] abnormal exit, status=0, signal=1
+[2020-05-09 01:00:33 $2113.0]	WARNING	swManager_check_exit_status: worker#8[pid=2122] abnormal exit, status=0, signal=1
+[2020-05-09 01:03:18 #2112.4]	INFO	Server is shutdown now
+[2020-05-09 01:10:41 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 01:12:50 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 01:14:46 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 01:50:32 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 22:46:28 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 22:47:27 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 22:48:47 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 22:48:55 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 22:50:28 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 22:51:48 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 22:52:24 $4620.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:05:12 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:14:47 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:15:03 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:20:07 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:21:11 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:22:25 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:22:37 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:22:40 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:23:21 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-09 23:57:30 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 00:45:52 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 00:47:35 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 00:48:04 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 00:48:07 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 01:05:20 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 01:06:22 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 01:06:28 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 01:06:39 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 01:07:03 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 13:52:42 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 13:52:58 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 13:53:31 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 13:54:48 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 13:56:39 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:00:58 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:03:16 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:03:46 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:04:35 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:06:05 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:06:43 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:07:12 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:07:35 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:07:41 $11192.0]	INFO	Server is reloading all workers now
+[2020-05-10 15:08:03 $11192.0]	INFO	Server is reloading all workers now

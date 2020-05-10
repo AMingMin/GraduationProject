@@ -185,12 +185,13 @@
               url: "http://0.0.0.0:9501/login/login",
               data: {username: username, password: password},
               headers: {
-                token: 'login'
+                token: 'login'  //设置token初始值
               },
               success: function (result) {
                 console.log(result);
+                //保存token
                 $.cookie('admin', result.result, {expires: 1, path: '/'});
-                layer.msg(result.msg, {}, function () {
+                layer.msg('登录成功,正在跳转。。。', {}, function () {
                   location.href = '../main/home.html';
                 });
               },

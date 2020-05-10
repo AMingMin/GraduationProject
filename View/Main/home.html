@@ -25,6 +25,7 @@
     </div>
 
     <div class="layui-side layui-bg-black">
+<!--        左侧列表-->
         <div class="layui-side-scroll leftNav">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 <!--            <ul class="layui-nav layui-nav-tree"  lay-filter="test">-->
@@ -103,10 +104,11 @@
         $('#content').attr('src', frameSrc)
     });
 
+    //生成左侧菜单
     $(function () {
       $.ajax({
         type: "POST",
-        url: "http://0.0.0.0:9501/admin/getPermission",
+        url: "http://0.0.0.0:9501/admin/getPermission",  //接口
         headers: {
           token: $.cookie('admin')
         },
@@ -115,9 +117,17 @@
             layer.msg('此用户无任何权限', {});
             return false;
           }
+        //   <!--                <li class="layui-nav-item">-->
+        // <!--                    <a href="javascript:">权限设置</a>-->
+        //     <!--                    <dl class="layui-nav-child">-->
+        //     <!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/permissions/permissionsList.html" href="javascript:;">权限列表</a></dd>-->
+        //   <!--                        <dd><a a class="menu-item"  data-src="/lifadian/View/permissions/roleList.html" href="javascript:;">角色列表</a></dd>-->
+        //   <!--                    </dl>-->
+        //   <!--                </li>-->
+
           let leftNavList = '<ul class="layui-nav layui-nav-tree"  lay-filter="test">';
           result.result.map(item=>{
-            leftNavList += '<li class="layui-nav-item layui-nav-itemed">' +
+            leftNavList += '<li class="layui-nav-item">' +
               '<a class="" href="javascript:">'+item.permission_name+'</a>' +
               '<dl class="layui-nav-child">';
             item.two.map(twoItem=>{

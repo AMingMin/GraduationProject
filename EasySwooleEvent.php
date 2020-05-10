@@ -73,18 +73,19 @@ class EasySwooleEvent implements Event
 
         $token = $request->getHeader('token')[0];
         if ($token === 'login') {
-            return true;
+            return true;  //继续请求
         } else if ($token === 'null') {
             $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
             return false;
         } else {
+            //解密，判断token是否有效，（上下文管理器）
             $jwtObject = Jwt::getInstance()->setSecretKey(JwtConfig::SECRET_KEY)->decode($token);
             $status = $jwtObject->getStatus();
             if ($status !== 1) {
                 $response->write(json_encode(['code'=>RequestCodeConfig::CODE_LOGIN]));
                 return false;
             }
-            ContextManager::getInstance()->set('admin', $jwtObject->getData());
+            ContextManager::getInstance()->set('admin', $jwtObject->getData());  //设置admin，把得到的用户信息放到上下文管理器（类似cookie）
         }
 
         return true;

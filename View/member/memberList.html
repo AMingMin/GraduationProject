@@ -183,7 +183,10 @@
       table.render({
         elem: '#tableId'
         , url: 'http://0.0.0.0:9501/Member/index'
-        , parseData: function (res) {
+        ,headers: {
+          token: $.cookie('admin')
+        },
+        parseData: function (res) {
           // loginStatusCheck(res);  //每次接口请求，进行登录状态检查
           return {
             code: 0,
@@ -196,20 +199,20 @@
           token: $.cookie('admin')
         }
         , cols: [[  //设置表头
-          {field: 'id', title: 'ID', width: 45, align: 'center'}
+          {field: 'id', title: 'ID', align: 'center'}
           , {field: 'name', title: '姓名', align: 'center'}
-          , {field: 'sex_txt', title: '性别', width: 60, align: 'center'}
-          , {field: 'phone', title: '手机号', width: 100, align: 'center'}
-          , {field: 'status_txt', title: '状态', width: 60, align: 'center'}
+          , {field: 'sex_txt', title: '性别', align: 'center'}
+          , {field: 'phone', title: '手机号', width: 120,align: 'center'}
+          , {field: 'status_txt', title: '状态', align: 'center'}
           , {field: 'balance', title: '余额', align: 'center'}
-          , {field: 'member_level_txt', title: '会员等级', width: 100, align: 'center'}
-          , {field: 'know_space_txt', title: '了解渠道', width: 100, align: 'center'}
-          , {field: 'introduction', title: '备注', width: 60, align: 'center'}
+          , {field: 'member_level_txt', title: '会员等级', align: 'center'}
+          , {field: 'know_space_txt', title: '了解渠道', align: 'center'}
+          , {field: 'introduction', title: '备注', align: 'center'}
           , {field: 'create_staff', title: '创建人', align: 'center'}
           , {field: 'update_staff', title: '更新人', align: 'center'}
-          , {field: 'create_time', title: '创建时间', width: 163, align: 'center'}
-          , {field: 'update_time', title: '更新时间', width: 163, align: 'center'}
-          , {field: 'opt', title: '操作', width: 145, fixed: 'right', toolbar: '#barDemo', align: 'center'}
+          , {field: 'create_time', title: '创建时间', width: 170, align: 'center'}
+          , {field: 'update_time', title: '更新时间', width: 170, align: 'center'}
+          , {field: 'opt', title: '操作', width: 190, fixed: 'right', toolbar: '#barDemo', align: 'center'}
         ]]
         , page: true,  //开启分页
       });
@@ -225,6 +228,9 @@
           $.ajax({
             type: "POST",
             url: "http://0.0.0.0:9501/member/delete",
+            headers: {
+              token: $.cookie('admin')
+            },
             data: {id: data.id},
           success: function (result) {  //删除会员成功
               layer.msg(result.msg);
@@ -299,6 +305,9 @@
             $.ajax({
               type: "POST",
               url: "http://0.0.0.0:9501/member/update",
+              headers: {
+                token: $.cookie('admin')
+              },
               data: {
                 id: addData.id,
                 name: addData.name,
@@ -362,6 +371,9 @@
             $.ajax({
               type: "POST",
               url: "http://0.0.0.0:9501/member/insert",
+              headers: {
+                token: $.cookie('admin')
+              },
               data: {
                 name: addData.name,
                 sex: addData.sex,

@@ -72,10 +72,10 @@
     function requestTodayAddMemberTotal(){
       $.ajax({
         type: "POST",
+        url: "http://0.0.0.0:9501/member/selectTodayAddMemberTotal",
         headers: {
           token: $.cookie('admin')
         },
-        url: "http://0.0.0.0:9501/member/selectTodayAddMemberTotal",
         success: function (result) {
           // console.log(result.result[0].total);
           todaymembertotal=result.result[0].total;  //今日新增会员

@@ -54,9 +54,9 @@ class Admin extends Controller
         $data = $this->request()->getRequestParam();
         //var_dump($data);
         $result = AdminService::getInstance()->adminUpdate($data);
-        $data['update_staff']=$_SESSION['admin']['name'];  //更新人
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
+        $data['update_staff']=$adminInfo['name'];
         $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
-        $data['update_staff']=$_SESSION['admin']['name'];
         if ($result) {
             $this->writeJson(200, [], '员工信息更新成功');
         } else {
@@ -80,9 +80,10 @@ class Admin extends Controller
         }
     }
 
+    //获取用户权限
     public function getPermission()
     {
-        $adminInfo = ContextManager::getInstance()->get('admin');
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         $result = AdminService::getInstance()->getPermission($adminInfo);
         $this->writeJson(200, $result, 'success');
     }

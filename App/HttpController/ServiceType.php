@@ -15,12 +15,6 @@ class ServiceType extends Controller
     function index()
     {
         $data = $this->request()->getRequestParam();
-//        var_dump($data);
-        $data['create_staff']=$_SESSION['admin']['name'];;  //创建人
-        $data['create_time']=date('y-m-d h:i:s',time());//创建时间，当前时间
-        $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
-        //var_dump($_SESSION['admin']);
-        //var_dump($data);
         $result = ServiceTypeService::getInstance()->index($data);
         if ($result) {
             $this->writeJson(200, [], '服务类型创建成功');

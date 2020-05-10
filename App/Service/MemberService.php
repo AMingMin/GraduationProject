@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use App\Model\Member;
+use EasySwoole\Component\Context\ContextManager;
 use EasySwoole\Component\Singleton;
 use EasySwoole\Mysqli\QueryBuilder;
 use EasySwoole\ORM\DbManager;
@@ -100,6 +101,7 @@ class MemberService
             $status=2;
         }
         $user = Member::create()->get($data['id']);  //通过id更新记录状态
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         return $user->update([
             'name' => $data['name'],
             'sex' => $sex,
@@ -109,8 +111,8 @@ class MemberService
             'member_level' => $data['member_level'],
             'know_space' => $data['know_space'],
             'introduction' => $data['introduction'],
-            'update_staff' => $data['update_staff'], //更新人
-            'update_time' =>$data['update_time'], //更新时间，当前时间
+            'update_staff' => $adminInfo['name'],
+            'update_time' => date('Y-m-d H:i:s',time())//更新时间，当前时间
         ]);
     }
 
@@ -134,6 +136,7 @@ class MemberService
         }else if($data['status']==='过期'){
             $status=2;
         }
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         $model = Member::create([
             'name' => $data['name'],
             'sex' => $sex,
@@ -143,10 +146,10 @@ class MemberService
             'member_level' => $data['member_level'],
             'know_space' => $data['know_space'],
             'introduction' => $data['introduction'],
-            'create_staff' => $data['create_staff'],  //更新人初始为新建人
-            'update_staff' => $data['create_staff'],  //更新人初始为新建人
-            'create_time' =>$data['create_time'], //更新时间，当前时间
-            'update_time' =>$data['update_time'], //更新时间，当前时间
+            'create_staff' => $adminInfo['name'],
+            'update_staff' => $adminInfo['name'],
+            'create_time' =>date('Y-m-d H:i:s',time()),//时间，当前时间
+            'update_time' => date('Y-m-d H:i:s',time())//更新时间，当前时间
         ]);
         return $res = $model->save();
     }
@@ -185,7 +188,9 @@ class MemberService
 
         $phone=$data['phone'];
         $balance=$data['balance'];
-        $memberResult = Member::create()->get($phone);  //通过phone更新记录状态
+        $memberResult = Member::create()->get([
+            'phone' => $phone
+        ]);  //通过phone更新记录状态
         return $memberResult->update([
             'balance' => $balance,
             'update_time' =>$data['update_time']

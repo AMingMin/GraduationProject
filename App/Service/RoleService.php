@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use App\Model\Role;
+use EasySwoole\Component\Context\ContextManager;
 use EasySwoole\Component\Singleton;
 
 class RoleService
@@ -48,12 +49,16 @@ class RoleService
         {
             $permissionId[$oneId][] = $twoId;
         }
-
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         $model = Role::create([
             'role_name' => $data['roleName'],
             'role_introduction' => $data['roleIntroduction'],
             'permission_id' => json_encode($permissionId, JSON_UNESCAPED_UNICODE),
-            'status' => 1
+            'status' => 1,
+            'create_staff' => $adminInfo['name'],
+            'update_staff' => $adminInfo['name'],
+            'create_time' =>date('Y-m-d H:i:s',time()),//时间，当前时间
+            'update_time' => date('Y-m-d H:i:s',time())//更新时间，当前时间
         ]);
 
         return $res = $model->save();

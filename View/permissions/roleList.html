@@ -41,6 +41,8 @@
     <table class="layui-hide" id="tableId" lay-filter="test2"></table>
 </div>
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
 
 <script>
   layui.use(['table', 'form', 'element'], function() {
@@ -54,7 +56,10 @@
     table.render({
       elem: '#tableId'
       , url: 'http://0.0.0.0:9501/role/index'
-      , parseData: function (res) {
+      , headers: {
+        token: $.cookie('admin')
+      },
+      parseData: function (res) {
         return {
           code: 0,
           msg: res.msg,
@@ -81,6 +86,9 @@
       $.ajax({
         type: "POST",
         url: "http://0.0.0.0:9501/permissions/permissionsOptions",
+        headers: {
+          token: $.cookie('admin')
+        },
         success: function (result) {
           permissions = result.result;
           let options = '<div style="margin:10px;padding:10px;">';
@@ -133,6 +141,9 @@
             $.ajax({
               type: "POST",
               url: "http://0.0.0.0:9501/role/insert",
+              headers: {
+                token: $.cookie('admin')
+              },
               data: addData,
               success: function (result) {  //添加成功
                 layer.closeAll();  //关闭窗口

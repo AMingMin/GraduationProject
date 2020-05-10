@@ -38,6 +38,9 @@
 </form>
 
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
+
 <script>
   layui.use( ['element','form'], function() {
     var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
@@ -69,6 +72,9 @@
       $.ajax({
         type: "POST",
         url: "http://0.0.0.0:9501/member/sevenDaysEcharts",
+        headers: {
+          token: $.cookie('admin')
+        },
         success: function (result) {  //成功
           keysX=result.result.keys;
           valuesY=result.result.values;
@@ -85,6 +91,9 @@
       $.ajax({
         type: "POST",
         url: "http://0.0.0.0:9501/member/currentMonthEcharts",
+        headers: {
+          token: $.cookie('admin')
+        },
         success: function (result) {  //成功
           keysX=result.result.keys;
           valuesY=result.result.values;

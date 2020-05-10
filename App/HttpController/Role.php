@@ -2,6 +2,7 @@
 namespace App\HttpController;
 
 use App\Service\RoleService;
+use EasySwoole\Component\Context\ContextManager;
 use EasySwoole\Http\AbstractInterface\Controller;
 
 class Role extends Controller
@@ -36,6 +37,7 @@ class Role extends Controller
     {
         $data = $this->request()->getRequestParam();
         $result = RoleService::getInstance()->roleInsert($data);
+
         if ($result) {
             $this->writeJson(200, [], '角色创建成功');
         } else {

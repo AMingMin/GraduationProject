@@ -292,6 +292,7 @@
 
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
 <script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
 <script>
   layui.use(['form','element','upload','laypage'], function(){
     var $ = layui.$;
@@ -309,6 +310,9 @@
     function requestList(params) {
       $.ajax({
         url: "http://0.0.0.0:9501/ServiceType/select",
+        headers: {
+          token: $.cookie('admin')
+        },
         data: params,  //设置当前页码，每页多少条数据
         success: function (result) {
           // console.log(result);  //查看获取数据
@@ -430,6 +434,9 @@
           $.ajax({
             type: "POST",
             url: "http://0.0.0.0:9501/ServiceType/update",
+            headers: {
+              token: $.cookie('admin')
+            },
             data: datas,
             success: function (result) {  //修改成功
               //清空表单各种数据，以便下次打开时为空表单
@@ -458,6 +465,9 @@
           $.ajax({
             type: "POST",
             url: "http://0.0.0.0:9501/ServiceType/delete",  //请求删除服务类型的接口
+            headers: {
+              token: $.cookie('admin')
+            },
             data: {id: objectId},
             success: function (result) {  //删除成功
               layer.msg(result.msg);
@@ -511,7 +521,10 @@
     var uploadInst = upload.render({
       elem: '#test1'
       ,url: "http://0.0.0.0:9501/ServiceType/uploadPicture"
-      ,accept:'images'
+      ,
+      headers: {
+        token: $.cookie('admin')
+      },accept:'images'
       ,size:50000
       ,before: function(obj){
         obj.preview(function(index, file, result){
@@ -545,7 +558,10 @@
     var uploadInst2 = upload.render({
       elem: '#modify-picture-upload-btn'
       ,url: "http://0.0.0.0:9501/ServiceType/uploadPicture"
-      ,accept:'modify-images'
+      ,headers: {
+        token: $.cookie('admin')
+      },
+      accept:'modify-images'
       ,size:50000
       ,before: function(obj){
         obj.preview(function(index, file, result){
@@ -609,6 +625,9 @@
       $.ajax({
         type: "POST",
         url: "http://0.0.0.0:9501/ServiceType/index",
+        headers: {
+          token: $.cookie('admin')
+        },
         data: datas,
         success: function (result) {  //添加成功
           //清空表单各种数据，以便下次打开时为空表单

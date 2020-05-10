@@ -18,6 +18,8 @@
     <table class="layui-hide" id="tableId" lay-filter="test2"></table>
 </div>
 <script src="../../Static/js/layui/layui.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="../../Static/js/jquery/jquery.cookie.js" charset="utf-8"></script>
 
 <script>
   layui.use(['table', 'form', 'element'], function() {
@@ -31,7 +33,10 @@
     table.render({
       elem: '#tableId'
       , url: 'http://0.0.0.0:9501/permissions/index'
-      , parseData: function (res) {
+      , headers: {
+        token: $.cookie('admin')
+      },
+      parseData: function (res) {
         return {
           code: 0,
           msg: res.msg,

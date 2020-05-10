@@ -3,6 +3,7 @@ namespace App\Service;
 
 use App\Model\Admin;
 use App\Model\Permissions;
+use EasySwoole\Component\Context\ContextManager;
 use EasySwoole\Component\Singleton;
 use App\Model\Role;
 
@@ -96,9 +97,8 @@ class AdminService
         $employee_type=$data['employee_type'];
         $phone=$data['phone'];
         $salary=$data['salary'];
-        $update_staff=$data['update_staff'];
-        $update_time=$data['update_time'];
         $user = Admin::create()->get($id);  //通过id更新记录状态
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         return $user->update([
             'name' => $name,
             'username' => $username,
@@ -106,8 +106,8 @@ class AdminService
             'employee_type' => $employee_type,
             'phone' => $phone,
             'salary' => $salary,
-            'update_staff' => $update_staff, //更新人
-            'update_time' =>$update_time, //更新时间，当前时间
+            'update_staff' => $adminInfo['name'],
+            'update_time' => date('Y-m-d H:i:s',time()),//更新时间，当前时间
             'role_id' => $data['role_id']
         ]);
     }
@@ -131,7 +131,7 @@ class AdminService
         $employee_type=$data['employee_type'];
         $phone=$data['phone'];
         $salary=$data['salary'];
-        $create_staff=$data['create_staff'];
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
         $model = Admin::create([
             'name' => $name,
             'username' => $username,
@@ -139,16 +139,23 @@ class AdminService
             'employee_type' => $employee_type,
             'phone' => $phone,
             'salary' => $salary,
-            'create_staff' => $create_staff,
-            'update_staff' => $create_staff,  //更新人初始为新建人
             'role_id' => $data['role_id'],
-            'password' => 123456
+            'password' => 123456,
+            'create_staff' => $adminInfo['name'],
+            'update_staff' => $adminInfo['name'],
+            'create_time' =>date('Y-m-d H:i:s',time()),//时间，当前时间
+            'update_time' => date('Y-m-d H:i:s',time())//更新时间，当前时间
             ]);
         return $res = $model->save();
     }
 
+    //获取用户权限
     public function getPermission($adminInfo)
     {
+        if ($adminInfo['username'] === 'admin') {
+            return $this->allPermissions();
+        }
+
         $roleId = $adminInfo['role_id'];
         if (empty($roleId)) {
             return [];
@@ -160,13 +167,14 @@ class AdminService
             return [];
         }
 
-        $permission = json_decode($roleInfo['permission_id']);
+        $permission = json_decode($roleInfo['permission_id']);  //存放某个角色所有的权限id
         if (empty($permission)) {
             return [];
         }
 
         $oneIds = [];
         $twoIds = [];
+        //遍历一二级id
         foreach ($permission as $oneId => $item)
         {
             $oneIds[] = $oneId;
@@ -182,6 +190,34 @@ class AdminService
         // 查询二级菜单信息
         $twoPermissions = Permissions::create()->where([
             'id' => [$twoIds, 'in'],
+            'status' => 1,
+        ])->all(null, true);
+
+        // 拼装数据
+        foreach ($twoPermissions as $item)
+        {
+            $onePermissions[$item['pid']]['two'][] = $item;
+        }
+
+        return array_values($onePermissions);
+    }
+
+    /**
+     * 账户admin，拥有最高权限
+     *
+     * CreateTime: 2020/5/8 下午10:50
+     */
+    private function allPermissions()
+    {
+        // 查询一级菜单信息
+        $onePermissions = Permissions::create()->where([
+            'pid'=>0,
+            'status'=>1,
+        ])->all(null, true);
+        $onePermissions = array_column($onePermissions, null, 'id');
+        // 查询二级菜单信息
+        $twoPermissions = Permissions::create()->where([
+            'pid' => [0,'<>'],
             'status' => 1,
         ])->all(null, true);
 

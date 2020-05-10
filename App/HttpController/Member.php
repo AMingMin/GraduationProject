@@ -2,6 +2,7 @@
 namespace App\HttpController;
 
 use App\Service\MemberService;
+use EasySwoole\Component\Context\ContextManager;
 use EasySwoole\Http\AbstractInterface\Controller;
 
 class Member extends Controller
@@ -47,7 +48,8 @@ class Member extends Controller
     {
         $data = $this->request()->getRequestParam();
         $result = MemberService::getInstance()->memberUpdate($data);
-        $data['update_staff']=$_SESSION['admin']['name'];  //更新人
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
+        $data['update_staff']=$adminInfo['name'];
         $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
         if ($result) {
             $this->writeJson(200, [], '该会员信息更新成功');
@@ -64,7 +66,8 @@ class Member extends Controller
     function insert()
     {
         $data = $this->request()->getRequestParam();
-        $data['create_staff']=$_SESSION['admin']['name'];
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
+        $data['create_staff']=$adminInfo['name'];
         $data['create_time']=date('y-m-d h:i:s',time());//创建时间，当前时间
         $data['update_time']=date('y-m-d h:i:s',time());//更新时间，当前时间
         $result = MemberService::getInstance()->memberInsert($data);

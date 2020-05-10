@@ -32,7 +32,7 @@ class Login extends Controller
         if (empty($result)) {
             $this->writeJson(400, [], '登录验证失败');
         } else {
-            //将数据库表查询结果的数组，设置为session值
+            //生成token
             $jwtObject = Jwt::getInstance()
                 ->setSecretKey(JwtConfig::SECRET_KEY) // 秘钥
                 ->publish();

@@ -2,6 +2,7 @@
 namespace App\HttpController;
 
 use App\Service\OrdersService;
+use EasySwoole\Component\Context\ContextManager;
 use EasySwoole\Http\AbstractInterface\Controller;
 
 class Orders extends Controller
@@ -15,6 +16,9 @@ class Orders extends Controller
     {
         $data = $this->request()->getRequestParam();
 //        var_dump($data);
+
+        $adminInfo = ContextManager::getInstance()->get('admin');  //拿到admin中的用户信息
+        $data['create_staff']=$adminInfo['name'];
         $data['status']=1;  //支付状态,暂定默认：支付
         $data['member_discount']=1;  //折扣率
         $data['create_time']=date('Y-m-d H:i:s',time());
